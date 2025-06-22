@@ -69,48 +69,36 @@ class Staff extends Database
         return $view;
     }
 
-    public function update_staff()
+    public function update_staff($id_user)
     {
-        if (isset($_POST['update_staff'])) {
-            if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }
-            $id_user = $_GET['id_user'];
-            $lname = $_POST['lname'];
-            $fname = $_POST['fname'];
-            $mi = $_POST['mi'];
-            $age = $_POST['age'];
-            $sex = $_POST['gender'];
-            $email = $_POST['email'];
-            $contact = $_POST['contact'];
-            $position = $_POST['position'];
-            $address = $_POST['address'];
-            $role = $_POST['role'];
-            $addedby = $_SESSION['fullname'];
-
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("UPDATE tbl_user SET lname =?, 
-                    fname = ?, mi =?, age =?, sex =?, email =?, contact =?, position =?, 
-                    address =?, `role` =?, addedby =? WHERE id_user = ?");
-            $stmt->execute([
-                $lname,
-                $fname,
-                $mi,
-                $age,
-                $sex,
-                $email,
-                $contact,
-                $position,
-                $address,
-                $role,
-                $addedby,
-                $id_user
-            ]);
-
-            $_SESSION['staff_update_success'] = "Staff Account Updated";
-            header('location: admn_staff_crud.php');
-            exit();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
+        $lname = $_POST['lname'];
+        $fname = $_POST['fname'];
+        $mi = $_POST['mi'];
+        $age = $_POST['age'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+        $position = $_POST['position'];
+        // Concatenate address fields from the form
+        $address = $_POST['houseno'] . ', ' . $_POST['street'] . ', ' . $_POST['brgy'];
+        $role = $_POST['role'];
+        $addedby = $_SESSION['userdata']['surname'] . ', ' . $_SESSION['userdata']['firstname'];
+
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("UPDATE tbl_user SET 
+                lname = ?, fname = ?, mi = ?, age = ?, email = ?, 
+                contact = ?, position = ?, address = ?, `role` = ?, addedby = ? 
+                WHERE id_user = ?");
+
+        if ($stmt->execute([$lname, $fname, $mi, $age, $email, $contact, $position, $address, $role, $addedby, $id_user])) {
+            $_SESSION['staff_update_success'] = "Staff account updated successfully.";
+        } else {
+            $_SESSION['staff_update_error'] = "Failed to update staff account.";
+        }
+        header("Location: staff_staff_crud.php?id_user=" . $id_user);
+        exit();
     }
 
     public function delete_staff()

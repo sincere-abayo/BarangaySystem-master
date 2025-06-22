@@ -128,7 +128,7 @@ class Staff extends Database
             $email = $_POST['email'];
             $contact = $_POST['contact'];
             $position = $_POST['position'];
-            $address = $_POST['address'];
+            $address = $_POST['houseno'] . "-" . $_POST['village'] . "-" .$_POST['street'];
             $role = $_POST['role'];
             $addedby = $_POST['addedby'];
 
