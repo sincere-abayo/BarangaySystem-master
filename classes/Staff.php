@@ -5,40 +5,14 @@ require_once('Database.php');
 class Staff extends Database
 {
 
-    /*
-    //authentication method for residents to enter
-    public function residentlogin() {
-    if(isset($_POST['residentlogin'])) {
-
-        $username = $_POST['email'];
-        $password = $_POST['password']; 
-
-        $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_residents WHERE email = ? AND password = ?");
-        $stmt->Execute([$username, $password]);
-        $user = $stmt->fetch();
-        $total = $stmt->rowCount();
-
-            //calls the set_userdata function 
-            if($total > 0) {
-                $this->set_userdata($user);
-                header('Location: resident_homepage.php');
-            }
-
-            else {
-                echo '<script>alert("Email or Password is Invalid")</script>';
-            }
-        }
-    }
-    */
-
-
     //------------------------------------- CRUD FUNCTIONS FOR STAFF -----------------------------------------------
 
     public function create_staff()
     {
-
         if (isset($_POST['add_staff'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $email = $_POST['email'];
             $password = ($_POST['password']);
             $lname = $_POST['lname'];
@@ -46,14 +20,15 @@ class Staff extends Database
             $mi = $_POST['mi'];
             $age = $_POST['age'];
             $sex = $_POST['sex'];
-            $address = $_POST['village'] . "-" . $_POST['street'] . "-".$_POST['houseno'];
+            $address = $_POST['address'];
             $contact = $_POST['contact'];
             $position = $_POST['position'];
             $role = $_POST['role'];
-            $addedby = $_POST['addedby'];
 
-            if ($this->check_staff($email) == 0) {
+            // Assuming addedby comes from the logged-in user's session
+            $addedby = $_SESSION['fullname'];
 
+            if ($this->check_staff_email($email) == 0) {
                 $connection = $this->openConn();
                 $stmt = $connection->prepare("INSERT INTO tbl_user (`email`,`password`,`lname`,`fname`,
                     `mi`, `age`, `sex`, `address`, `contact`, `position` , `role`, `addedby`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -72,13 +47,14 @@ class Staff extends Database
                     $role,
                     $addedby
                 ]);
-                $message2 = "New Staff Adedd";
-
-                echo "<script type='text/javascript'>alert('$message2');</script>";
-                header('refresh:0');
+                $_SESSION['staff_add_success'] = "New Staff Added";
+                header('location: admn_staff_crud.php');
+                exit();
 
             } else {
-                echo "<script type='text/javascript'>alert('Email Account already exists');</script>";
+                $_SESSION['staff_add_error'] = "Email Account already exists";
+                header('location: admn_staff_crud.php');
+                exit();
             }
         }
     }
@@ -86,39 +62,19 @@ class Staff extends Database
 
     public function view_staff()
     {
-
         $connection = $this->openConn();
-
         $stmt = $connection->prepare("SELECT * from tbl_user");
         $stmt->execute();
         $view = $stmt->fetchAll();
-        //$rows = $stmt->
         return $view;
-
-    }
-
-    public function view_single_staff()
-    {
-
-        $id_staff = $_GET['id_staff'];
-
-        $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_user where id_user = '$id_staff'");
-        $stmt->execute();
-        $view = $stmt->fetch();
-        $total = $stmt->rowCount();
-
-        //eto yung condition na i ch check kung may laman si products at i re return niya kapag meron
-        if ($total > 0) {
-            return $view;
-        } else {
-            return false;
-        }
     }
 
     public function update_staff()
     {
         if (isset($_POST['update_staff'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $id_user = $_GET['id_user'];
             $lname = $_POST['lname'];
             $fname = $_POST['fname'];
@@ -130,7 +86,7 @@ class Staff extends Database
             $position = $_POST['position'];
             $address = $_POST['address'];
             $role = $_POST['role'];
-            $addedby = $_POST['addedby'];
+            $addedby = $_SESSION['fullname'];
 
             $connection = $this->openConn();
             $stmt = $connection->prepare("UPDATE tbl_user SET lname =?, 
@@ -151,26 +107,26 @@ class Staff extends Database
                 $id_user
             ]);
 
-            $message2 = "Staff Account Updated";
-
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-            header('refresh:0');
-
+            $_SESSION['staff_update_success'] = "Staff Account Updated";
+            header('location: admn_staff_crud.php');
+            exit();
         }
     }
 
     public function delete_staff()
     {
         if (isset($_POST['delete_staff'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
             $id_user = $_POST['id_user'];
             $connection = $this->openConn();
             $stmt = $connection->prepare("DELETE FROM tbl_user where id_user = ?");
             $stmt->execute([$id_user]);
 
-            $message2 = "Staff Account Deleted";
-
-            echo "<script type='text/javascript'>alert('$message2');</script>";
-            header('refresh:0');
+            $_SESSION['staff_delete_success'] = "Staff Account Deleted";
+            header('location: admn_staff_crud.php');
+            exit();
         }
     }
 
@@ -178,69 +134,122 @@ class Staff extends Database
 
     public function get_single_staff($id_user)
     {
-
-        $id_user = $_GET['id_user'];
-
         $connection = $this->openConn();
         $stmt = $connection->prepare("SELECT * FROM tbl_user where id_user = ?");
         $stmt->execute([$id_user]);
         $user = $stmt->fetch();
-        $total = $stmt->rowCount();
-
-        if ($total > 0) {
-            return $user;
-        } else {
-            return false;
-        }
+        return $user ? $user : false;
     }
 
-
-    public function check_staff($id_user)
+    public function update_admin_profile()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $auth = new Authentication();
+        $id_user = $_SESSION['userdata']['id_user'];
+        $fname = $_POST['fname'];
+        $mi = $_POST['mi'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_user WHERE id_user = ?");
-        $stmt->Execute([$id_user]);
-        $total = $stmt->rowCount();
+        $stmt = $connection->prepare("UPDATE tbl_user SET fname = ?, mi = ?, lname = ?, email = ?, contact = ? WHERE id_user = ?");
 
+        if ($stmt->execute([$fname, $mi, $lname, $email, $contact, $id_user])) {
+            $_SESSION['profile_update_success'] = "Profile updated successfully.";
+            // Fetch the updated data to refresh the session
+            $updated_user_data = $this->get_single_staff($id_user);
+
+            // Remap keys to match session structure
+            $session_data = [
+                'id_user' => $updated_user_data['id_user'],
+                'firstname' => $updated_user_data['fname'],
+                'mname' => $updated_user_data['mi'],
+                'surname' => $updated_user_data['lname'],
+                'email' => $updated_user_data['email'],
+                'contact' => $updated_user_data['contact'],
+                'role' => 'administrator' // Keep the role
+            ];
+
+            $auth->set_userdata($session_data);
+
+        } else {
+            $_SESSION['profile_update_error'] = "Failed to update profile.";
+        }
+        header("Location: admin_profile.php");
+        exit();
+    }
+
+    public function update_admin_password()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id_user = $_SESSION['id_user'];
+        $current_password = $_POST['current_password'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT password FROM tbl_user WHERE id_user = ?");
+        $stmt->execute([$id_user]);
+        $user = $stmt->fetch();
+
+        if ($user && $current_password == $user['password']) {
+            if ($new_password === $confirm_password) {
+                $stmt_update = $connection->prepare("UPDATE tbl_user SET password = ? WHERE id_user = ?");
+                if ($stmt_update->execute([$new_password, $id_user])) {
+                    $_SESSION['password_change_success'] = "Password changed successfully.";
+                } else {
+                    $_SESSION['password_change_error'] = "Failed to change password.";
+                }
+            } else {
+                $_SESSION['password_change_error'] = "New passwords do not match.";
+            }
+        } else {
+            $_SESSION['password_change_error'] = "Incorrect current password.";
+        }
+        header("Location: admin_profile.php");
+        exit();
+    }
+
+    public function check_staff_email($email)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT * FROM tbl_user WHERE email = ?");
+        $stmt->Execute([$email]);
+        $total = $stmt->rowCount();
         return $total;
     }
 
     public function count_staff()
     {
         $connection = $this->openConn();
-
         $stmt = $connection->prepare("SELECT COUNT(*) from tbl_user");
         $stmt->execute();
         $staffcount = $stmt->fetchColumn();
-
         return $staffcount;
     }
 
     public function count_mstaff()
     {
         $connection = $this->openConn();
-
         $stmt = $connection->prepare("SELECT COUNT(*) from tbl_user where sex = 'male'");
         $stmt->execute();
         $staffcount = $stmt->fetchColumn();
-
         return $staffcount;
     }
 
     public function count_fstaff()
     {
         $connection = $this->openConn();
-
         $stmt = $connection->prepare("SELECT COUNT(*) from tbl_user where sex = 'female'");
         $stmt->execute();
         $staffcount = $stmt->fetchColumn();
-
         return $staffcount;
     }
-
-
-    //===================================== SCOPE CHANGED FEATURES =======================================
 
     public function view_staff_male()
     {
@@ -259,10 +268,6 @@ class Staff extends Database
         $view = $stmt->fetchAll();
         return $view;
     }
-
-
-
-
-
 }
+
 ?>

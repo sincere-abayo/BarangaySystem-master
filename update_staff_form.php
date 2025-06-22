@@ -10,19 +10,19 @@ require('classes/staff.class.php');
 $auth = new Authentication();
 $staff = new Staff();
 
-$userdetails = $auth->get_userdata();
-//$auth->validate_admin();
-$view = $staff->view_staff();
-$staff->create_staff();
-$upstaff = $staff->update_staff();
-$staff->delete_staff();
-$staffcount = $staff->count_staff();
-$id_user = $_GET['id_user'];
+    $userdetails = $auth->get_userdata();
+    //$auth->validate_admin();
+    $view = $staff->view_staff();
+    $staff->create_staff();
+    $upstaff = $staff->update_staff();
+    $staff->delete_staff();
+    $staffcount = $staff->count_staff();
+    $id_user = $_GET['id_user'];
 $staff_data = $staff->get_single_staff($id_user);
 ?>
 
-<?php
-include('dashboard_sidebar_start.php');
+<?php 
+    include('dashboard_sidebar_start.php');
 ?>
 
 <!-- Begin Page Content -->
@@ -39,9 +39,9 @@ include('dashboard_sidebar_start.php');
     <div class="row">
         <div class="col-md-2"> </div>
         <div class="col-md-8">
-            <div class="card">
+            <div class="card"> 
                 <div class="card-header bg-primary text-white"> Update Barangay Staff Data </div>
-                <div class="card-body">
+                <div class="card-body"> 
                     <form method="post">
                         <div class="row">
                             <div class="col">
@@ -60,7 +60,7 @@ include('dashboard_sidebar_start.php');
                                     value="<?= $staff_data['mi']; ?>">
                             </div>
                         </div>
-
+                        
                         <div class="row" style="margin-top: 1.1em;">
                             <div class="col">
                                 <label class="form-group">Email: </label>
@@ -105,7 +105,7 @@ include('dashboard_sidebar_start.php');
                                 </div>
                             </div>
                         </div>
-
+                        
                         <input type="hidden" class="form-control" name="role" value="user">
                         <input type="hidden" class="form-control" name="addedby"
                             value="<?= $userdetails['surname'] ?>, <?= $userdetails['firstname'] ?>">
@@ -115,21 +115,21 @@ include('dashboard_sidebar_start.php');
                             style="width: 120px; font-size: 18px; border-radius:30px; margin-left:35%;"> Back </a>
                         <button class="btn btn-primary" type="submit" name="update_staff"
                             style="width: 120px; font-size: 18px; border-radius:30px;">
-                            Update
+                            Update 
                         </button>
-                    </form>
+                    </form>         
                 </div>
             </div>
         </div>
         <div class="col-md-2"> </div>
     </div>
-
+    
     <br>
 </div>
 <!-- /.container-fluid -->
 
 <!-- End of Main Content -->
 
-<?php
-include('dashboard_sidebar_end.php');
+<?php 
+    include('dashboard_sidebar_end.php');
 ?>

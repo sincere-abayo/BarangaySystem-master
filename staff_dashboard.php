@@ -29,13 +29,13 @@ $staffcountf = $staff->count_fstaff();
 include('dashboard_sidebar_start_staff.php');
 ?>
 <style>
-    .card-upper-space {
-        margin-top: 35px;
-    }
+.card-upper-space {
+    margin-top: 35px;
+}
 
-    .card-row-gap {
-        margin-top: 3em;
-    }
+.card-row-gap {
+    margin-top: 3em;
+}
 </style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -44,13 +44,13 @@ include('dashboard_sidebar_start_staff.php');
 
     <div class="row">
         <div class="col">
-            <h4> Barangay Resident Data </h4><br>
+            <h4> Nyarutarama Resident Data </h4><br>
             <div class="card border-left-primary shadow">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Total Barangay Residents</div>
+                                Total Nyarutarama Residents</div>
                             <div class="h5 mb-0 font-weight-bold text-dark"><?= $rescount ?></div>
                             <br>
                             <a href="staff_table_totalres.php"> View Records </a>
@@ -153,14 +153,14 @@ include('dashboard_sidebar_start_staff.php');
 
     <div class="row">
         <div class="col-md-4">
-            <h4> Barangay Staff Data </h4>
+            <h4> Nyarutarama Staff Data </h4>
             <br>
             <div class="card border-left-info shadow">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                Barangay Staff List
+                                Nyarutarama Staff List
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-dark">
                                 <?= $staffcount ?>

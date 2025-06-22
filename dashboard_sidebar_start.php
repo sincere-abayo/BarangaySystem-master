@@ -16,7 +16,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    
+
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
@@ -33,7 +33,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admn_dashboard.php">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    
+
                 </div>
                 <div class="sidebar-brand-text">Administrator Dashboard </div>
             </a>
@@ -44,12 +44,20 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="admn_dashboard.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link" href="admin_profile.php">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
 
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -63,12 +71,14 @@
                     <span>Nyarutarama Staffs</span></a>
             </li>
 
+
             <!-- Resident CRUD -->
             <li class="nav-item">
                 <a class="nav-link" href="admn_resident_crud.php">
                     <i class="fas fa-users"></i>
                     <span>Nyarutarama Residents</span></a>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -123,7 +133,29 @@
                     <span>Peace and Order Report</span></a>
             </li>
 
-            
+            <!-- Reports Section -->
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Reports</div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+                    aria-expanded="false" aria-controls="collapseReports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="collapseReports" class="collapse" aria-labelledby="headingReports"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="admn_resident_report.php"><i class="fas fa-file-pdf"></i>
+                            Resident Report</a>
+                        <a class="collapse-item" href="admn_staff_report.php"><i class="fas fa-file-pdf"></i> Staff
+                            Report</a>
+                        <a class="collapse-item" href="admn_blotter_report.php"><i class="fas fa-file-pdf"></i> Blotter
+                            Report</a>
+                        <a class="collapse-item" href="admn_certificate_report.php"><i class="fas fa-file-pdf"></i>
+                            Certificate Report</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -178,26 +210,28 @@
                         </li>
 
                         <!-- Nav Item - User Information -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="index.php" id="userDropdown" role="button"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-800 small"><?= $userdetails['surname']?>, <?= $userdetails['firstname']?></span>
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
-                                </a>
-                            </li>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="index.php" id="userDropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-800 small"><?= $userdetails['surname'] ?>,
+                                    <?= $userdetails['firstname'] ?></span>
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                            </a>
+                        </li>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
                         </li>
                     </ul>
                 </nav>
 
-                
+
                 <!-- End of Topbar -->

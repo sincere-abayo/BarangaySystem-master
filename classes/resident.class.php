@@ -29,7 +29,6 @@ class Resident extends Database
             $voter = $_POST['voter'];
             $familyrole = $_POST['family_role'];
             $role = $_POST['role'];
-            $addedby = $_POST['addedby'];
 
             $min_age = 18;
             $max_age = 150;
@@ -46,7 +45,7 @@ class Resident extends Database
                     $stmt = $connection->prepare("INSERT INTO tbl_resident ( `email`,`password`,`lname`,`fname`,
                         `mi`, `age`, `sex`, `status`, `houseno`, `street`, `brgy`, `municipal`, `contact`, `bdate`, 
                         `bplace`, `nationality`,`voter` ,`family_role`,
-                        `role`, `addedby`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?, ?)");
+                        `role`) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?)");
 
                     $stmt->Execute([
                         $email,
@@ -67,14 +66,12 @@ class Resident extends Database
                         $nationality,
                         $voter,
                         $familyrole,
-                        $role,
-                        $addedby
+                        $role
                     ]);
 
                     $message2 = "Account added, you can now continue logging in";
-                    echo "<script type='text/javascript'>alert('$message2');</script>";
-
-                    header("Refresh:0");
+                    echo "<script type='text/javascript'>alert('$message2'); window.location.href = 'index.php';</script>";
+                    exit();
                 }
             } else {
                 echo "<script type='text/javascript'>alert('Email Account already exists');</script>";
@@ -170,9 +167,6 @@ class Resident extends Database
 
     public function get_single_resident($id_resident)
     {
-
-        $id_resident = $_GET['id_resident'];
-
         $connection = $this->openConn();
         $stmt = $connection->prepare("SELECT * FROM tbl_resident where id_resident = ?");
         $stmt->execute([$id_resident]);

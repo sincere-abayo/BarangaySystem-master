@@ -1,37 +1,41 @@
 <?php
-    
-   error_reporting(E_ALL ^ E_WARNING);
-   ini_set('display_errors',0);
-   require('classes/Authentication.php');
-require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
-   $userdetails = $auth->get_userdata();
-   $auth->validate_admin();
-   $view = $resident->view_resident_household();
-   
+
+error_reporting(E_ALL ^ E_WARNING);
+ini_set('display_errors', 0);
+require('classes/Authentication.php');
+require('classes/resident.class.php');
+
+$auth = new Authentication();
+$resident = new Resident();
+$userdetails = $auth->get_userdata();
+$auth->validate_admin();
+$view = $resident->view_resident_household();
+
 ?>
 
-<?php 
-    include('dashboard_sidebar_start.php');
+<?php
+include('dashboard_sidebar_start.php');
 ?>
 
 <style>
-    .input-icons i {
-        position: absolute;
-    }
-        
-    .input-icons {
-        width: 30%;
-        margin-bottom: 10px;
-        margin-left: 34%;
-    }
-        
-    .icon {
-        padding: 10px;
-        min-width: 40px;
-    }
-    .form-control{
-        text-align: center;
-    }
+.input-icons i {
+    position: absolute;
+}
+
+.input-icons {
+    width: 30%;
+    margin-bottom: 10px;
+    margin-left: 34%;
+}
+
+.icon {
+    padding: 10px;
+    min-width: 40px;
+}
+
+.form-control {
+    text-align: center;
+}
 </style>
 
 <!-- Begin Page Content -->
@@ -40,25 +44,28 @@ require('classes/resident.class.php');\n\n$auth = new Authentication();\n$reside
 
     <!-- Page Heading -->
 
-    <div class="row"> 
-        <div class="col text-center"> 
+    <div class="row">
+        <div class="col text-center">
             <h1> Nyarutarama Household Table </h1>
         </div>
     </div>
 
     <hr>
-    <br><br> 
-    
-    <div class="row"> 
+    <br><br>
+
+    <div class="row">
         <div class="col">
             <form method="POST" action="">
-                <div class="input-icons" >
+                <div class="input-icons">
                     <i class="fa fa-search icon"></i>
-                    <input type="search" class="form-control" name="keyword" value="" required="" style="border-radius: 30px;"/>
+                    <input type="search" class="form-control" name="keyword" value="" required=""
+                        style="border-radius: 30px;" />
                 </div>
-                    <button class="btn btn-success" name="search_household" style="width: 90px; font-size: 18px; border-radius:30px; margin-left:41.5%;">Search</button>
-                    <a href="admn_table_totalhouse.php" class="btn btn-info" style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
-                
+                <button class="btn btn-success" name="search_household"
+                    style="width: 90px; font-size: 18px; border-radius:30px; margin-left:41.5%;">Search</button>
+                <a href="admn_table_totalhouse.php" class="btn btn-info"
+                    style="width: 90px; font-size: 18px; border-radius:30px;">Reload</a>
+
             </form>
             <br>
         </div>
@@ -66,11 +73,11 @@ require('classes/resident.class.php');\n\n$auth = new Authentication();\n$reside
 
     <br>
 
-    <div class="row"> 
+    <div class="row">
         <div class="col-md-3"> </div>
         <div class="col-md-6">
             <?php
-                include('admn_table_totalhouse_search.php');
+            include('admn_table_totalhouse_search.php');
             ?>
         </div>
         <div class="col-md-3"></div>
@@ -80,17 +87,19 @@ require('classes/resident.class.php');\n\n$auth = new Authentication();\n$reside
 <!-- End of Main Content -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"
+    integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
+    crossorigin="anonymous"></script>
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
-<!-- custom css --> 
+<!-- custom css -->
 <link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
-<!-- bootstrap css --> 
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
+<!-- bootstrap css -->
+<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
-<?php 
-    include('dashboard_sidebar_end.php');
+<?php
+include('dashboard_sidebar_end.php');
 ?>

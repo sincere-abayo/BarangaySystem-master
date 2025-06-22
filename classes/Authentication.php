@@ -150,4 +150,73 @@ class Authentication extends Database
             exit();
         }
     }
+
+    public function get_admin_details($id_admin)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT * FROM tbl_admin WHERE id_admin = ?");
+        $stmt->execute([$id_admin]);
+        $admin = $stmt->fetch();
+        return $admin ? $admin : false;
+    }
+
+    public function update_admin_profile()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id_admin = $_SESSION['userdata']['id_admin'];
+        $fname = $_POST['fname'];
+        $mi = $_POST['mi'];
+        $lname = $_POST['lname'];
+        $email = $_POST['email'];
+
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("UPDATE tbl_admin SET fname = ?, mi = ?, lname = ?, email = ? WHERE id_admin = ?");
+
+        if ($stmt->execute([$fname, $mi, $lname, $email, $id_admin])) {
+            $_SESSION['profile_update_success'] = "Profile updated successfully.";
+
+            $updated_user_data = $this->get_admin_details($id_admin);
+            $this->set_userdata($updated_user_data);
+
+        } else {
+            $_SESSION['profile_update_error'] = "Failed to update profile.";
+        }
+        header("Location: admin_profile.php");
+        exit();
+    }
+
+    public function update_admin_password()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $id_admin = $_SESSION['userdata']['id_admin'];
+        $current_password = $_POST['current_password'];
+        $new_password = $_POST['new_password'];
+        $confirm_password = $_POST['confirm_password'];
+
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT password FROM tbl_admin WHERE id_admin = ?");
+        $stmt->execute([$id_admin]);
+        $user = $stmt->fetch();
+
+        if ($user && $current_password == $user['password']) {
+            if ($new_password === $confirm_password) {
+                $stmt_update = $connection->prepare("UPDATE tbl_admin SET password = ? WHERE id_admin = ?");
+                if ($stmt_update->execute([$new_password, $id_admin])) {
+                    $_SESSION['password_change_success'] = "Password changed successfully.";
+                } else {
+                    $_SESSION['password_change_error'] = "Failed to change password.";
+                }
+            } else {
+                $_SESSION['password_change_error'] = "New passwords do not match.";
+            }
+        } else {
+            $_SESSION['password_change_error'] = "Incorrect current password.";
+        }
+        header("Location: admin_profile.php");
+        exit();
+    }
 }

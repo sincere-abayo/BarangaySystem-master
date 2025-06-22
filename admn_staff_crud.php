@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 error_reporting(E_ALL ^ E_WARNING);
 require('classes/Authentication.php');
 require('classes/staff.class.php');
@@ -133,15 +133,7 @@ include('dashboard_sidebar_start.php');
                                 </div>
                             </div>
 
-                            <div class="col">
-                                <div class="form-group">
-                                    <label> Municipality: </label>
-                                    <input type="text" class="form-control" name="municipal"
-                                        placeholder="Enter Municipality" required>
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </div>
+
                         </div>
 
                         <div class="row">
@@ -240,10 +232,7 @@ include('dashboard_sidebar_start.php');
                             <th> Middle Name </th>
                             <th> Age </th>
                             <th> Sex </th>
-                            <th> House No. </th>
-                            <th> Street </th>
-                            <th> village </th>
-                            <th> Municipality </th>
+                            <th> Adress </th>
                             <th> Contact </th>
                             <th> Position </th>
                             <th> Role </th>
@@ -253,35 +242,33 @@ include('dashboard_sidebar_start.php');
 
                     <tbody>
                         <?php if (is_array($view)) { ?>
-                            <?php foreach ($view as $view) { ?>
-                                <tr>
-                                    <td>
-                                        <form action="" method="post">
-                                            <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>"
-                                                style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
-                                                class="btn btn-success"> Update </a>
-                                            <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
-                                            <button class="btn btn-danger" type="submit" name="delete_staff"
-                                                style="width: 90px; font-size: 17px; border-radius:30px;"> Archive </button>
-                                        </form>
-                                    </td>
-                                    <td> <?= $view['email']; ?> </td>
-                                    <td> <?= $view['password']; ?> </td>
-                                    <td> <?= $view['lname']; ?> </td>
-                                    <td> <?= $view['fname']; ?> </td>
-                                    <td> <?= $view['mi']; ?> </td>
-                                    <td> <?= $view['age']; ?> </td>
-                                    <td> <?= $view['sex']; ?> </td>
-                                    <td> <?= $view['houseno']; ?> </td>
-                                    <td> <?= $view['street']; ?> </td>
-                                    <td> <?= $view['brgy']; ?> </td>
-                                    <td> <?= $view['municipal']; ?> </td>
-                                    <td> <?= $view['contact']; ?> </td>
-                                    <td> <?= $view['position']; ?> </td>
-                                    <td> <?= $view['role']; ?> </td>
-                                    <td> <?= $view['addedby']; ?> </td>
-                                </tr>
-                            <?php } ?>
+                        <?php foreach ($view as $view) { ?>
+                        <tr>
+                            <td>
+                                <form action="" method="post">
+                                    <a href="update_staff_form.php?id_user=<?= $view['id_user']; ?>"
+                                        style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                        class="btn btn-success"> Update </a>
+                                    <input type="hidden" name="id_user" value="<?= $view['id_user']; ?>">
+                                    <button class="btn btn-danger" type="submit" name="delete_staff"
+                                        style="width: 90px; font-size: 17px; border-radius:30px;"> Archive </button>
+                                </form>
+                            </td>
+                            <td> <?= $view['email']; ?> </td>
+                            <td> <?= $view['password']; ?> </td>
+                            <td> <?= $view['lname']; ?> </td>
+                            <td> <?= $view['fname']; ?> </td>
+                            <td> <?= $view['mi']; ?> </td>
+                            <td> <?= $view['age']; ?> </td>
+                            <td> <?= $view['sex']; ?> </td>
+                            <td> <?= $view['address']; ?> </td>
+
+                            <td> <?= $view['contact']; ?> </td>
+                            <td> <?= $view['position']; ?> </td>
+                            <td> <?= $view['role']; ?> </td>
+                            <td> <?= $view['addedby']; ?> </td>
+                        </tr>
+                        <?php } ?>
                         <?php } ?>
                     </tbody>
                 </form>
