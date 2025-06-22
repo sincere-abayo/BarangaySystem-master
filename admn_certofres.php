@@ -1,14 +1,22 @@
 <?php
     
     error_reporting(E_ALL ^ E_WARNING);
-    ini_set('display_errors',0);
+ini_set('display_errors', 0);
+require('classes/Authentication.php');
     require('classes/resident.class.php');
-    $userdetails = $bmis->get_userdata();
-    $bmis->validate_admin();
-    $bmis->delete_certofres();
-    $view = $bmis->view_certofres();
+require('classes/Certificate.php');
+
+$auth = new Authentication();
+$resident = new Resident();
+$certificate = new Certificate();
+
+$auth->validate_admin();
+$userdetails = $auth->get_userdata();
+
+$certificate->delete_certofres();
+$view = $certificate->view_certofres();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_certofres($id_resident);
+$resident_data = $certificate->get_single_certofres($id_resident);
    
 ?>
 
@@ -31,7 +39,8 @@
         padding: 10px;
         min-width: 40px;
     }
-    .form-control{
+
+    .form-control {
         text-align: center;
     }
 </style>
@@ -54,14 +63,17 @@
     <div class="row">
         <div class="col">
             <form method="POST">
-            <div class="input-icons" >
+                <div class="input-icons">
                 <i class="fa fa-search icon"></i>
-                <input type="search" class="form-control" name="keyword" value="" required="" style="border-radius: 30px;"/>
+                    <input type="search" class="form-control" name="keyword" value="" required=""
+                        style="border-radius: 30px;" />
             </div>
-                <button class="btn btn-success" name="search_certofres" style="width: 90px; font-size: 17px; border-radius:30px; margin-left:41.5%;">
+                <button class="btn btn-success" name="search_certofres"
+                    style="width: 90px; font-size: 17px; border-radius:30px; margin-left:41.5%;">
                     Search
                 </button>
-                <a href="admn_certofres.php" class="btn btn-info" style="width: 90px; font-size: 17px; border-radius:30px;">Reload</a>
+                <a href="admn_certofres.php" class="btn btn-info"
+                    style="width: 90px; font-size: 17px; border-radius:30px;">Reload</a>
             </form>
             <br>
         </div>
@@ -83,7 +95,9 @@
 <!-- End of Main Content -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"
+    integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
+    crossorigin="anonymous"></script>
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- custom css --> 

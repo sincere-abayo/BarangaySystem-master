@@ -1,8 +1,9 @@
  <?php
-require('classes/resident.class.php');
-$userdetails = $residentbmis->get_userdata();
+require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
+$userdetails = $auth->get_userdata();
 $id_resident = $_GET['id_resident'];
-$resident = $residentbmis->get_single_bspermit($id_resident);
+$resident = $resident->get_single_bspermit($id_resident);
   ?>
 <!DOCTYPE html>
 <html id="clearance">

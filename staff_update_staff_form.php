@@ -1,15 +1,16 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
-    require('classes/staff.class.php');
-    $userdetails = $bmis->get_userdata();
-    //$bmis->validate_admin();
-    $view = $staffbmis->view_staff();
-    $staffbmis->create_staff();
-    $upstaff = $staffbmis->update_staff();
-    $staffbmis->delete_staff();
-    $staffcount = $staffbmis->count_staff();
+    require('classes/Authentication.php');
+require('classes/staff.class.php');\n\n$auth = new Authentication();\n$staff = new Staff();
+    $userdetails = $auth->get_userdata();
+    //$auth->validate_admin();
+    $view = $staff->view_staff();
+    $staff->create_staff();
+    $upstaff = $staff->update_staff();
+    $staff->delete_staff();
+    $staffcount = $staff->count_staff();
     $id_user = $_GET['id_user'];
-    $staff = $staffbmis->get_single_staff($id_user);
+    $staff = $staff->get_single_staff($id_user);
 ?>
 
 <?php 

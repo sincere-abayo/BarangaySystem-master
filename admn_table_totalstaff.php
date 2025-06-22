@@ -2,10 +2,11 @@
     
    error_reporting(E_ALL ^ E_WARNING);
    ini_set('display_errors',0);
-   require('classes/staff.class.php');
-   $userdetails = $bmis->get_userdata();
-   $bmis->validate_admin();
-   $view = $staffbmis->view_staff();
+   require('classes/Authentication.php');
+require('classes/staff.class.php');\n\n$auth = new Authentication();\n$staff = new Staff();
+   $userdetails = $auth->get_userdata();
+   $auth->validate_admin();
+   $view = $staff->view_staff();
    
 ?>
 

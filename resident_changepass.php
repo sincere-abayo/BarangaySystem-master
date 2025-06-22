@@ -1,10 +1,11 @@
 <?php 
     error_reporting(E_ALL ^ E_WARNING);
-    require('classes/resident.class.php');
+    require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
 
-    //$view = $residentbmis->view_single_resident($email);
-    $userdetails = $residentbmis->get_userdata();
-    $residentbmis->resident_changepass();
+    //$view = $resident->view_single_resident($email);
+    $userdetails = $auth->get_userdata();
+    $resident->resident_changepass();
     //print_r($userdetails);
 
     

@@ -1,6 +1,7 @@
 <?php 
-     require('classes/resident.class.php');
-    $residentbmis->create_resident();
+     require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
+    $resident->create_resident();
      //$data = $bms->get_userdata();
 
      

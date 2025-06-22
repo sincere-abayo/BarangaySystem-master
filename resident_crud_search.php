@@ -1,14 +1,15 @@
 <?php 
-    require('classes/resident.class.php');
+    require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
 
-    $view = $residentbmis->view_household_list();
-    $residentbmis->create_resident();
-    $residentbmis->update_resident();
-    $residentbmis->delete_resident();
+    $view = $resident->view_household_list();
+    $resident->create_resident();
+    $resident->update_resident();
+    $resident->delete_resident();
 
     //$lname = $_GET['lname'];
 
-    $connection = $residentbmis->openConn();
+    $connection = $resident->openConn();
 
     //$stmt = $connection->prepare("SELECT * from tbl_resident 
     //WHERE lname LIKE '%$lname%'");

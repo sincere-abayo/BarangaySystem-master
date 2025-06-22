@@ -2,13 +2,15 @@
     
     error_reporting(E_ALL ^ E_WARNING);
     ini_set('display_errors',0);
-    require('classes/resident.class.php');
-    $userdetails = $bmis->get_userdata();
-    $bmis->validate_staff();
-    $bmis->delete_certofres();
-    $view = $bmis->view_certofres();
+    require('classes/Authentication.php');
+require('classes/Certificate.php');
+require('classes/resident.class.php');
+    $userdetails = $auth->get_userdata();
+    $auth->validate_staff();
+    $certificate->delete_certofres();
+    $view = $certificate->view_certofres();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_certofres($id_resident);
+    $resident = $resident->get_single_certofres($id_resident);
    
 ?>
 

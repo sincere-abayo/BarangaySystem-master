@@ -1,11 +1,12 @@
 <?php
    error_reporting(E_ALL ^ E_WARNING);
-   require('classes/resident.class.php');
-   $userdetails = $bmis->get_userdata();
-   //$bmis->validate_admin();
+   require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
+   $userdetails = $auth->get_userdata();
+   //$auth->validate_admin();
    $id_resident = $_GET['id_resident'];
-   $view = $residentbmis->get_single_resident($id_resident);
-   $residentbmis->update_resident();
+   $view = $resident->get_single_resident($id_resident);
+   $resident->update_resident();
 
 ?>
 

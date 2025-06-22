@@ -2,12 +2,14 @@
     
     error_reporting(E_ALL ^ E_WARNING);
     ini_set('display_errors',0);
-    require('classes/resident.class.php');
-    $userdetails = $bmis->get_userdata();
-    $bmis->delete_certofindigency();
-    $view = $bmis->view_certofindigency();
+    require('classes/Authentication.php');
+require('classes/Certificate.php');
+require('classes/resident.class.php');
+    $userdetails = $auth->get_userdata();
+    $certificate->delete_certofindigency();
+    $view = $certificate->view_certofindigency();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_certofindigency($id_resident);
+    $resident = $resident->get_single_certofindigency($id_resident);
    
 ?>
 

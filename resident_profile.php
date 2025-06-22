@@ -1,13 +1,14 @@
 <?php 
     error_reporting(E_ALL ^ E_WARNING);
-    require('classes/resident.class.php');
+    require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
     ini_set('display_errors',0);
-    $userdetails = $residentbmis->get_userdata();
+    $userdetails = $auth->get_userdata();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_resident($id_resident);
+    $resident = $resident->get_single_resident($id_resident);
     
 
-    $residentbmis->profile_update();
+    $resident->profile_update();
 
 ?>
 

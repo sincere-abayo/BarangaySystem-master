@@ -1,54 +1,62 @@
 <?php
+error_reporting(E_ALL ^ E_WARNING);
+require('classes/Admin.php');
+require('classes/Authentication.php');
 
-    
-    require('classes/main.class.php');
-    $bmis->create_admin();
-    $userdetails = $bmis->get_userdata();
+$admin = new Admin();
+$auth = new Authentication();
 
-    print_r($userdetails);
+$admin->create_admin();
+$userdetails = $auth->get_userdata();
+
+print_r($userdetails);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link href="css/sb-admin-2.min.css" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
-    </head>
-    <body>
 
-    <div class="container-fluid"> 
-        <div class="row"> 
-            <div class="col"> 
-            <form method="post"> 
-                <label> Email </label>
-                <input type="email" name="email">
+<head>
+    <meta charset="UTF-8">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-                <label> Password </label>
-                <input type="password" name="password"> 
+<body>
 
-                <label> Firstname </label>
-                <input type="text" name="fname">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <form method="post">
+                    <label> Email </label>
+                    <input type="email" name="email">
 
-                <label> Lastname </label>
-                <input type="text" name="lname">
+                    <label> Password </label>
+                    <input type="password" name="password">
 
-                <label> Middle name </label>
-                <input type="text" name="mi">
+                    <label> Firstname </label>
+                    <input type="text" name="fname">
 
-                <input type="hidden" name="role" value="administrator"> 
-                <button class="btn btn-dark" type="submit" name="add_admin"> Add </button>
+                    <label> Lastname </label>
+                    <input type="text" name="lname">
 
-                <a href="admin_changepass.php?id_admin=<?= $userdetails['id_admin']?>" class="btn btn-dark"> Change Password </a>
-            </form>
+                    <label> Middle name </label>
+                    <input type="text" name="mi">
+
+                    <input type="hidden" name="role" value="administrator">
+                    <button class="btn btn-dark" type="submit" name="add_admin"> Add </button>
+
+                    <a href="admin_changepass.php?id_admin=<?= $userdetails['id_admin'] ?>" class="btn btn-dark"> Change
+                        Password </a>
+                </form>
             </div>
-        </div> 
+        </div>
     </div>
 
 
-    
-        
-    </body>
+
+
+</body>
+
 </html>

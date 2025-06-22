@@ -2,12 +2,14 @@
     
     error_reporting(E_ALL ^ E_WARNING);
     ini_set('display_errors',0);
-    require('classes/resident.class.php');
-    $userdetails = $bmis->get_userdata();
-    $bmis->delete_bspermit();
-    $view = $bmis->view_bspermit();
+    require('classes/Authentication.php');
+require('classes/BusinessPermit.php');
+require('classes/resident.class.php');
+    $userdetails = $auth->get_userdata();
+    $permit->delete_bspermit();
+    $view = $permit->view_bspermit();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_bspermit($id_resident);
+    $resident = $resident->get_single_bspermit($id_resident);
    
 ?>
 

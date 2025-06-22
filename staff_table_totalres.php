@@ -2,20 +2,21 @@
     
    error_reporting(E_ALL ^ E_WARNING);
    ini_set('display_errors',0);
-   require('classes/resident.class.php');
-   $userdetails = $bmis->get_userdata();
-   $bmis->validate_staff();
-   $view = $residentbmis->view_resident();
-   $residentbmis->create_resident();
-   $residentbmis->update_resident();
-   $residentbmis->delete_resident();
+   require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
+   $userdetails = $auth->get_userdata();
+   $auth->validate_staff();
+   $view = $resident->view_resident();
+   $resident->create_resident();
+   $resident->update_resident();
+   $resident->delete_resident();
    
 
-   $rescount = $residentbmis->count_resident();
-   $rescountm = $residentbmis->count_male_resident();
-   $rescountf = $residentbmis->count_female_resident();
-   $rescountfh = $residentbmis->count_head_resident();
-   $rescountfm = $residentbmis->count_member_resident();
+   $rescount = $resident->count_resident();
+   $rescountm = $resident->count_male_resident();
+   $rescountf = $resident->count_female_resident();
+   $rescountfh = $resident->count_head_resident();
+   $rescountfm = $resident->count_member_resident();
    
 ?>
 

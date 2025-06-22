@@ -128,4 +128,26 @@ class Authentication extends Database
         $_SESSION['userdata'] = $userdata;
         return $_SESSION['userdata'];
     }
+
+    public function validate_admin()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if (!isset($_SESSION['userdata']) || $_SESSION['userdata']['role'] != 'administrator') {
+            header('Location: index.php');
+            exit();
+        }
+    }
+
+    public function validate_staff()
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if (!isset($_SESSION['userdata']) || $_SESSION['userdata']['role'] != 'user') {
+            header('Location: index.php');
+            exit();
+        }
+    }
 }

@@ -2,12 +2,14 @@
     
     error_reporting(E_ALL ^ E_WARNING);
     ini_set('display_errors',0);
-    require('classes/resident.class.php');
-    $userdetails = $bmis->get_userdata();
-    $bmis->delete_brgyid();
-    $view = $bmis->view_brgyid();
+    require('classes/Authentication.php');
+require('classes/Certificate.php');
+require('classes/resident.class.php');
+    $userdetails = $auth->get_userdata();
+    $certificate->delete_brgyid();
+    $view = $certificate->view_brgyid();
     $id_resident = $_GET['id_resident'];
-    $resident = $residentbmis->get_single_brgyid($id_resident);
+    $resident = $resident->get_single_brgyid($id_resident);
    
 ?>
 

@@ -2,10 +2,11 @@
     
    error_reporting(E_ALL ^ E_WARNING);
    ini_set('display_errors',0);
-   require('classes/resident.class.php');
-   $userdetails = $bmis->get_userdata();
-   $bmis->validate_admin();
-   $view = $residentbmis->view_resident_male();
+   require('classes/Authentication.php');
+require('classes/resident.class.php');\n\n$auth = new Authentication();\n$resident = new Resident();
+   $userdetails = $auth->get_userdata();
+   $auth->validate_admin();
+   $view = $resident->view_resident_male();
    
 ?>
 
