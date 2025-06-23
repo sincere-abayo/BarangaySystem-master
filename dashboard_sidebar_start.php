@@ -107,7 +107,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="admn_bspermit.php">
                     <i class="fas fa-file-contract"></i>
-                    <span>VISTORS</span></a>
+                    <span>Business</span></a>
             </li>
 
 

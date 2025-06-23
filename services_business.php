@@ -1,8 +1,25 @@
 <?php
+// error reporting
+error_reporting(E_ALL ^ E_WARNING);
+ini_set('display_errors', 0);
+session_start();
+
+// Check if user is logged in
+// if (!isset($_SESSION['resident'])) {
+//     header("Location: index.php");
+//     exit();
+// }
+
+require('classes/Authentication.php');
 require('classes/BusinessPermit.php');
+
+$auth = new Authentication();
 $permit = new BusinessPermit();
+
+$userdetails = $auth->get_userdata();
 $permit->create_bspermit();
 
+$requests = $permit->view_bspermit_by_resident($userdetails['id_resident']);
 ?>
 
 <!DOCTYPE html>
@@ -17,421 +34,421 @@ $permit->create_bspermit();
         crossorigin="anonymous"></script>
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
     <style>
-        /* Navbar Buttons */
+    /* Navbar Buttons */
 
-        .btn1 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            margin-left: 23%;
-            padding: 8px 22px;
-        }
+    .btn1 {
+        border-radius: 20px;
+        border: none;
+        /* Remove borders */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Set a font size */
+        cursor: pointer;
+        /* Mouse pointer on hover */
+        margin-left: 23%;
+        padding: 8px 22px;
+    }
 
-        .btn2 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
+    .btn2 {
+        border-radius: 20px;
+        border: none;
+        /* Remove borders */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Set a font size */
+        cursor: pointer;
+        /* Mouse pointer on hover */
+        padding: 8px 22px;
+        margin-left: .1%;
+    }
 
-        .btn3 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
+    .btn3 {
+        border-radius: 20px;
+        border: none;
+        /* Remove borders */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Set a font size */
+        cursor: pointer;
+        /* Mouse pointer on hover */
+        padding: 8px 22px;
+        margin-left: .1%;
+    }
 
-        .btn4 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
+    .btn4 {
+        border-radius: 20px;
+        border: none;
+        /* Remove borders */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Set a font size */
+        cursor: pointer;
+        /* Mouse pointer on hover */
+        padding: 8px 22px;
+        margin-left: .1%;
+    }
 
-        .btn5 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
+    .btn5 {
+        border-radius: 20px;
+        border: none;
+        /* Remove borders */
+        color: white;
+        /* White text */
+        font-size: 16px;
+        /* Set a font size */
+        cursor: pointer;
+        /* Mouse pointer on hover */
+        padding: 8px 22px;
+        margin-left: .1%;
+    }
 
-        /* Darker background on mouse-over */
-        .btn1:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
+    /* Darker background on mouse-over */
+    .btn1:hover {
+        background-color: RoyalBlue;
+        color: black;
+    }
 
-        .btn2:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
+    .btn2:hover {
+        background-color: RoyalBlue;
+        color: black;
+    }
 
-        .btn3:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
+    .btn3:hover {
+        background-color: RoyalBlue;
+        color: black;
+    }
 
-        .btn4:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
+    .btn4:hover {
+        background-color: RoyalBlue;
+        color: black;
+    }
 
-        .btn5:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
+    .btn5:hover {
+        background-color: RoyalBlue;
+        color: black;
+    }
 
-        /* Back-to-Top */
+    /* Back-to-Top */
 
-        .top-link {
-            transition: all 0.25s ease-in-out;
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            display: inline-flex;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            margin: 0 3em 3em 0;
-            border-radius: 50%;
-            padding: 0.25em;
-            width: 80px;
-            height: 80px;
-            background-color: #3661D5;
-        }
+    .top-link {
+        transition: all 0.25s ease-in-out;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        display: inline-flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        margin: 0 3em 3em 0;
+        border-radius: 50%;
+        padding: 0.25em;
+        width: 80px;
+        height: 80px;
+        background-color: #3661D5;
+    }
 
-        .top-link.show {
-            visibility: visible;
-            opacity: 1;
-        }
+    .top-link.show {
+        visibility: visible;
+        opacity: 1;
+    }
 
-        .top-link.hide {
-            visibility: hidden;
-            opacity: 0;
-        }
+    .top-link.hide {
+        visibility: hidden;
+        opacity: 0;
+    }
 
-        .top-link svg {
-            fill: white;
-            width: 24px;
-            height: 12px;
-        }
+    .top-link svg {
+        fill: white;
+        width: 24px;
+        height: 12px;
+    }
 
-        .top-link:hover {
-            background-color: #3498DB;
-        }
+    .top-link:hover {
+        background-color: #3498DB;
+    }
 
-        .top-link:hover svg {
-            fill: #000000;
-        }
+    .top-link:hover svg {
+        fill: #000000;
+    }
 
-        .screen-reader-text {
-            position: absolute;
-            clip-path: inset(50%);
-            margin: -1px;
-            border: 0;
-            padding: 0;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            word-wrap: normal !important;
-            clip: rect(1px, 1px, 1px, 1px);
-        }
+    .screen-reader-text {
+        position: absolute;
+        clip-path: inset(50%);
+        margin: -1px;
+        border: 0;
+        padding: 0;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        word-wrap: normal !important;
+        clip: rect(1px, 1px, 1px, 1px);
+    }
 
-        .screen-reader-text:focus {
-            display: block;
-            top: 5px;
-            left: 5px;
-            z-index: 100000;
-            clip-path: none;
-            background-color: #eee;
-            padding: 15px 23px 14px;
-            width: auto;
-            height: auto;
-            text-decoration: none;
-            line-height: normal;
-            color: #444;
-            font-size: 1em;
-            clip: auto !important;
-        }
+    .screen-reader-text:focus {
+        display: block;
+        top: 5px;
+        left: 5px;
+        z-index: 100000;
+        clip-path: none;
+        background-color: #eee;
+        padding: 15px 23px 14px;
+        width: auto;
+        height: auto;
+        text-decoration: none;
+        line-height: normal;
+        color: #444;
+        font-size: 1em;
+        clip: auto !important;
+    }
 
-        .container1 {
-            background-color: #3498DB;
-            height: 342px;
-            color: black;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-        }
+    .container1 {
+        background-color: #3498DB;
+        height: 342px;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
 
-        .applybutton {
-            width: 100%;
-            /* Button ifate 100% y'ubugari bwa container */
-            height: 50px;
-            /* Button ifate uburebure bwa 50px */
-            border-radius: 20px;
-            /* Impande zoroheje */
-            margin-top: 5%;
-            /* Intera iri hejuru ya button */
-            margin-bottom: 8%;
-            /* Intera iri hepfo ya button */
-            font-size: 25px;
-            /* Ingano y'inyuguti */
-            letter-spacing: 2px;
-            /* Intera hagati y'inyuguti */
-            display: block;
-            /* Buto ifata umwanya wose w'umurongo */
-            background-color: #3498db;
-            /* Ibara rya button (ubururu) */
-            color: white;
-            /* Ibara ry'inyuguti kuri button */
-            text-align: center;
-            /* Inyuguti zibaye hagati muri button */
-            border: none;
-            /* Ntizigere igira imbibi (border) */
-            cursor: pointer;
-            /* Umugereka (cursor) ugaragaza ko ari clickable */
-            position: relative;
-            /* Icyo twongeraho ngo izamurwe hejuru niba hari ibiyihisha */
-            z-index: 100;
-            /* Tuma iza hejuru y'ibindi bintu byose */
-            transition: background-color 0.3s ease;
-            /* Umwihariko wo guhindura ibara buhoro */
-        }
+    .applybutton {
+        width: 100%;
+        /* Button ifate 100% y'ubugari bwa container */
+        height: 50px;
+        /* Button ifate uburebure bwa 50px */
+        border-radius: 20px;
+        /* Impande zoroheje */
+        margin-top: 5%;
+        /* Intera iri hejuru ya button */
+        margin-bottom: 8%;
+        /* Intera iri hepfo ya button */
+        font-size: 25px;
+        /* Ingano y'inyuguti */
+        letter-spacing: 2px;
+        /* Intera hagati y'inyuguti */
+        display: block;
+        /* Buto ifata umwanya wose w'umurongo */
+        background-color: #3498db;
+        /* Ibara rya button (ubururu) */
+        color: white;
+        /* Ibara ry'inyuguti kuri button */
+        text-align: center;
+        /* Inyuguti zibaye hagati muri button */
+        border: none;
+        /* Ntizigere igira imbibi (border) */
+        cursor: pointer;
+        /* Umugereka (cursor) ugaragaza ko ari clickable */
+        position: relative;
+        /* Icyo twongeraho ngo izamurwe hejuru niba hari ibiyihisha */
+        z-index: 100;
+        /* Tuma iza hejuru y'ibindi bintu byose */
+        transition: background-color 0.3s ease;
+        /* Umwihariko wo guhindura ibara buhoro */
+    }
 
-        .applybutton:hover {
-            background-color: #2980b9;
-            /* Ibara rihinduka iyo uyerekejeho souris */
-        }
+    .applybutton:hover {
+        background-color: #2980b9;
+        /* Ibara rihinduka iyo uyerekejeho souris */
+    }
 
-        .paa {
-            margin-top: 10px;
-            position: relative;
-            left: -28%;
-        }
+    .paa {
+        margin-top: 10px;
+        position: relative;
+        left: -28%;
+    }
 
-        .text1 {
-            margin-top: 30px;
-            font-size: 50px;
-        }
+    .text1 {
+        margin-top: 30px;
+        font-size: 50px;
+    }
 
-        .picture {
-            height: 120px;
-            width: 120px;
-        }
+    .picture {
+        height: 120px;
+        width: 120px;
+    }
 
-        /* width */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
 
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
 
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
 
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 
-        .card5 {
-            width: 195px;
-            height: 210px;
-            overflow: auto;
-            margin: auto;
-            color: white;
-        }
+    .card5 {
+        width: 195px;
+        height: 210px;
+        overflow: auto;
+        margin: auto;
+        color: white;
+    }
 
-        .card4 {
-            width: 195px;
-            height: 210px;
-            overflow: auto;
-            margin: auto;
-            color: white;
-        }
+    .card4 {
+        width: 195px;
+        height: 210px;
+        overflow: auto;
+        margin: auto;
+        color: white;
+    }
 
-        .card3 {
-            width: 195px;
-            height: 210px;
-            overflow: hidden;
-            margin: auto;
-            color: white;
-        }
+    .card3 {
+        width: 195px;
+        height: 210px;
+        overflow: hidden;
+        margin: auto;
+        color: white;
+    }
 
-        .card2 {
-            width: 195px;
-            height: 210px;
-            overflow: auto;
-            margin: auto;
-            color: white;
-        }
+    .card2 {
+        width: 195px;
+        height: 210px;
+        overflow: auto;
+        margin: auto;
+        color: white;
+    }
 
-        .card1 {
-            width: 195px;
-            height: 210px;
-            overflow: auto;
-            margin: auto;
-            color: white;
-        }
+    .card1 {
+        width: 195px;
+        height: 210px;
+        overflow: auto;
+        margin: auto;
+        color: white;
+    }
 
-        a {
-            color: white;
+    a {
+        color: white;
+    }
+
+    .shfooter .collapse {
+        display: inherit;
+    }
+
+    @media (max-width:767px) {
+        .shfooter ul {
+            margin-bottom: 0;
         }
 
         .shfooter .collapse {
-            display: inherit;
+            display: none;
         }
 
-        @media (max-width:767px) {
-            .shfooter ul {
-                margin-bottom: 0;
-            }
-
-            .shfooter .collapse {
-                display: none;
-            }
-
-            .shfooter .collapse.show {
-                display: block;
-            }
-
-            .shfooter .title .fa-angle-up,
-            .shfooter .title[aria-expanded=true] .fa-angle-down {
-                display: none;
-            }
-
-            .shfooter .title[aria-expanded=true] .fa-angle-up {
-                display: block;
-            }
-
-            .shfooter .navbar-toggler {
-                display: inline-block;
-                padding: 0;
-            }
-
+        .shfooter .collapse.show {
+            display: block;
         }
 
-        .resize {
-            text-align: center;
+        .shfooter .title .fa-angle-up,
+        .shfooter .title[aria-expanded=true] .fa-angle-down {
+            display: none;
         }
 
-        .resize {
-            margin-top: 3rem;
-            font-size: 1.25rem;
+        .shfooter .title[aria-expanded=true] .fa-angle-up {
+            display: block;
         }
 
-        /*RESIZESCREEN ANIMATION*/
-        .fa-angle-double-right {
-            animation: rightanime 1s linear infinite;
-        }
-
-        .fa-angle-double-left {
-            animation: leftanime 1s linear infinite;
-        }
-
-        @keyframes rightanime {
-            50% {
-                transform: translateX(10px);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translateX(10px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes leftanime {
-            50% {
-                transform: translateX(-10px);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translateX(-10px);
-                opacity: 0;
-            }
-        }
-
-        /* Contact Chip */
-
-        .chip {
+        .shfooter .navbar-toggler {
             display: inline-block;
-            padding: 0 25px;
-            height: 50px;
-            line-height: 50px;
-            border-radius: 25px;
-            background-color: #2C54C1;
-            margin-top: 5px;
+            padding: 0;
         }
 
-        .chip img {
-            float: left;
-            margin: 0 10px 0 -25px;
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
+    }
+
+    .resize {
+        text-align: center;
+    }
+
+    .resize {
+        margin-top: 3rem;
+        font-size: 1.25rem;
+    }
+
+    /*RESIZESCREEN ANIMATION*/
+    .fa-angle-double-right {
+        animation: rightanime 1s linear infinite;
+    }
+
+    .fa-angle-double-left {
+        animation: leftanime 1s linear infinite;
+    }
+
+    @keyframes rightanime {
+        50% {
+            transform: translateX(10px);
+            opacity: 0.5;
         }
 
-        .zoom {
-            transition: transform .3s;
+        100% {
+            transform: translateX(10px);
+            opacity: 0;
+        }
+    }
+
+    @keyframes leftanime {
+        50% {
+            transform: translateX(-10px);
+            opacity: 0.5;
         }
 
-        .zoom:hover {
-            -ms-transform: scale(1.4);
-            /* IE 9 */
-            -webkit-transform: scale(1.4);
-            /* Safari 3-8 */
-            transform: scale(1.4);
+        100% {
+            transform: translateX(-10px);
+            opacity: 0;
         }
+    }
 
-        .button-container button:hover {
-            background-color: #2980b9;
-            /* Ibara rya button iyo umugereka uri hejuru */
-        }
+    /* Contact Chip */
+
+    .chip {
+        display: inline-block;
+        padding: 0 25px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 25px;
+        background-color: #2C54C1;
+        margin-top: 5px;
+    }
+
+    .chip img {
+        float: left;
+        margin: 0 10px 0 -25px;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+    }
+
+    .zoom {
+        transition: transform .3s;
+    }
+
+    .zoom:hover {
+        -ms-transform: scale(1.4);
+        /* IE 9 */
+        -webkit-transform: scale(1.4);
+        /* Safari 3-8 */
+        transform: scale(1.4);
+    }
+
+    .button-container button:hover {
+        background-color: #2980b9;
+        /* Ibara rya button iyo umugereka uri hejuru */
+    }
     </style>
 </head>
 
@@ -469,7 +486,8 @@ $permit->create_bspermit();
                 </button>
                 <ul class="dropdown-menu" style="width: 175px;">
                     <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
-                            class="fas fa-user"> &nbsp; </i>Personal Profile </a>
+                            class="fas fa-user">
+                            &nbsp; </i>Personal Profile </a>
                     <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
                             class="fas fa-lock">&nbsp;</i> Change Password </a>
                     <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout </a>
@@ -695,148 +713,182 @@ $permit->create_bspermit();
                     <!-- Modal Body -->
 
                     <div class="modal-body">
+                        <?php if (empty($userdetails['id_resident'])): ?>
+                        <div class="alert alert-danger text-center">You must be logged in as a resident to request a
+                            business permit.</div>
+                        <?php else: ?>
                         <form method="post" class="was-validated">
-
+                            <input type="hidden" name="id_resident"
+                                value="<?= htmlspecialchars($userdetails['id_resident']) ?>">
                             <div class="row">
-
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="lname">First Name:</label>
+                                        <label for="lname">Last Name:</label>
                                         <input name="lname" type="text" class="form-control"
-                                            value="<?= $userdetails['surname']; ?>" required>
+                                            value="<?= htmlspecialchars($userdetails['surname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="fname">last Name:</label>
+                                        <label for="fname">First Name:</label>
                                         <input name="fname" type="text" class="form-control"
-                                            value="<?= $userdetails['firstname']; ?>" required>
+                                            value="<?= htmlspecialchars($userdetails['firstname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                             </div>
-
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="mi" class="mtop">Telephone </label>
+                                        <label for="mi">Middle Name:</label>
                                         <input name="mi" type="text" class="form-control"
-                                            value="<?= $userdetails['mname']; ?>" required>
+                                            value="<?= htmlspecialchars($userdetails['mname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="bsname">ID NO:</label>
-                                        <input name="bsname" type="text" class="form-control" placeholder="EnterID NO"
-                                            required>
+                                        <label for="bsname">Business Name:</label>
+                                        <input name="bsname" type="text" class="form-control"
+                                            placeholder="Enter Business Name" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                             </div>
-
                             <br>
-
-                            <h6>Vistor Address:</h6>
-
+                            <h6>Business Address:</h6>
                             <hr>
-
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> First name: </label>
+                                        <label>House No:</label>
                                         <input type="text" class="form-control" name="houseno"
-                                            placeholder="Enter First name." value="<?= $userdetails['houseno']; ?>"
-                                            required>
+                                            placeholder="Enter House No."
+                                            value="<?= htmlspecialchars($userdetails['houseno'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>last name: </label>
-                                        <input type="text" class="form-control" name="street"
-                                            placeholder="Enter last name" value="<?= $userdetails['street']; ?>"
-                                            required>
+                                        <label>Street:</label>
+                                        <input type="text" class="form-control" name="street" placeholder="Enter Street"
+                                            value="<?= htmlspecialchars($userdetails['street'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Telephone: </label>
-                                        <input type="text" class="form-control" name="brgy"
-                                            placeholder="Enter telephone" value="<?= $userdetails['brgy']; ?>" required>
+                                        <label>Barangay:</label>
+                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
+                                            value="<?= htmlspecialchars($userdetails['brgy'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> ID NO: </label>
+                                        <label>Municipality:</label>
                                         <input type="text" class="form-control" name="municipal"
-                                            placeholder="Enter id no" value="<?= $userdetails['municipal']; ?>"
-                                            required>
+                                            placeholder="Enter Municipality"
+                                            value="<?= htmlspecialchars($userdetails['municipal'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="">name of leader cell/vistor form:</label>
-                                        <input type="form-control" name="bsindustry" id="status"
-                                            placeholder="Enter names" required>
-
+                                        <label for="bsindustry">Business Industry:</label>
+                                        <input type="text" name="bsindustry" class="form-control"
+                                            placeholder="Enter Business Industry" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="aoe" class="mtop">Area of Establishment (SqM): </label>
-                                        <input type="" name="aoe" class="form-control" placeholder="Enter your AOE"
-                                            required>
+                                        <label for="aoe" class="mtop">Area of Establishment (SqM):</label>
+                                        <input type="number" name="aoe" class="form-control"
+                                            placeholder="Enter your AOE" min="1" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
                             </div>
-
-                    </div>
-
-                    <!-- Modal Footer -->
-
-                    <div class="modal-footer">
-                        <div class="paa">
-                            <input name="id_resident" type="hidden" class="form-control"
-                                value="<?= $userdetails['id_resident'] ?>">
-
-                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                            <button name="create_bspermit" type="submit" class="btn btn-primary">Submit Request</button>
-                        </div>
+                            <div class="modal-footer">
+                                <div class="paa">
+                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                    <button name="create_bspermit" type="submit" class="btn btn-primary">Submit
+                                        Request</button>
+                                </div>
+                            </div>
+                        </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
     </form>
 
-    <br>
-    <br>
-    <br>
-
+    <?php if ($requests && count($requests) > 0): ?>
+    <div class="container mt-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white d-flex align-items-center">
+                <i class="fas fa-briefcase mr-2"></i>
+                <h4 class="mb-0">Your Business Permit Requests</h4>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col"><i class="fas fa-building"></i> Business Name</th>
+                                <th scope="col"><i class="fas fa-industry"></i> Industry</th>
+                                <th scope="col"><i class="fas fa-ruler-combined"></i> Area (SqM)</th>
+                                <th scope="col"><i class="fas fa-map-marker-alt"></i> Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($requests as $req): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($req['bsname']) ?></td>
+                                <td><?= htmlspecialchars($req['bsindustry']) ?></td>
+                                <td>
+                                    <span class="badge badge-info px-2 py-1"><?= htmlspecialchars($req['aoe']) ?></span>
+                                </td>
+                                <td>
+                                    <span class="text-muted">
+                                        <?= htmlspecialchars($req['houseno']) ?>,
+                                        <?= htmlspecialchars($req['street']) ?>,
+                                        <?= htmlspecialchars($req['brgy']) ?>,
+                                        <?= htmlspecialchars($req['municipal']) ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php else: ?>
+    <div class="container mt-5">
+        <div class="alert alert-info text-center shadow-sm" role="alert">
+            <i class="fas fa-info-circle"></i> You have not submitted any business permit requests yet.
+        </div>
+    </div>
+    <?php endif; ?>
     <!-- Footer -->
 
 
@@ -859,7 +911,7 @@ $permit->create_bspermit();
     <div class="py-3 text-center">
 
         <script>
-            document.write(new Date().getFullYear())
+        document.write(new Date().getFullYear())
         </script>
         BI & ESMS | For Educational Purposes Only
     </div>
@@ -867,80 +919,80 @@ $permit->create_bspermit();
     </footer>
 
     <script>
-        // Set a variable for our button element.
-        const scrollToTopButton = document.getElementById('js-top');
+    // Set a variable for our button element.
+    const scrollToTopButton = document.getElementById('js-top');
 
-        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
-        const scrollFunc = () => {
-            // Get the current scroll value
-            let y = window.scrollY;
+    // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+    const scrollFunc = () => {
+        // Get the current scroll value
+        let y = window.scrollY;
 
-            // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
-            if (y > 0) {
-                scrollToTopButton.className = "top-link show";
-            } else {
-                scrollToTopButton.className = "top-link hide";
-            }
-        };
-
-        window.addEventListener("scroll", scrollFunc);
-
-        const scrollToTop = () => {
-            // Let's set a variable for the number of pixels we are from the top of the document.
-            const c = document.documentElement.scrollTop || document.body.scrollTop;
-
-            // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
-            // We'll also animate that scroll with requestAnimationFrame:
-            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-            if (c > 0) {
-                window.requestAnimationFrame(scrollToTop);
-                // ScrollTo takes an x and a y coordinate.
-                // Increase the '10' value to get a smoother/slower scroll!
-                window.scrollTo(0, c - c / 10);
-            }
-        };
-
-        // When the button is clicked, run our ScrolltoTop function above!
-        scrollToTopButton.onclick = function (e) {
-            e.preventDefault();
-            scrollToTop();
+        // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+        if (y > 0) {
+            scrollToTopButton.className = "top-link show";
+        } else {
+            scrollToTopButton.className = "top-link hide";
         }
+    };
+
+    window.addEventListener("scroll", scrollFunc);
+
+    const scrollToTop = () => {
+        // Let's set a variable for the number of pixels we are from the top of the document.
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+        // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
+        // We'll also animate that scroll with requestAnimationFrame:
+        // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+        if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            // ScrollTo takes an x and a y coordinate.
+            // Increase the '10' value to get a smoother/slower scroll!
+            window.scrollTo(0, c - c / 10);
+        }
+    };
+
+    // When the button is clicked, run our ScrolltoTop function above!
+    scrollToTopButton.onclick = function(e) {
+        e.preventDefault();
+        scrollToTop();
+    }
     </script>
 
     <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     </script>
 
     <script>
-        $(document).ready(function () {
-            // Add smooth scrolling to all links
-            $("a").on('click', function (event) {
+    $(document).ready(function() {
+        // Add smooth scrolling to all links
+        $("a").on('click', function(event) {
 
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                    // Prevent default anchor click behavior
-                    event.preventDefault();
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+                // Prevent default anchor click behavior
+                event.preventDefault();
 
-                    // Store hash
-                    var hash = this.hash;
+                // Store hash
+                var hash = this.hash;
 
-                    // Using jQuery's animate() method to add smooth page scroll
-                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    }, 800, function () {
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function() {
 
-                        // Add hash (#) to URL when done scrolling (default click behavior)
-                        window.location.hash = hash;
-                    });
-                } // End if
-            });
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
         });
+    });
     </script>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

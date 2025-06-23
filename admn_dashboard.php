@@ -26,13 +26,13 @@ $staffcountf = $staff->count_fstaff();
 ?>
 
 <style>
-.card-upper-space {
-    margin-top: 35px;
-}
+    .card-upper-space {
+        margin-top: 35px;
+    }
 
-.card-row-gap {
-    margin-top: 3em;
-}
+    .card-row-gap {
+        margin-top: 3em;
+    }
 </style>
 
 
@@ -255,12 +255,12 @@ include('dashboard_sidebar_start.php');
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- custom css -->
-<link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
+<link href="customcss/regiformstyle.css" rel="stylesheet" type="text/css">
 <!-- bootstrap css -->
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-<script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+<script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 <?php
 include('dashboard_sidebar_end.php');

@@ -28,63 +28,63 @@ $resident_data = $certificate->get_single_certofindigency($id_resident);
     <link href="bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
     <script src="bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
     <style>
-        @media print {
-            .noprint {
-                display: none !important;
-            }
-
-            body {
-                background: white !important;
-            }
-
-            .certificate-card {
-                box-shadow: none !important;
-                border: none !important;
-            }
+    @media print {
+        .noprint {
+            display: none !important;
         }
 
-        @page {
-            size: auto;
-            margin: 4mm;
+        body {
+            background: white !important;
         }
 
-        .certificate-header {
-            text-align: center;
-            margin-bottom: 1em;
+        .certificate-card {
+            box-shadow: none !important;
+            border: none !important;
         }
+    }
 
-        .certificate-header img {
-            width: 120px;
-            height: 100px;
-        }
+    @page {
+        size: auto;
+        margin: 4mm;
+    }
 
-        .certificate-title {
-            font-size: 28px;
-            font-weight: bold;
-            text-decoration: underline;
-            margin-bottom: 1em;
-        }
+    .certificate-header {
+        text-align: center;
+        margin-bottom: 1em;
+    }
 
-        .certificate-content {
-            font-size: 18px;
-            text-align: justify;
-            margin-bottom: 2em;
-        }
+    .certificate-header img {
+        width: 120px;
+        height: 100px;
+    }
 
-        .certificate-footer {
-            margin-top: 3em;
-            text-align: right;
-        }
+    .certificate-title {
+        font-size: 28px;
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 1em;
+    }
 
-        .certificate-issue {
-            margin-top: 3em;
-            font-size: 18px;
-        }
+    .certificate-content {
+        font-size: 18px;
+        text-align: justify;
+        margin-bottom: 2em;
+    }
+
+    .certificate-footer {
+        margin-top: 3em;
+        text-align: right;
+    }
+
+    .certificate-issue {
+        margin-top: 3em;
+        font-size: 18px;
+    }
     </style>
     <script>
-        function PrintElem() {
-            window.print();
-        }
+    function PrintElem() {
+        window.print();
+    }
     </script>
 </head>
 
@@ -133,7 +133,7 @@ $resident_data = $certificate->get_single_certofindigency($id_resident);
                     </div>
                     <div class="certificate-footer">
                         <div><b>Mugabo Cloude</b></div>
-                        <div>Chief Cell</div>
+                        <div>Chief Nyarutarama Cell</div>
                     </div>
                     <div class="certificate-issue">
                         <div>Rest. Cert. No. <u><?= htmlspecialchars($resident_data['id_indigency']) ?></u></div>

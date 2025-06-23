@@ -256,6 +256,26 @@ class Staff extends Database
         $view = $stmt->fetchAll();
         return $view;
     }
+
+    public function update_staff_profile($id_user)
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        $lname = $_POST['lname'];
+        $fname = $_POST['fname'];
+        $mi = $_POST['mi'];
+        $age = $_POST['age'];
+        $sex = $_POST['sex'];
+        $email = $_POST['email'];
+        $contact = $_POST['contact'];
+        $position = $_POST['position'];
+        $address = $_POST['address'];
+
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("UPDATE tbl_user SET lname = ?, fname = ?, mi = ?, age = ?, sex = ?, email = ?, contact = ?, position = ?, address = ? WHERE id_user = ?");
+        $stmt->execute([$lname, $fname, $mi, $age, $sex, $email, $contact, $position, $address, $id_user]);
+    }
 }
 
 ?>

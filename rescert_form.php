@@ -15,16 +15,16 @@ $resident_data = $certificate->get_single_certofres($id_resident);
 <!DOCTYPE html>
 <html id="clearance">
 <style>
-@media print {
-    .noprint {
-        visibility: hidden;
+    @media print {
+        .noprint {
+            visibility: hidden;
+        }
     }
-}
 
-@page {
-    size: auto;
-    margin: 4mm;
-}
+    @page {
+        size: auto;
+        margin: 4mm;
+    }
 </style>
 
 <head>
@@ -32,17 +32,17 @@ $resident_data = $certificate->get_single_certofres($id_resident);
     <title>Nyarutarama Information System</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- bootstrap 3.0.2 -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- font Awesome -->
-    <link href="../BarangaySystem/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
-    <link href="../BarangaySystem/bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../BarangaySystem/bootstrap/css/morris-0.4.3.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/morris-0.4.3.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="../BarangaySystem/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
     <link href="./BarangaySystem/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-    <link href="../BarangaySystem/bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
-    <script src="../BarangaySystem/bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
+    <link href="bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
+    <script src="bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
 
 </head>
 
@@ -154,56 +154,56 @@ $resident_data = $certificate->get_single_certofres($id_resident);
 
 
 <script>
-function PrintElem(elem) {
-    window.print();
-}
+    function PrintElem(elem) {
+        window.print();
+    }
 
-function Popup(data) {
-    var mywindow = window.open('', 'my div', 'height=400,width=600');
-    //mywindow.document.write('<html><head><title>my div</title>');
-    /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-    //mywindow.document.write('</head><body class="skin-black" >');
-    var printButton = document.getElementById("printpagebutton");
-    //Set the print button visibility to 'hidden' 
-    printButton.style.visibility = 'hidden';
-    mywindow.document.write(data);
-    //mywindow.document.write('</body></html>');
+    function Popup(data) {
+        var mywindow = window.open('', 'my div', 'height=400,width=600');
+        //mywindow.document.write('<html><head><title>my div</title>');
+        /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+        //mywindow.document.write('</head><body class="skin-black" >');
+        var printButton = document.getElementById("printpagebutton");
+        //Set the print button visibility to 'hidden' 
+        printButton.style.visibility = 'hidden';
+        mywindow.document.write(data);
+        //mywindow.document.write('</body></html>');
 
-    mywindow.document.close(); // necessary for IE >= 10
-    mywindow.focus(); // necessary for IE >= 10
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
 
-    mywindow.print();
+        mywindow.print();
 
-    printButton.style.visibility = 'visible';
-    mywindow.close();
+        printButton.style.visibility = 'visible';
+        mywindow.close();
 
-    return true;
-}
+        return true;
+    }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 <script>
-var canvas = document.getElementById('signature-pad');
-var signaturePad = new SignaturePad(canvas, {
-    backgroundColor: 'rgba(255,255,255,0)',
-    penColor: 'black'
-});
+    var canvas = document.getElementById('signature-pad');
+    var signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgba(255,255,255,0)',
+        penColor: 'black'
+    });
 
-function clearSignature() {
-    signaturePad.clear();
-    document.getElementById('signature-image').style.display = 'none';
-    document.getElementById('signature-underline').style.display = 'inline-block';
-}
-
-function saveSignature() {
-    if (!signaturePad.isEmpty()) {
-        var dataURL = signaturePad.toDataURL();
-        var img = document.getElementById('signature-image');
-        img.src = dataURL;
-        img.style.display = 'inline-block';
-        document.getElementById('signature-underline').style.display = 'none';
+    function clearSignature() {
+        signaturePad.clear();
+        document.getElementById('signature-image').style.display = 'none';
+        document.getElementById('signature-underline').style.display = 'inline-block';
     }
-}
+
+    function saveSignature() {
+        if (!signaturePad.isEmpty()) {
+            var dataURL = signaturePad.toDataURL();
+            var img = document.getElementById('signature-image');
+            img.src = dataURL;
+            img.style.display = 'inline-block';
+            document.getElementById('signature-underline').style.display = 'none';
+        }
+    }
 </script>
 
 </html>

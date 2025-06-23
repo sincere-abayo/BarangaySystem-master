@@ -99,34 +99,63 @@ class Certificate extends Database
         }
     }
 
-    public function get_single_clearance($id_resident)
+    public function get_single_clearance($id_clearance)
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_clearance WHERE id_resident = ?");
-        $stmt->execute([$id_resident]);
+        $stmt = $connection->prepare("SELECT * FROM tbl_clearance WHERE id_clearance = ?");
+        $stmt->execute([$id_clearance]);
         return $stmt->fetch();
     }
 
     // Certificate of Indigency
     public function create_certofindigency()
     {
-        if (isset($_POST['create_certofindigency'])) {
-            $id_resident = $_POST['id_resident'];
-            $lname = $_POST['lname'];
-            $fname = $_POST['fname'];
-            $mi = $_POST['mi'];
-            $nationality = $_POST['nationality'];
-            $houseno = $_POST['houseno'];
-            $street = $_POST['street'];
-            $brgy = $_POST['brgy'];
-            $municipal = $_POST['municipal'];
-            $purpose = $_POST['purpose'];
-            $date = $_POST['date'];
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-            $connection = $this->openConn();
-            $stmt = $connection->prepare("INSERT INTO tbl_indigency (id_resident, lname, fname, mi, nationality, houseno, street, brgy, municipal, purpose, date) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->execute([$id_resident, $lname, $fname, $mi, $nationality, $houseno, $street, $brgy, $municipal, $purpose, $date]);
-            echo '<script>alert("Certificate of Indigency request added successfully!");</script>';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_certofindigency'])) {
+            try {
+                $id_resident = $_POST['id_resident'];
+                $fname = $_POST['fname'];
+                $mi = $_POST['mi'];
+                $lname = $_POST['lname'];
+                $nationality = $_POST['nationality'];
+                $houseno = $_POST['houseno'];
+                $street = $_POST['street'];
+                $brgy = $_POST['brgy'];
+                $municipal = $_POST['municipal'];
+                $purpose = $_POST['purpose'];
+                $date = $_POST['date'];
+
+                $connection = $this->openConn();
+                $stmt = $connection->prepare("INSERT INTO tbl_indigency (id_resident, fname, mi, lname, nationality, houseno, street, brgy, municipal, purpose, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+                $result = $stmt->execute([
+                    $id_resident,
+                    $fname,
+                    $mi,
+                    $lname,
+                    $nationality,
+                    $houseno,
+                    $street,
+                    $brgy,
+                    $municipal,
+                    $purpose,
+                    $date
+                ]);
+
+                if ($result) {
+                    echo "<script>alert('Your request has been sent successfully!'); window.location='resident_homepage.php';</script>";
+                } else {
+                    echo "<script>alert('Error submitting request. Please try again.');</script>";
+                }
+
+                $this->closeConn();
+            } catch (PDOException $e) {
+                error_log('Certificate Creation Error: ' . $e->getMessage());
+                echo "<script>alert('An error occurred. Please try again.');</script>";
+            }
         }
     }
     public function view_certofindigency()
@@ -202,5 +231,13 @@ class Certificate extends Database
         $stmt = $connection->prepare("SELECT * FROM tbl_rescert WHERE id_resident = ?");
         $stmt->execute([$id_resident]);
         return $stmt->fetch();
+    }
+
+    public function view_certofres_by_resident($id_resident)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT * FROM tbl_rescert WHERE id_resident = ?");
+        $stmt->execute([$id_resident]);
+        return $stmt->fetchAll();
     }
 }

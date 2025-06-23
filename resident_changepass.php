@@ -26,9 +26,9 @@ $resident->resident_changepass();
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- custom css -->
-    <link href="../BarangaySystem/customcss/pagestyle.css" rel="stylesheet" type="text/css">
+    <link href="customcss/pagestyle.css" rel="stylesheet" type="text/css">
     <!-- bootstrap css -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
@@ -567,8 +567,7 @@ $resident->resident_changepass();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/mikhos.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/mikhos.png" alt="Person" width="96" height="96">
                                     Mikhos Dungca | 09514053044
                                 </div>
                             </div>
@@ -576,8 +575,7 @@ $resident->resident_changepass();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/pj.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/pj.png" alt="Person" width="96" height="96">
                                     PJ Mendros | 09179450661
                                 </div>
                             </div>
@@ -585,8 +583,7 @@ $resident->resident_changepass();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/vincent.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/vincent.png" alt="Person" width="96" height="96">
                                     Vincent Vilfamat | 09512873394
                                 </div>
                             </div>
@@ -594,8 +591,7 @@ $resident->resident_changepass();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/eugene.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/eugene.png" alt="Person" width="96" height="96">
                                     Joel Evangelista | 09301112368
                                 </div>
                             </div>
@@ -603,8 +599,7 @@ $resident->resident_changepass();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/kyle.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/kyle.png" alt="Person" width="96" height="96">
                                     Kyle Pilapil | 09618853017
                                 </div>
                             </div>
@@ -728,7 +723,7 @@ $resident->resident_changepass();
         });
     </script>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

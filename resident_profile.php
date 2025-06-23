@@ -1,16 +1,16 @@
 <?php
-error_reporting(E_ALL ^ E_WARNING);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require('classes/Authentication.php');
 require('classes/resident.class.php');
 $auth = new Authentication();
-$resident = new Resident();
-ini_set('display_errors', 0);
+$residentObj = new Resident();
 $userdetails = $auth->get_userdata();
 $id_resident = $_GET['id_resident'];
-$resident = $resident->get_single_resident($id_resident);
+$residentData = $residentObj->get_single_resident($id_resident);
 
-
-$resident->profile_update();
+$residentObj->profile_update();
 
 ?>
 
@@ -24,9 +24,9 @@ $resident->profile_update();
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- custom css -->
-    <link href="../BarangaySystem/customcss/pagestyle.css" rel="stylesheet" type="text/css">
+    <link href="customcss/pagestyle.css" rel="stylesheet" type="text/css">
     <!-- bootstrap css -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
@@ -359,19 +359,19 @@ $resident->profile_update();
                         <div class="col">
                             <div class="form-group">
                                 <label>Last Name:</label>
-                                <input class="form-control" value="<?= $resident['lname']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['lname']; ?>" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>First Name:</label>
-                                <input class="form-control" value="<?= $resident['fname']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['fname']; ?>" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Middle Name:</label>
-                                <input class="form-control" value="<?= $resident['mi']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['mi']; ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -380,19 +380,19 @@ $resident->profile_update();
                         <div class="col">
                             <div class="form-group">
                                 <label>Email:</label>
-                                <input class="form-control" value="<?= $resident['email']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['email']; ?>" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Sex:</label>
-                                <input class="form-control" value="<?= $resident['sex']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['sex']; ?>" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Nationality:</label>
-                                <input class="form-control" value="<?= $resident['nationality']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['nationality']; ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -401,13 +401,13 @@ $resident->profile_update();
                         <div class="col">
                             <div class="form-group">
                                 <label>Birth Date:</label>
-                                <input class="form-control" value="<?= $resident['bdate']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['bdate']; ?>" disabled>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group" id="down1">
                                 <label>Birth Place:</label>
-                                <input class="form-control" value="<?= $resident['bplace']; ?>" disabled>
+                                <input class="form-control" value="<?= $residentData['bplace']; ?>" disabled>
                             </div>
                         </div>
                     </div>
@@ -425,21 +425,22 @@ $resident->profile_update();
                         <div class="col">
                             <div class="form-group">
                                 <label>Age:</label>
-                                <input class="form-control" type="number" name="age" value="<?= $resident['age']; ?>">
+                                <input class="form-control" type="number" name="age"
+                                    value="<?= $residentData['age']; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Status:</label>
                                 <input class="form-control" type="text" name="status"
-                                    value="<?= $resident['status']; ?>">
+                                    value="<?= $residentData['status']; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Contact:</label>
                                 <input class="form-control" type="tel" name="contact" maxlength="11" pattern="[0-9]{11}"
-                                    value="<?= $resident['contact']; ?>">
+                                    value="<?= $residentData['contact']; ?>">
                             </div>
                         </div>
                     </div>
@@ -449,20 +450,31 @@ $resident->profile_update();
                             <div class="form-group">
                                 <label>House No:</label>
                                 <input class="form-control" type="text" name="houseno"
-                                    value="<?= $resident['houseno']; ?>">
+                                    value="<?= $residentData['houseno']; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Street:</label>
                                 <input class="form-control" type="text" name="street"
-                                    value="<?= $resident['street']; ?>">
+                                    value="<?= $residentData['street']; ?>">
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label>Barangay:</label>
-                                <input class="form-control" type="text" name="brgy" value="<?= $resident['brgy']; ?>">
+                                <input class="form-control" type="text" name="brgy"
+                                    value="<?= $residentData['brgy']; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Address:</label>
+                                <input class="form-control" type="text" name="address"
+                                    value="<?= $residentData['address']; ?>">
                             </div>
                         </div>
                     </div>
@@ -473,8 +485,9 @@ $resident->profile_update();
                         <div class="col-xl-12">
                             <div class="form-inline">
                                 <input class="form-control" name="lname" type="hidden"
-                                    value="<?= $resident['lname']; ?>" />
-                                <input class="form-control" name="mi" type="hidden" value="<?= $resident['mi']; ?>" />
+                                    value="<?= $residentData['lname']; ?>" />
+                                <input class="form-control" name="mi" type="hidden"
+                                    value="<?= $residentData['mi']; ?>" />
                                 <button type="submit button" class="btn btn-info" style="margin-left: 37%; width:143px;"
                                     name="search_household">View Household</button>
                                 <button class="btn btn-primary" style="margin-left: .2%; width:143px;" type="submit"
@@ -617,8 +630,7 @@ $resident->profile_update();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/mikhos.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/mikhos.png" alt="Person" width="96" height="96">
                                     Mikhos Dungca | 09514053044
                                 </div>
                             </div>
@@ -626,8 +638,7 @@ $resident->profile_update();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/pj.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/pj.png" alt="Person" width="96" height="96">
                                     PJ Mendros | 09179450661
                                 </div>
                             </div>
@@ -635,8 +646,7 @@ $resident->profile_update();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/vincent.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/vincent.png" alt="Person" width="96" height="96">
                                     Vincent Vilfamat | 09512873394
                                 </div>
                             </div>
@@ -644,8 +654,7 @@ $resident->profile_update();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/eugene.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/eugene.png" alt="Person" width="96" height="96">
                                     Joel Evangelista | 09301112368
                                 </div>
                             </div>
@@ -653,8 +662,7 @@ $resident->profile_update();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/kyle.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/kyle.png" alt="Person" width="96" height="96">
                                     Kyle Pilapil | 09618853017
                                 </div>
                             </div>
@@ -757,7 +765,7 @@ $resident->profile_update();
         });
     </script>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

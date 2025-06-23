@@ -18,7 +18,7 @@ $certificate->create_brgyid();
         crossorigin="anonymous"></script>
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
@@ -450,13 +450,13 @@ $certificate->create_brgyid();
 
                 <br>
 
-                <img class="picture" src="../BarangaySystem/icons/Documents/docu1.png">
+                <img class="picture" src="icons/Documents/docu1.png">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img class="picture" src="../BarangaySystem/icons/Documents/docu3.png">
+                <img class="picture" src="icons/Documents/docu3.png">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img class="picture" src="../BarangaySystem/icons/Documents/docu2.png">
+                <img class="picture" src="icons/Documents/docu2.png">
             </div>
         </div>
     </div>
@@ -1040,8 +1040,7 @@ $certificate->create_brgyid();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/mikhos.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/mikhos.png" alt="Person" width="96" height="96">
                                     Mikhos Dungca | 09514053044
                                 </div>
                             </div>
@@ -1049,8 +1048,7 @@ $certificate->create_brgyid();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/pj.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/pj.png" alt="Person" width="96" height="96">
                                     PJ Mendros | 09179450661
                                 </div>
                             </div>
@@ -1058,8 +1056,7 @@ $certificate->create_brgyid();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/vincent.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/vincent.png" alt="Person" width="96" height="96">
                                     Vincent Vilfamat | 09512873394
                                 </div>
                             </div>
@@ -1067,8 +1064,7 @@ $certificate->create_brgyid();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/eugene.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/eugene.png" alt="Person" width="96" height="96">
                                     Joel Evangelista | 09301112368
                                 </div>
                             </div>
@@ -1076,8 +1072,7 @@ $certificate->create_brgyid();
                         <li>
                             <div class="zoom">
                                 <div class="chip" style="font-size:10px;">
-                                    <img src="../BarangaySystem/icons/Contact/kyle.png" alt="Person" width="96"
-                                        height="96">
+                                    <img src="icons/Contact/kyle.png" alt="Person" width="96" height="96">
                                     Kyle Pilapil | 09618853017
                                 </div>
                             </div>
@@ -1206,7 +1201,7 @@ $certificate->create_brgyid();
     </script>
 
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

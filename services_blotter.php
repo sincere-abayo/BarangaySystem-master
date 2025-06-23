@@ -35,7 +35,7 @@ include('dashboard_sidebar_start.php');
         crossorigin="anonymous"></script>
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
@@ -567,7 +567,7 @@ include('dashboard_sidebar_start.php');
     <!-- Under Navbar -->
 
     <div class="container-fluid container1">
-        <img src="../BarangaySystem/icons/Blotter/blotter2.png" alt="Nature" style="width:100%; height: 400px;">
+        <img src="icons/Blotter/blotter2.png" alt="Nature" style="width:100%; height: 400px;">
         <div class="text-block text-center taytel">
             <h1 style="font-size: 100px; letter-spacing: 5px;">Peace and Order</h1>
         </div>
@@ -593,27 +593,27 @@ include('dashboard_sidebar_start.php');
 
         <div class="row">
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter3.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter3.jpg" style="width:100%"
                     onclick="currentSlide(1)" alt="Physical Threatening">
             </div>
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter4.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter4.jpg" style="width:100%"
                     onclick="currentSlide(2)" alt="Domestic Violence">
             </div>
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter5.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter5.jpg" style="width:100%"
                     onclick="currentSlide(3)" alt="Aggresiveness">
             </div>
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter6.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter6.jpg" style="width:100%"
                     onclick="currentSlide(4)" alt="Sexual Harassment">
             </div>
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter7.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter7.jpg" style="width:100%"
                     onclick="currentSlide(5)" alt="Psychological Abuse">
             </div>
             <div class="column">
-                <img class="demo cursor picture1" src="../BarangaySystem/icons/Blotter/blotter8.jpg" style="width:100%"
+                <img class="demo cursor picture1" src="icons/Blotter/blotter8.jpg" style="width:100%"
                     onclick="currentSlide(6)" alt="Emotional Abuse">
             </div>
         </div>
@@ -923,7 +923,8 @@ include('dashboard_sidebar_start.php');
 
                             <div class="modal-footer">
                                 <div class="paa">
-                                    <input name="id_resident" type="hidden" value="<?= $resident_data['id_resident'] ?>">
+                                    <input name="id_resident" type="hidden"
+                                        value="<?= $resident_data['id_resident'] ?>">
                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                     <button type="submit" name="create_blotter" class="btn btn-primary">Save
                                         changes</button>
@@ -1168,7 +1169,7 @@ include('dashboard_sidebar_start.php');
         });
     </script>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

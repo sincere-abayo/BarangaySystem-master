@@ -1,8 +1,34 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require('classes/Certificate.php');
+require('classes/Authentication.php');
+
 $certificate = new Certificate();
+$auth = new Authentication();
+
+// Get user details for form pre-filling
+$userdetails = $auth->get_userdata();
+
+// Handle form submission
 $certificate->create_certofindigency();
 
+$certs = [];
+if (!empty($userdetails['id_resident'])) {
+    $all_certs = $certificate->view_certofindigency();
+    // Filter only this resident's certificates
+    foreach ($all_certs as $row) {
+        if ($row['id_resident'] == $userdetails['id_resident']) {
+            $certs[] = $row;
+        }
+    }
+}
+
+// Show a success message if redirected after submission
+if (isset($_GET['success']) && $_GET['success'] === '1') {
+    echo '<div class="alert alert-success text-center" role="alert">Your Certificate of Indigency request was submitted successfully!</div>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,21 +43,13 @@ $certificate->create_certofindigency();
         integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
         crossorigin="anonymous"></script>
     <!-- responsive tags for screen compatibility -->
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <!-- fontawesome icons -->
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <!-- Back-to-Top and Back Button -->
-
-    <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-        <span class="screen-reader-text">Back to top</span>
-    </a>
 
     <!-- Eto yung navbar -->
 
@@ -50,13 +68,14 @@ $certificate->create_certofindigency();
 
         <div class="dropdown ml-auto">
             <button title="Your Account" class="btn btn-primary dropdown-toggle" style="margin-right: 2px;"
-                type="button" data-toggle="dropdown"><?= $userdetails['surname']; ?>, <?= $userdetails['firstname']; ?>
+                type="button"
+                data-toggle="dropdown"><?= $userdetails['surname'] ?? '', $userdetails['firstname'] ?? ''; ?>
                 <span class="caret" style="margin-left: 2px;"></span>
             </button>
             <ul class="dropdown-menu" style="width: 175px;">
-                <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
+                <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident'] ?? ''; ?>"> <i
                         class="fas fa-user"> &nbsp; </i>Personal Profile </a>
-                <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
+                <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident'] ?? ''; ?>"> <i
                         class="fas fa-lock">&nbsp;</i> Change Password </a>
                 <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout </a>
             </ul>
@@ -64,19 +83,17 @@ $certificate->create_certofindigency();
     </nav>
 
     <div class="container-fluid container1">
-        <div class="row">
-            <div class="col">
+        <div class="row justify-content-center">
+            <div class="col text-center">
                 <div class="header">
                     <h1 class="text1">Certificate of Indigency</h1>
-                    <h5> A Certificate of Indigency or a Certificate of Low Income is a document
+                    <h5>
+                        A Certificate of Indigency or a Certificate of Low Income is a document
                         <br> that are sometimes required by the Rwanda government or a private
                         <br> institution as proof of an individual's financial situation.
                     </h5>
                 </div>
-
                 <br>
-
-
             </div>
         </div>
     </div>
@@ -256,16 +273,14 @@ $certificate->create_certofindigency();
                     <!-- Modal Body -->
 
                     <div class="modal-body">
-                        <form method="post" class="was-validated">
-
+                        <form method="post" class="was-validated" novalidate>
                             <div class="row">
-
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="fname">First Name:</label>
                                         <input name="fname" type="text" class="form-control"
-                                            placeholder="Enter First Name" value="<?= $userdetails['firstname'] ?>"
-                                            required>
+                                            placeholder="Enter First Name"
+                                            value="<?= htmlspecialchars($userdetails['firstname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -273,15 +288,14 @@ $certificate->create_certofindigency();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="mi" class="mtop">Middle Name: </label>
+                                        <label for="mi">Middle Name:</label>
                                         <input name="mi" type="text" class="form-control"
-                                            placeholder="Enter Middle Name" value="<?= $userdetails['mname'] ?>"
-                                            required>
+                                            placeholder="Enter Middle Name"
+                                            value="<?= htmlspecialchars($userdetails['mname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
@@ -289,8 +303,8 @@ $certificate->create_certofindigency();
                                     <div class="form-group">
                                         <label for="lname">Last Name:</label>
                                         <input name="lname" type="text" class="form-control"
-                                            placeholder="Enter Last Name" value="<?= $userdetails['surname'] ?>"
-                                            required>
+                                            placeholder="Enter Last Name"
+                                            value="<?= htmlspecialchars($userdetails['surname'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -298,24 +312,23 @@ $certificate->create_certofindigency();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="mtop">Nationality: </label>
-                                        <input type="text" class="form-control" name="nationality"
-                                            placeholder="Enter Nationality" value="<?= $userdetails['nationality'] ?>"
-                                            required>
+                                        <label for="nationality">Nationality:</label>
+                                        <input name="nationality" type="text" class="form-control"
+                                            placeholder="Enter Nationality"
+                                            value="<?= htmlspecialchars($userdetails['nationality'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> House No: </label>
-                                        <input type="text" class="form-control" name="houseno"
-                                            placeholder="Enter House No." value="<?= $userdetails['houseno'] ?>"
-                                            required>
+                                        <label for="houseno">House No:</label>
+                                        <input name="houseno" type="text" class="form-control"
+                                            placeholder="Enter House No."
+                                            value="<?= htmlspecialchars($userdetails['houseno'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -323,9 +336,9 @@ $certificate->create_certofindigency();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Street: </label>
-                                        <input type="text" class="form-control" name="street" placeholder="Enter Street"
-                                            value="<?= $userdetails['street'] ?>" required>
+                                        <label for="street">Street:</label>
+                                        <input name="street" type="text" class="form-control" placeholder="Enter Street"
+                                            value="<?= htmlspecialchars($userdetails['street'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -333,9 +346,9 @@ $certificate->create_certofindigency();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Village: </label>
-                                        <input type="text" class="form-control" name="brgy" placeholder="Enter village"
-                                            value="<?= $userdetails['brgy'] ?>" required>
+                                        <label for="brgy">Village:</label>
+                                        <input name="brgy" type="text" class="form-control" placeholder="Enter Village"
+                                            value="<?= htmlspecialchars($userdetails['brgy'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -343,73 +356,104 @@ $certificate->create_certofindigency();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Municipality: </label>
-                                        <input type="text" class="form-control" name="municipal"
-                                            placeholder="Enter Municipality" value="<?= $userdetails['municipal'] ?>"
-                                            required>
+                                        <label for="municipal">Municipality:</label>
+                                        <input name="municipal" type="text" class="form-control"
+                                            placeholder="Enter Municipality"
+                                            value="<?= htmlspecialchars($userdetails['municipal'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
                                 </div>
-
                             </div>
 
                             <div class="row">
-
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="purposes">Purposes:</label>
-                                        <select class="form-control" name="purpose" id="purposes" required>
-                                            <option value="">Choose your Purposes</option>
+                                        <label for="purpose">Purpose:</label>
+                                        <select class="form-control" name="purpose" required>
+                                            <option value="">Choose your Purpose</option>
                                             <option value="Job/Employment">Job/Employment</option>
                                             <option value="Business Establishment">Business Requirement</option>
                                             <option value="Financial Transaction">Financial Transaction</option>
                                             <option value="Scholarship">Scholarship</option>
-                                            <option value="Other important transactions.">Other important transactions.
+                                            <option value="Other important transactions">Other important transactions
                                             </option>
                                         </select>
                                         <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                        <div class="invalid-feedback">Please select a purpose.</div>
                                     </div>
                                 </div>
-
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label class="mtop">Date: </label>
+                                        <label for="date">Date:</label>
                                         <input type="date" class="form-control" name="date" required>
                                         <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
+                                        <div class="invalid-feedback">Please select a date.</div>
                                     </div>
                                 </div>
-
                             </div>
 
+                            <input type="hidden" name="id_resident"
+                                value="<?= htmlspecialchars($userdetails['id_resident'] ?? '') ?>">
 
-                    </div>
-
-
-
-                    <!-- Modal Footer -->
-
-                    <div class="modal-footer">
-                        <div class="paa">
-                            <input name="id_resident" type="hidden" class="form-control"
-                                value="<?= $userdetails['id_resident'] ?>">
-                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                            <button name="create_certofindigency" type="submit" class="btn btn-primary">Submit
-                                Request</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                <button type="submit" name="create_certofindigency" class="btn btn-primary">Submit
+                                    Request</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </form>
 
     <br>
     <br>
     <br>
+
+    <!-- After the registration form/modal -->
+    <div class="container mt-5">
+        <h2 class="text-center">Your Certificate of Indigency Requests</h2>
+        <?php if (empty($certs)): ?>
+        <div class="alert alert-info text-center" role="alert">You have not submitted any Certificate of Indigency
+            requests yet.</div>
+        <?php endif; ?>
+        <table class="table table-bordered table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Surname</th>
+                    <th>First Name</th>
+                    <th>Middle Name</th>
+                    <th>Nationality</th>
+                    <th>House No</th>
+                    <th>Street</th>
+                    <th>Village</th>
+                    <th>Municipality</th>
+                    <th>Purpose</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($certs as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['lname']) ?></td>
+                    <td><?= htmlspecialchars($row['fname']) ?></td>
+                    <td><?= htmlspecialchars($row['mi']) ?></td>
+                    <td><?= htmlspecialchars($row['nationality']) ?></td>
+                    <td><?= htmlspecialchars($row['houseno']) ?></td>
+                    <td><?= htmlspecialchars($row['street']) ?></td>
+                    <td><?= htmlspecialchars($row['brgy']) ?></td>
+                    <td><?= htmlspecialchars($row['municipal']) ?></td>
+                    <td><?= htmlspecialchars($row['purpose']) ?></td>
+                    <td><?= htmlspecialchars($row['date']) ?></td>
+
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Footer -->
 
@@ -431,7 +475,7 @@ $certificate->create_certofindigency();
     <div class="py-3 text-center">
 
         <script>
-            document.write(new Date().getFullYear())
+        document.write(new Date().getFullYear())
         </script>
         BI & ESMS | For Educational Purposes Only
     </div>
@@ -439,80 +483,80 @@ $certificate->create_certofindigency();
     </footer>
 
     <script>
-        // Set a variable for our button element.
-        const scrollToTopButton = document.getElementById('js-top');
+    // Set a variable for our button element.
+    const scrollToTopButton = document.getElementById('js-top');
 
-        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
-        const scrollFunc = () => {
-            // Get the current scroll value
-            let y = window.scrollY;
+    // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+    const scrollFunc = () => {
+        // Get the current scroll value
+        let y = window.scrollY;
 
-            // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
-            if (y > 0) {
-                scrollToTopButton.className = "top-link show";
-            } else {
-                scrollToTopButton.className = "top-link hide";
-            }
-        };
-
-        window.addEventListener("scroll", scrollFunc);
-
-        const scrollToTop = () => {
-            // Let's set a variable for the number of pixels we are from the top of the document.
-            const c = document.documentElement.scrollTop || document.body.scrollTop;
-
-            // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
-            // We'll also animate that scroll with requestAnimationFrame:
-            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-            if (c > 0) {
-                window.requestAnimationFrame(scrollToTop);
-                // ScrollTo takes an x and a y coordinate.
-                // Increase the '10' value to get a smoother/slower scroll!
-                window.scrollTo(0, c - c / 10);
-            }
-        };
-
-        // When the button is clicked, run our ScrolltoTop function above!
-        scrollToTopButton.onclick = function (e) {
-            e.preventDefault();
-            scrollToTop();
+        // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+        if (y > 0) {
+            scrollToTopButton.className = "top-link show";
+        } else {
+            scrollToTopButton.className = "top-link hide";
         }
+    };
+
+    window.addEventListener("scroll", scrollFunc);
+
+    const scrollToTop = () => {
+        // Let's set a variable for the number of pixels we are from the top of the document.
+        const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+        // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
+        // We'll also animate that scroll with requestAnimationFrame:
+        // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+        if (c > 0) {
+            window.requestAnimationFrame(scrollToTop);
+            // ScrollTo takes an x and a y coordinate.
+            // Increase the '10' value to get a smoother/slower scroll!
+            window.scrollTo(0, c - c / 10);
+        }
+    };
+
+    // When the button is clicked, run our ScrolltoTop function above!
+    scrollToTopButton.onclick = function(e) {
+        e.preventDefault();
+        scrollToTop();
+    }
     </script>
 
     <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     </script>
 
     <script>
-        $(document).ready(function () {
-            // Add smooth scrolling to all links
-            $("a").on('click', function (event) {
+    $(document).ready(function() {
+        // Add smooth scrolling to all links
+        $("a").on('click', function(event) {
 
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                    // Prevent default anchor click behavior
-                    event.preventDefault();
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+                // Prevent default anchor click behavior
+                event.preventDefault();
 
-                    // Store hash
-                    var hash = this.hash;
+                // Store hash
+                var hash = this.hash;
 
-                    // Using jQuery's animate() method to add smooth page scroll
-                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    }, 800, function () {
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function() {
 
-                        // Add hash (#) to URL when done scrolling (default click behavior)
-                        window.location.hash = hash;
-                    });
-                } // End if
-            });
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
         });
+    });
     </script>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 </body>
 

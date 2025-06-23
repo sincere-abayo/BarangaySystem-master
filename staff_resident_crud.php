@@ -380,10 +380,10 @@ include('dashboard_sidebar_start_staff.php');
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- bootstrap css -->
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-<script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+<script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 <?php
 include('dashboard_sidebar_end.php');

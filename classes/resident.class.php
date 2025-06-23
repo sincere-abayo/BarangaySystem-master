@@ -268,10 +268,10 @@ class Resident extends Database
     public function profile_update()
     {
         $id_resident = $_GET['id_resident'];
-        $age = $_POST['age'];
-        $status = $_POST['status'];
-        $address = $_POST['address'];
-        $contact = $_POST['contact'];
+        $age = $_POST['age'] ?? null;
+        $status = $_POST['status'] ?? null;
+        $address = $_POST['address'] ?? null;
+        $contact = $_POST['contact'] ?? null;
 
         if (isset($_POST['profile_update'])) {
 

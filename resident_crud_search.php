@@ -31,7 +31,7 @@ $connection = $resident->openConn();
         crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 </head>
 
@@ -176,7 +176,8 @@ $connection = $resident->openConn();
                                         <th> <?= $view['addedby']; ?> </th>
                                         <td>
                                             <form action="" method="post">
-                                                <a href="resident_crud.php?email=<?= $view['email']; ?>" class="btn btn-primary">
+                                                <a href="resident_crud.php?email=<?= $view['email']; ?>"
+                                                    class="btn btn-primary">
                                                     Update </a>
                                                 <input type="hidden" name="email" value="<?= $view['email']; ?>">
                                                 <button class="btn btn-danger" type="submit" name="delete_resident"> Remove
@@ -530,7 +531,7 @@ $connection = $resident->openConn();
 
     </footer>
 
-    <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 </body>
 
 </html>

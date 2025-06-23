@@ -17,24 +17,24 @@ $view = $resident->view_resident_female();
 include('dashboard_sidebar_start.php');
 ?>
 <style>
-.input-icons i {
-    position: absolute;
-}
+    .input-icons i {
+        position: absolute;
+    }
 
-.input-icons {
-    width: 30%;
-    margin-bottom: 10px;
-    margin-left: 34%;
-}
+    .input-icons {
+        width: 30%;
+        margin-bottom: 10px;
+        margin-left: 34%;
+    }
 
-.icon {
-    padding: 10px;
-    min-width: 40px;
-}
+    .icon {
+        padding: 10px;
+        min-width: 40px;
+    }
 
-.form-control {
-    text-align: center;
-}
+    .form-control {
+        text-align: center;
+    }
 </style>
 
 <!-- Begin Page Content -->
@@ -90,12 +90,12 @@ include('dashboard_sidebar_start.php');
 <!-- responsive tags for screen compatibility -->
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <!-- custom css -->
-<link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
+<link href="customcss/regiformstyle.css" rel="stylesheet" type="text/css">
 <!-- bootstrap css -->
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-<script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+<script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
 
 <?php
 include('dashboard_sidebar_end.php');

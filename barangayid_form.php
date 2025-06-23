@@ -109,17 +109,17 @@ $resident = $resident->get_single_brgyid($id_resident);
   <title>Barangay Information System</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <!-- bootstrap 3.0.2 -->
-  <link href="../BarangaySystem/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- font Awesome -->
-  <link href="../BarangaySystem/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <!-- Ionicons -->
-  <link href="../BarangaySystem/bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-  <link href="../BarangaySystem/bootstrap/css/morris-0.4.3.min.css" rel="stylesheet" type="text/css" />
+  <link href="bootstrap/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  <link href="bootstrap/css/morris-0.4.3.min.css" rel="stylesheet" type="text/css" />
   <!-- Theme style -->
-  <link href="../BarangaySystem/bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+  <link href="bootstrap/css/AdminLTE.css" rel="stylesheet" type="text/css" />
   <link href="./BarangaySystem/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-  <link href="../BarangaySystem/bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
-  <script src="../BarangaySystem/bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
+  <link href="bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
+  <script src="bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
 
 
 
@@ -142,9 +142,9 @@ $resident = $resident->get_single_brgyid($id_resident);
     <br>
     <br>
     <div class="container" style="margin-left: 2em;">
-      <img src="../BarangaySystem/icons/ID.jpg" alt="Snow" style="width:80%;">
+      <img src="icons/ID.jpg" alt="Snow" style="width:80%;">
 
-      <div class="photo"><img src="../BarangaySystem/icons/2x2.jpg"></div>
+      <div class="photo"><img src="icons/2x2.jpg"></div>
       <div class="centered">
         <label style="position:relative; left:80px; bottom:30px; font-size:20px;color:white">
           <b><?= $resident['lname']; ?>, <?= $resident['fname']; ?> <?= $resident['mi']; ?> </b> </label>
@@ -165,7 +165,7 @@ $resident = $resident->get_single_brgyid($id_resident);
     <br><br><br><br>
 
     <div class="container" style="margin-left: 2em;">
-      <img src="../BarangaySystem/icons/IDBACK.jpg" alt="Snow" style="width:80%;">
+      <img src="icons/IDBACK.jpg" alt="Snow" style="width:80%;">
 
       <div class="top-left">
         <label style="position:relative; left:160px; top:30px; font-size:12px;color:white">

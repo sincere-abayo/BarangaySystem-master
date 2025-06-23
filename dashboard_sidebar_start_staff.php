@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,7 +34,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="staff_dashboard.php">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    
+
                 </div>
                 <div class="sidebar-brand-text">Staff Dashboard </div>
             </a>
@@ -52,6 +49,13 @@
                     <span>Dashboard</span></a>
             </li>
 
+            <!-- My Profile -->
+            <li class="nav-item">
+                <a class="nav-link" href="staff_profile.php">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -62,7 +66,7 @@
 
             <!-- Barangay Staff CRUD -->
             <li class="nav-item">
-            <a class="nav-link" href="staff_staff_crud.php?id_user=<?= $userdetails['id_user'];?>">
+                <a class="nav-link" href="staff_staff_crud.php?id_user=<?= $userdetails['id_user']; ?>">
                     <i class="fas fa-user-tie"></i>
                     <span>Nyarutarama Staffs</span></a>
             </li>
@@ -96,23 +100,48 @@
                     <span>Certificate of Residency</span></a>
             </li>
 
-
-                 
+            <!-- Reports Section -->
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">Reports</div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+                    aria-expanded="false" aria-controls="collapseReports">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="collapseReports" class="collapse" aria-labelledby="headingReports"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="staff_resident_report.php"><i
+                                class="fas fa-users mr-2"></i>Resident Report</a>
+                        <a class="collapse-item" href="staff_clearance_report.php"><i
+                                class="fas fa-file mr-2"></i>Clearance Report</a>
+                        <a class="collapse-item" href="staff_indigency_report.php"><i
+                                class="fas fa-file-alt mr-2"></i>Indigency Report</a>
+                        <a class="collapse-item" href="staff_residency_report.php"><i
+                                class="fas fa-file-word mr-2"></i>Residency Report</a>
+                        <a class="collapse-item" href="staff_bspermit_report.php"><i
+                                class="fas fa-file-contract mr-2"></i>Business Permit Report</a>
+                        <a class="collapse-item" href="staff_blotter_report.php"><i
+                                class="fas fa-user-shield mr-2"></i>Blotter Report</a>
+                    </div>
+                </div>
             </li>
+            <!-- End Reports Section -->
 
             <!-- Business Permit -->
             <li class="nav-item">
                 <a class="nav-link" href="staff_bspermit.php">
                     <i class="fas fa-file-contract"></i>
-                    <span>visitors</span></a>
+                    <span>Business Permit</span></a>
             </li>
 
-            <!-- Barangay Clearance -->
+            <!-- Barangay Clearance
             <li class="nav-item">
                 <a class="nav-link" href="staff_brgyclearance.php">
                     <i class="fas fa-file"></i>
                     <span>Nyarutarama Clearance</span></a>
-            </li>
+            </li> -->
 
             <!-- Certificate of Indigency -->
             <li class="nav-item">
@@ -184,9 +213,11 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="index.php" id="userDropdown" role="button"
-                                aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-800 small"><?= $userdetails['surname']?>, <?= $userdetails['firstname']?></span>
+                            <a class="nav-link" href="index.php" id="userDropdown" role="button" aria-haspopup="true"
+                                aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-800 small"><?= $userdetails['surname'] ?>,
+                                    <?= $userdetails['firstname'] ?></span>
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                             </a>
                         </li>
