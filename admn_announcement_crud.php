@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL ^ E_WARNING);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
 require('classes/Authentication.php');
 require('classes/Announcement.php');
 
@@ -20,6 +20,17 @@ $tm = new DateTime("now", new DateTimeZone('Asia/Manila'));
 $cdate = $dt->format('Y/m/d');
 $ctime = $tm->format('H');
 
+?>
+
+<?php
+if (isset($_SESSION['announcement_success'])) {
+    echo '<div class="alert alert-success text-center">' . $_SESSION['announcement_success'] . '</div>';
+    unset($_SESSION['announcement_success']);
+}
+if (isset($_SESSION['announcement_error'])) {
+    echo '<div class="alert alert-danger text-center">' . $_SESSION['announcement_error'] . '</div>';
+    unset($_SESSION['announcement_error']);
+}
 ?>
 
 <?php

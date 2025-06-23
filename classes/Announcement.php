@@ -6,23 +6,31 @@ class Announcement extends Database
 {
     public function create_announcement()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        $event = $_POST['event'];
-        $start_date = $_POST['start_date'];
-        $addedby = $_POST['addedby'];
+        if (isset($_POST['create_announce'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $event = trim($_POST['event'] ?? '');
+            $start_date = $_POST['start_date'] ?? '';
+            $addedby = $_POST['addedby'] ?? '';
 
-        $connection = $this->openConn();
-        $stmt = $connection->prepare("INSERT INTO tbl_announcement (event, start_date, addedby) VALUES (?, ?, ?)");
+            if ($event === '') {
+                $_SESSION['announcement_error'] = "Announcement message cannot be empty.";
+                header("Location: admn_announcement_crud.php");
+                exit();
+            }
 
-        if ($stmt->execute([$event, $start_date, $addedby])) {
-            $_SESSION['announcement_success'] = "Announcement created successfully!";
-        } else {
-            $_SESSION['announcement_error'] = "Failed to create announcement.";
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("INSERT INTO tbl_announcement (event, start_date, addedby) VALUES (?, ?, ?)");
+
+            if ($stmt->execute([$event, $start_date, $addedby])) {
+                $_SESSION['announcement_success'] = "Announcement created successfully!";
+            } else {
+                $_SESSION['announcement_error'] = "Failed to create announcement.";
+            }
+            header("Location: admn_announcement_crud.php");
+            exit();
         }
-        header("Location: staff_announcement_crud.php");
-        exit();
     }
 
     public function view_announcement()
@@ -48,20 +56,27 @@ class Announcement extends Database
 
     public function delete_announcement()
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        $id_announcement = $_POST['id_announcement'];
-        $connection = $this->openConn();
-        $stmt = $connection->prepare("DELETE FROM tbl_announcement WHERE id_announcement = ?");
+        if (isset($_POST['delete_announcement'])) {
+            if (session_status() === PHP_SESSION_NONE) {
+                session_start();
+            }
+            $id_announcement = $_POST['id_announcement'] ?? null;
+            if (!$id_announcement) {
+                $_SESSION['announcement_error'] = "Invalid announcement ID.";
+                header("Location: admn_announcement_crud.php");
+                exit();
+            }
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("DELETE FROM tbl_announcement WHERE id_announcement = ?");
 
-        if ($stmt->execute([$id_announcement])) {
-            $_SESSION['announcement_success'] = "Announcement deleted successfully!";
-        } else {
-            $_SESSION['announcement_error'] = "Failed to delete announcement.";
+            if ($stmt->execute([$id_announcement])) {
+                $_SESSION['announcement_success'] = "Announcement deleted successfully!";
+            } else {
+                $_SESSION['announcement_error'] = "Failed to delete announcement.";
+            }
+            header("Location: admn_announcement_crud.php");
+            exit();
         }
-        header("Location: staff_announcement_crud.php");
-        exit();
     }
 
     public function get_latest_announcement()

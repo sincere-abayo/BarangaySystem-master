@@ -35,7 +35,6 @@ function profile() {
 <head>
     <title> nyarutarama Information & E-Services Management System </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- responsive tags for screen compatibility -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- custom css -->
@@ -352,47 +351,45 @@ function profile() {
     <?php
     $view = $announcement->view_announcement();
 
-    if ($view > 0) { ?>
-    <table class="table table-dark table-responsive">
-        <thead style="display:none">
-            <tr>
-                <th> Announcement </th>
-            </tr>
-        </thead>
-        <tbody style="display:none">
-            <?php if (is_array($view)) { ?>
-            <?php foreach ($view as $view) { ?>
-            <tr>
-                <td> <?= $view['event']; ?> </td>
-            </tr>
-            <?php } ?>
-            <?php } ?>
-        </tbody>
-    </table>
+    if (is_array($view) && count($view) > 0) { ?>
+    <!-- Language Selector -->
 
-    <div class="alert alert-info alert-dismissible fade show" role="alert" style="margin-top: 4%; 
-                        margin-left: 17.5%;
-                        margin-bottom: 1.5%;
-                        border-radius:30px; 
-                        width:65%;
-                        height:30%;
-                        color: white;
-                        background-color:#3498DB;">
-        <strong>
-            <h3>ANNOUNCEMENT!<h3>
-        </strong>
-        <hr>
-        <br>
-        <p>
-            <?= $view['event']; ?>
-        </p>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    <div id="announcementCarousel" class="carousel slide" data-ride="carousel"
+        style="margin: 4% auto 1.5%; border-radius:30px; width:65%; background-color:#3498DB;">
+        <ol class="carousel-indicators">
+            <?php foreach ($view as $idx => $item): ?>
+            <li data-target="#announcementCarousel" data-slide-to="<?= $idx ?>"
+                <?= $idx === 0 ? 'class="active"' : '' ?>>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+        <div class="carousel-inner">
+            <?php foreach ($view as $idx => $item): ?>
+            <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
+                <div class="alert alert-info alert-dismissible fade show" role="alert"
+                    style="margin:0; border-radius:30px; color: white; background-color:#3498DB;">
+                    <strong>
+                        <h3>ANNOUNCEMENT!</h3>
+                    </strong>
+                    <hr>
+                    <p class="announcement-text" data-original="<?= htmlspecialchars($item['event']) ?>">
+                        <?= htmlspecialchars($item['event']) ?>
+                    </p>
+                    <small>Posted: <?= htmlspecialchars($item['start_date']) ?> </small>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <a class="carousel-control-prev" href="#announcementCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#announcementCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-
-    <?php
-    } else {
+    <?php } else {
 
     }
 
@@ -663,6 +660,47 @@ function profile() {
     </script>
 
     <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+    <script>
+    // Google Translate API (client-side) for announcements
+    function translateText(text, targetLang, callback) {
+        if (targetLang === 'en') {
+            callback(text);
+            return;
+        }
+        // Use Google Translate API v2 (unofficial, for demo)
+        $.get('https://translate.googleapis.com/translate_a/single', {
+            client: 'gtx',
+            sl: 'en',
+            tl: targetLang,
+            dt: 't',
+            q: text
+        }, function(data) {
+            if (Array.isArray(data)) {
+                callback(data[0][0][0]);
+            } else {
+                callback(text);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#langSelect').on('change', function() {
+            var lang = $(this).val();
+            $('.announcement-text').each(function() {
+                var $p = $(this);
+                var original = $p.data('original');
+                if (lang === 'en') {
+                    $p.text(original);
+                } else {
+                    translateText(original, lang, function(translated) {
+                        $p.text(translated);
+                    });
+                }
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>
