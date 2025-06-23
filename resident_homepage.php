@@ -48,6 +48,20 @@ function profile() {
 
     <style>
     /* Navbar Buttons */
+    .carousel-indicators li {
+        background-color: #007bff;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+
+    .carousel-indicators .active {
+        background-color: #0056b3;
+    }
+
+    .card-title {
+        letter-spacing: 1px;
+    }
 
     .btn1 {
         border-radius: 20px;
@@ -352,42 +366,56 @@ function profile() {
     $view = $announcement->view_announcement();
 
     if (is_array($view) && count($view) > 0) { ?>
-    <!-- Language Selector -->
-
-    <div id="announcementCarousel" class="carousel slide" data-ride="carousel"
-        style="margin: 4% auto 1.5%; border-radius:30px; width:65%; background-color:#3498DB;">
-        <ol class="carousel-indicators">
-            <?php foreach ($view as $idx => $item): ?>
-            <li data-target="#announcementCarousel" data-slide-to="<?= $idx ?>"
-                <?= $idx === 0 ? 'class="active"' : '' ?>>
-            </li>
-            <?php endforeach; ?>
-        </ol>
-        <div class="carousel-inner">
-            <?php foreach ($view as $idx => $item): ?>
-            <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
-                <div class="alert alert-info alert-dismissible fade show" role="alert"
-                    style="margin:0; border-radius:30px; color: white; background-color:#3498DB;">
-                    <strong>
-                        <h3>ANNOUNCEMENT!</h3>
-                    </strong>
-                    <hr>
-                    <p class="announcement-text" data-original="<?= htmlspecialchars($item['event']) ?>">
-                        <?= htmlspecialchars($item['event']) ?>
-                    </p>
-                    <small>Posted: <?= htmlspecialchars($item['start_date']) ?> </small>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div id="announcementCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php foreach ($view as $idx => $item): ?>
+                        <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
+                            <div class="card shadow-lg border-0" style="border-left: 8px solid #007bff;">
+                                <div class="card-body p-5">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <span class="mr-3" style="font-size:2.5rem; color:#007bff;">
+                                            <i class="fas fa-bullhorn"></i>
+                                        </span>
+                                        <div>
+                                            <h4 class="card-title mb-0 font-weight-bold" style="color:#007bff;">
+                                                Announcement</h4>
+                                            <small class="text-muted">Posted:
+                                                <?= htmlspecialchars($item['start_date']) ?></small>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="card-text announcement-text"
+                                        data-original="<?= htmlspecialchars($item['event']) ?>"
+                                        style="font-size:1.25rem;">
+                                        <?= htmlspecialchars($item['event']) ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <a class="carousel-control-prev" href="#announcementCarousel" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"
+                            style="background-color:#007bff; border-radius:50%;"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#announcementCarousel" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"
+                            style="background-color:#007bff; border-radius:50%;"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    <ol class="carousel-indicators mt-4">
+                        <?php foreach ($view as $idx => $item): ?>
+                        <li data-target="#announcementCarousel" data-slide-to="<?= $idx ?>"
+                            class="<?= $idx === 0 ? 'active' : '' ?>"></li>
+                        <?php endforeach; ?>
+                    </ol>
                 </div>
             </div>
-            <?php endforeach; ?>
         </div>
-        <a class="carousel-control-prev" href="#announcementCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#announcementCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
     <?php } else {
 
@@ -499,70 +527,68 @@ function profile() {
         </div>
     </section>
 
-    <br>
-    <br>
-    <br>
-
-
     <!--/.Third column-->
-
     <hr class="clearfix w-100 d-md-none mb-0">
 
     <!--Fourth column-->
-
-    <div class="col-md-3 mx-auto shfooter" id="down">
-        <h5 class="my-2 font-weight-bold d-none d-md-block">Contact Us:</h5>
-        <div class="d-md-none title" data-target="#Contact-Us" data-toggle="collapse">
-            <div class="mt-3 font-weight-bold">Contact Us:
-                <div class="float-right navbar-toggler">
-                    <i class="fas fa-angle-down"></i>
-                    <i class="fas fa-angle-up"></i>
+    <!-- Improved Contact Us Section -->
+    <section id="down" class="my-5 py-4" style="background: #f8f9fa; border-radius: 20px;">
+        <div class="container">
+            <h3 class="text-center font-weight-bold mb-4" style="color: #2C54C1; letter-spacing: 1px;">Contact Us</h3>
+            <div class="row justify-content-center">
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body p-2">
+                            <img src="icons/Contact/mikhos.png" alt="Mikhos Dungca" class="rounded-circle mb-2"
+                                width="80" height="80">
+                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Mikhos Dungca</h6>
+                            <p class="mb-0" style="font-size:0.95rem; color:#555;">0780041468</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body p-2">
+                            <img src="icons/Contact/pj.png" alt="PJ Mendros" class="rounded-circle mb-2" width="80"
+                                height="80">
+                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">PJ Mendros</h6>
+                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078678895252</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body p-2">
+                            <img src="icons/Contact/vincent.png" alt="Vincent Vilfamat" class="rounded-circle mb-2"
+                                width="80" height="80">
+                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Vincent Vilfamat</h6>
+                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078877765557</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body p-2">
+                            <img src="icons/Contact/eugene.png" alt="Joel Evangelista" class="rounded-circle mb-2"
+                                width="80" height="80">
+                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Joel Evangelista</h6>
+                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078665434487</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center">
+                        <div class="card-body p-2">
+                            <img src="icons/Contact/kyle.png" alt="Kyle Pilapil" class="rounded-circle mb-2" width="80"
+                                height="80">
+                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Kyle Pilapil</h6>
+                            <p class="mb-0" style="font-size:0.95rem; color:#555;">09618853017</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <ul class="list-unstyled collapse" id="Contact-Us">
-            <li>
-                <div class="zoom">
-                    <div class="chip" style="font-size:10px;">
-                        <img src="icons/Contact/mikhos.png" alt="Person" width="96" height="96">
-                        Mikhos Dungca | 0780041468
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="zoom">
-                    <div class="chip" style="font-size:10px;">
-                        <img src="icons/Contact/pj.png" alt="Person" width="96" height="96">
-                        PJ Mendros | 078678895252
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="zoom">
-                    <div class="chip" style="font-size:10px;">
-                        <img src="icons/Contact/vincent.png" alt="Person" width="96" height="96">
-                        Vincent Vilfamat | 078877765557
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="zoom">
-                    <div class="chip" style="font-size:10px;">
-                        <img src="icons/Contact/eugene.png" alt="Person" width="96" height="96">
-                        Joel Evangelista | 078665434487
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="zoom">
-                    <div class="chip" style="font-size:10px;">
-                        <img src="icons/Contact/kyle.png" alt="Person" width="96" height="96">
-                        Kyle Pilapil | 09618853017
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+    </section>
 
     <!--/.Fourth column-->
 
@@ -701,6 +727,9 @@ function profile() {
         });
     });
     </script>
+
+
+
 </body>
 
 </html>
