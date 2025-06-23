@@ -240,4 +240,12 @@ class Certificate extends Database
         $stmt->execute([$id_resident]);
         return $stmt->fetchAll();
     }
+
+    public function view_brgyclearance_by_resident($id_resident)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT * FROM tbl_clearance WHERE id_resident = ?");
+        $stmt->execute([$id_resident]);
+        return $stmt->fetchAll();
+    }
 }
