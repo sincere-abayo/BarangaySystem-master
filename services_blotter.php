@@ -17,692 +17,916 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
 ?>
 
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
     <title>Peace and Order - Nyarutarama Management System</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"
-        integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
-        crossorigin="anonymous"></script>
-    <!-- responsive tags for screen compatibility -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <!-- fontawesome icons -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-bg: #f8fafc;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background-color: var(--light-bg);
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+            box-shadow: var(--card-shadow);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: white !important;
+        }
+
+        .nav-icon {
+            color: white !important;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            margin: 0 0.25rem;
+        }
+
+        .nav-icon:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .dropdown-toggle {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.2) !important;
+            border-radius: 0.5rem !important;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Hero Section */
         .hero-section {
             position: relative;
-            width: 100%;
-            height: 350px;
-            background: url('icons/Blotter/blotter2.png') center center/cover no-repeat;
+            height: 60vh;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.9)), 
+                        url('icons/Blotter/blotter2.png') center center/cover no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            position: relative;
         }
 
         .hero-title {
-            position: relative;
-            z-index: 2;
-            color: #fff;
-            font-size: 3rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 8px #000;
-            letter-spacing: 4px;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .carousel-item img {
-            max-height: 220px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin: 0 auto;
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
-        .carousel-caption {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            padding: 0.5rem 1rem;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 0;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1e293b;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        /* Blotter Reasons Grid */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .reason-card {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 250px;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .reason-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .reason-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .reason-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .reason-card:hover .reason-overlay {
+            transform: translateY(0);
+        }
+
+        .reason-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Info Cards */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .info-card p {
+            color: var(--secondary-color);
+            line-height: 1.7;
+        }
+
+        /* Apply Button */
+        .apply-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            text-align: center;
+            padding: 4rem 0;
+            margin: 3rem 0;
+        }
+
+        .apply-button {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .apply-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: #f8fafc;
+        }
+
+        /* Modal Enhancements */
+        .modal-content {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-radius: 1rem 1rem 0 0;
+            padding: 1.5rem 2rem;
+        }
+
+        .modal-title {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .form-control {
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .guidelines {
+            background: #f1f5f9;
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .guidelines h6 {
+            color: var(--primary-color);
             font-weight: 600;
             margin-bottom: 1rem;
         }
 
-        .info-card .card-header {
-            background: #3498db;
-            color: #fff;
-            font-size: 1.1rem;
+        .guidelines ul {
+            margin: 0;
+            padding-left: 1.5rem;
         }
 
-        .info-card .card-body {
-            min-height: 120px;
+        .guidelines li {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
         }
 
-        .applybutton {
-            width: 100%;
+        /* Image Preview */
+        .image-preview {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .image-preview:hover {
+            border-color: var(--primary-color);
+            background: #f8fafc;
+        }
+
+        .image-preview img {
+            max-width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-service {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-service:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-service i {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
             height: 50px;
-            border-radius: 20px;
-            margin-top: 5%;
-            margin-bottom: 8%;
-            font-size: 25px;
-            letter-spacing: 2px;
-            background-color: #3498db;
+            background: var(--primary-color);
             color: white;
-            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .reasons-grid,
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar-brand {
+                font-size: 1rem;
+            }
+                     .footer-services {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Custom File Upload */
+        .custom-file-upload {
+            border: 2px dashed #cbd5e1;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .applybutton:hover {
-            background-color: #2980b9;
+        .custom-file-upload:hover {
+            border-color: var(--primary-color);
+            background: #f8fafc;
         }
 
-        .table th,
-        .table td {
-            vertical-align: middle !important;
+        .custom-file-upload input[type="file"] {
+            display: none;
         }
 
-        .modal-header {
-            background: #3498db;
-            color: white;
+        /* Status Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
-        .modal-title {
-            font-weight: bold;
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
         }
 
-        .card {
-            margin-bottom: 1.5rem;
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
         }
 
-        .narrative-cell {
-            max-width: 250px;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .blotter-photo-thumb {
-            max-width: 80px;
-            max-height: 80px;
-            border-radius: 10px;
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
         }
     </style>
 </head>
 
 <body>
-
-    <!-- Back-to-Top and Back Button -->
-
-    <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
-            <path d="M12 6H0l6-6z" />
-        </svg>
-        <span class="screen-reader-text">Back to top</span>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
     </a>
 
-    <!-- Eto yung navbar -->
+    <!-- Enhanced Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="resident_homepage.php">
+                <i class="fas fa-shield-alt me-2"></i>
+                Nyarutarama Information & E-Services Management System
+            </a>
+            
+            <div class="d-flex align-items-center">
+                <a href="resident_homepage.php" class="nav-icon" data-bs-toggle="tooltip" title="Home">
+                    <i class="fa fa-home fa-lg"></i>
+                </a>
+                <a href="#reasons" class="nav-icon" data-bs-toggle="tooltip" title="Blotter Reasons">
+                    <i class="fa fa-question fa-lg"></i>
+                </a>
+                <a href="#info" class="nav-icon" data-bs-toggle="tooltip" title="Information">
+                    <i class="fa fa-info fa-lg"></i>
+                </a>
+                <a href="#complain" class="nav-icon" data-bs-toggle="tooltip" title="File Complaint">
+                    <i class="fa fa-edit fa-lg"></i>
+                </a>
+                <a href="#contact" class="nav-icon" data-bs-toggle="tooltip" title="Contact">
+                    <i class="fa fa-phone fa-lg"></i>
+                </a>
 
-    <nav class="navbar navbar-dark bg-primary sticky-top">
-        <a class="navbar-brand" href="resident_homepage.php">Nyarutarama Information & E-Services Management System</a>
-        <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn1 bg-primary"><i
-                class="fa fa-home fa-lg"></i></a>
-        <a href="#reasons" data-toggle="tooltip" title="Blotter Reason" class="btn5 bg-primary"><i
-                class="fa fa-question fa-lg"></i></a>
-        <a href="#info" data-toggle="tooltip" title="Blotter Information" class="btn4 bg-primary"><i
-                class="fa fa-info fa-lg"></i></a>
-        <a href="#complain" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i
-                class="fa fa-edit fa-lg"></i></a>
-        <a href="#down" data-toggle="tooltip" title="Contact" class="btn2 bg-primary"><i
-                class="fa fa-phone fa-lg"></i></a>
-
-        <div class="dropdown ml-auto">
-            <button title="Your Account" class="btn btn-primary dropdown-toggle" style="margin-right: 2px;"
-                type="button" data-toggle="dropdown"><?= $userdetails['surname']; ?>, <?= $userdetails['firstname']; ?>
-                <span class="caret" style="margin-left: 2px;"></span>
-            </button>
-            <ul class="dropdown-menu" style="width: 175px;">
-                <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
-                        class="fas fa-user"> &nbsp; </i>Personal Profile </a>
-                <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident']; ?>"> <i
-                        class="fas fa-lock">&nbsp;</i> Change Password </a>
-                <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout </a>
-            </ul>
+                <div class="dropdown ms-3">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user me-2"></i>
+                        <?= $userdetails['surname']; ?>, <?= $userdetails['firstname']; ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="resident_profile.php?id_resident=<?= $userdetails['id_resident']; ?>">
+                                <i class="fas fa-user me-2"></i>Personal Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident']; ?>">
+                                <i class="fas fa-lock me-2"></i>Change Password
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="logout.php">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <!-- Under Navbar -->
-
-    <div class="container-fluid container1">
-        <img src="icons/Blotter/blotter2.png" alt="Nature" style="width:100%; height: 400px;">
-        <div class="text-block text-center taytel">
-            <h1 style="font-size: 100px; letter-spacing: 5px;">Peace and Order</h1>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Peace and Order</h1>
+            <p class="hero-subtitle">Ensuring safety and security in our community</p>
         </div>
-    </div>
+    </section>
 
-    <div id="down3"></div>
-
-    <br>
-    <br>
-    <br>
-
-    <!-- Slideshow -->
-
-    <div class="container container2">
-        <h1 style="text-align:center">Blotter Reason</h1>
-        <hr style="background-color: black;">
-
-
-
-        <div class="caption-container">
-            <p id="caption"></p>
-        </div>
-
-        <div class="row">
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter3.jpg" style="width:100%"
-                    onclick="currentSlide(1)" alt="Physical Threatening">
-            </div>
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter4.jpg" style="width:100%"
-                    onclick="currentSlide(2)" alt="Domestic Violence">
-            </div>
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter5.jpg" style="width:100%"
-                    onclick="currentSlide(3)" alt="Aggresiveness">
-            </div>
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter6.jpg" style="width:100%"
-                    onclick="currentSlide(4)" alt="Sexual Harassment">
-            </div>
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter7.jpg" style="width:100%"
-                    onclick="currentSlide(5)" alt="Psychological Abuse">
-            </div>
-            <div class="column">
-                <img class="demo cursor picture1" src="icons/Blotter/blotter8.jpg" style="width:100%"
-                    onclick="currentSlide(6)" alt="Emotional Abuse">
-            </div>
-        </div>
-    </div>
-
-    <div id="down2"></div>
-
-    <br>
-    <br>
-    <br>
-
-    <div class="container container3">
-        <h1 style="text-align:center">Blotter Information</h1>
-        <hr style="background-color: black;">
-
-        <br>
-
-        <div class="row">
-            <div class="col">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front bg-primary">
-                            <br>
-                            <br>
-                            <i class="fas fa-question-circle fa-4x"></i>
-                            <br>
-                            <br>
-                            <h2>How can I file a Nyarutarama Blotter?</h2>
-                        </div>
-                        <div class="flip-card-back bg-info" style="font-size: 15px;">
-                            <br>
-                            Step 1: Fill-Up the entire form in our system.
-                            <br><br>
-                            Step 2: Verify all of the information you've been given
-                            in our system that we can use to solve your case
-                            as quick as possible.
-                            <br><br>
-                            Step 3: Approve your complain, so we can set a schedule
-                            or an appointment to make an agreement on bot sides.
-                        </div>
+    <!-- Blotter Reasons Section -->
+    <section id="reasons" class="section">
+        <div class="container">
+            <h2 class="section-title">Common Blotter Reasons</h2>
+            <div class="reasons-grid">
+                <div class="reason-card" onclick="showReasonDetails('Physical Threatening')">
+                    <img src="icons/Blotter/blotter3.jpg" alt="Physical Threatening">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Physical Threatening</h3>
+                        <p>Intimidation through physical gestures or verbal threats</p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front bg-primary">
-                            <br>
-                            <br>
-                            <i class="fas fa-question-circle fa-4x"></i>
-                            <br>
-                            <br>
-                            <h2>What is Nyarutarama Blotter?</h2>
-                        </div>
-                        <div class="flip-card-back  bg-info">
-                            <br>
-                            <h5>The entry in the Nyarutarama blotter merely states that private complainant
-                                was embraced ("niyakap") by the accused. This may be attributed to inaccurate
-                                reporting or to the victim's incomplete narration of events, whether or not
-                                intentionally done.</h5>
-                        </div>
+                <div class="reason-card" onclick="showReasonDetails('Domestic Violence')">
+                    <img src="icons/Blotter/blotter4.jpg" alt="Domestic Violence">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Domestic Violence</h3>
+                        <p>Violence or abuse within household relationships</p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front bg-primary">
-                            <br>
-                            <br>
-                            <i class="fas fa-question-circle fa-4x"></i>
-                            <br>
-                            <br>
-                            <h3>What is the purpose of Nyarutarama Blotter?</h3>
-                        </div>
-                        <div class="flip-card-back  bg-info">
-                            <br>
-                            <h5>A written record of arrests and other occurrences maintained
-                                by the Nyarutarama. The report kept by the Rwanda when a suspect
-                                is booked, which involves the written recording of facts about
-                                the person's arrest and the charges against him or her.</h5>
-                        </div>
+                <div class="reason-card" onclick="showReasonDetails('Aggressiveness')">
+                    <img src="icons/Blotter/blotter5.jpg" alt="Aggressiveness">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Aggressiveness</h3>
+                        <p>Hostile or violent behavior towards others</p>
+                    </div>
+                </div>
+                <div class="reason-card" onclick="showReasonDetails('Sexual Harassment')">
+                    <img src="icons/Blotter/blotter6.jpg" alt="Sexual Harassment">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Sexual Harassment</h3>
+                        <p>Unwelcome sexual advances or conduct</p>
+                    </div>
+                </div>
+                <div class="reason-card" onclick="showReasonDetails('Psychological Abuse')">
+                    <img src="icons/Blotter/blotter7.jpg" alt="Psychological Abuse">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Psychological Abuse</h3>
+                        <p>Mental or emotional abuse causing distress</p>
+                    </div>
+                </div>
+                <div class="reason-card" onclick="showReasonDetails('Emotional Abuse')">
+                    <img src="icons/Blotter/blotter8.jpg" alt="Emotional Abuse">
+                    <div class="reason-overlay">
+                        <h3 class="reason-title">Emotional Abuse</h3>
+                        <p>Behavior that harms emotional well-being</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="down1"></div>
+    <!-- Information Section -->
+    <section id="info" class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title">Blotter Information</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>How to File a Blotter?</h3>
+                    <p><strong>Step 1:</strong> Fill out the complete form in our system with accurate information.</p>
+                    <p><strong>Step 2:</strong> Verify all information and provide supporting evidence.</p>
+                    <p><strong>Step 3:</strong> Submit your complaint and wait for approval and scheduling.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>What is a Nyarutarama Blotter?</h3>
+                    <p>A Nyarutarama blotter is an official record of incidents, complaints, and disputes within the community. It serves as the first step in resolving conflicts and maintaining peace and order.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Purpose of Blotter</h3>
+                    <p>The blotter maintains written records of arrests and occurrences, documenting facts about incidents and charges to ensure proper handling of community disputes and legal matters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <br>
-    <br>
-    <br>
-
-
-    <!-- Button trigger modal -->
-
-    <div class="container container4">
-
-        <h1 class="text-center">Complain</h1>
-
-        <hr style="background-color:black;">
-
-        <div class="col">
-            <button type="button" class="btn btn-primary applybutton" data-toggle="modal"
-                data-target="#exampleModalCenter">
-                Apply Form
+    <!-- Apply Section -->
+<section id="complain" class="apply-section">
+        <div class="container">
+            <h2 class="mb-4">File Your Complaint</h2>
+            <p class="mb-4">Ready to file a blotter report? Click the button below to get started.</p>
+            <button type="button" class="apply-button" data-bs-toggle="modal" data-bs-target="#complaintModal">
+                <i class="fas fa-edit me-2"></i>Apply Form
             </button>
         </div>
+    </section>
 
-
-        <!-- Modal -->
-
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Complain Form</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <!-- Modal Body -->
-
-                    <div class="modal-body">
-                        <form method="post" class="was-validated" enctype="multipart/form-data">
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="lname">Last name:</label>
-                                        <input name="lname" type="text" class="form-control"
-                                            value="<?= $resident_data['lname'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+    <!-- Enhanced Modal -->
+  <div class="modal fade" id="complaintModal" tabindex="-1" aria-labelledby="complaintModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="complaintModalLabel">
+                        <i class="fas fa-file-alt me-2"></i>Complaint Form
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- FIXED: Added proper form validation classes and structure -->
+                    <form method="post" enctype="multipart/form-data" id="complaintForm" class="needs-validation" novalidate>
+                        <!-- Personal Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary mb-3">Personal Information</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="lname" class="form-label">Last Name</label>
+                                    <input name="lname" type="text" class="form-control" value="<?= $resident_data['lname'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="fname">First name:</label>
-                                        <input name="fname" type="text" class="form-control"
-                                            value="<?= $resident_data['fname'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <label for="fname" class="form-label">First Name</label>
+                                    <input name="fname" type="text" class="form-control" value="<?= $resident_data['fname'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="mname">Middle name:</label>
-                                        <input name="mi" type="text" class="form-control"
-                                            value="<?= $resident_data['mi'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-4">
+                                    <label for="mi" class="form-label">Middle Name</label>
+                                    <input name="mi" type="text" class="form-control" value="<?= $resident_data['mi'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                             </div>
-
-                            <div class="row">
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="age" class="mtop">Age </label>
-                                        <input name="age" type="number" class="form-control"
-                                            value="<?= $resident_data['age'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-6">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input name="age" type="number" class="form-control" value="<?= $resident_data['age'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="cno">Contact Number:</label>
-                                        <input name="contact" type="text" maxlength="11" class="form-control"
-                                            value="<?= $resident_data['contact'] ?>" pattern="[0-9]{11}" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-6">
+                                    <label for="contact" class="form-label">Contact Number</label>
+                                    <input name="contact" type="text" maxlength="11" class="form-control" value="<?= $resident_data['contact'] ?>" pattern="[0-9]{11}" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label> House No: </label>
-                                        <input type="text" class="form-control" name="houseno"
-                                            placeholder="Enter House No." value="<?= $resident_data['houseno'] ?>"
-                                            required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                        <!-- Address Information -->
+                        <div class="mb-4">
+                            <h6 class="text-primary mb-3">Address Information</h6>
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label for="houseno" class="form-label">House No.</label>
+                                    <input type="text" class="form-control" name="houseno" value="<?= $resident_data['houseno'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label> Street: </label>
-                                        <input type="text" class="form-control" name="street" placeholder="Enter Street"
-                                            value="<?= $resident_data['street'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-3">
+                                    <label for="street" class="form-label">Street</label>
+                                    <input type="text" class="form-control" name="street" value="<?= $resident_data['street'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label> Village: </label>
-                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
-                                            value="<?= $resident_data['brgy'] ?>" required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-3">
+                                    <label for="brgy" class="form-label">Village</label>
+                                    <input type="text" class="form-control" name="brgy" value="<?= $resident_data['brgy'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
-
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label> Municipality: </label>
-                                        <input type="text" class="form-control" name="municipal"
-                                            placeholder="Enter Municipality" value="<?= $resident_data['municipal'] ?>"
-                                            required>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
+                                <div class="col-md-3">
+                                    <label for="municipal" class="form-label">Municipality</label>
+                                    <input type="text" class="form-control" name="municipal" value="<?= $resident_data['municipal'] ?>" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                             </div>
+                        </div>
 
-                            <hr>
-
-                            <h6>Guidelines for Supporting Evidence Photo:</h6>
-
-                            <p>
-                            <ul style="font-size: 15px;">
-                                <li>
-                                    Good quality photo.
-                                </li>
-                                <li>
-                                    At least 50KB and no more than 50MB.
-                                </li>
-                                <li>
-                                    File Format: JPEG or PNG
-                                </li>
-                                <li>
-                                    Clear and in focus.
-                                </li>
+                        <!-- Supporting Evidence -->
+                        <div class="guidelines">
+                            <h6><i class="fas fa-camera me-2"></i>Guidelines for Supporting Evidence Photo</h6>
+                            <ul>
+                                <li>Good quality photo with clear visibility</li>
+                                <li>File size: At least 50KB and no more than 50MB</li>
+                                <li>Accepted formats: JPEG or PNG only</li>
+                                <li>Image should be clear and in focus</li>
                             </ul>
-                            </p>
+                        </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <label>Supporting Evidence Photo:</label>
-                                    <div class="custom-file form-group">
-                                        <input type="file" onchange="readURL(this);" class="custom-file-input"
-                                            id="customFile" name="blot_photo" required>
-                                        <label class="custom-file-label" for="customFile">Choose File Photo</label>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
-                                </div>
+                        <div class="mb-4">
+                            <label class="form-label">Supporting Evidence Photo</label>
+                            <!-- FIXED: Restored original file input structure -->
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="customFile" name="blot_photo" onchange="readURL(this);" accept="image/*" required>
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
-
-                            <br>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label>Photo Display:</label>
-                                    <img id="blah" src="http://placehold.it/470x350" alt="your image" />
-                                </div>
+                            
+                            <!-- FIXED: Restored original image preview -->
+                            <div class="mt-3">
+                                <label>Photo Display:</label>
+                                <img id="blah" src="http://placehold.it/470x350" alt="your image" class="img-fluid" style="max-width: 100%; height: auto;" />
                             </div>
+                        </div>
 
-                            <hr>
-
-                            <h6>Guidelines for Narrative Report:</h6>
-
-                            <p>
-                            <ul style="font-size: 15px;">
-                                <li>
-                                    Use simple, everyday words rather than complex terminology.
-                                </li>
-                                <li>
-                                    Be specific on your report
-                                </li>
-                                <li>
-                                    Don't use bad words
-                                </li>
-                                <li>
-                                    Clear and Easy to read report
-                                </li>
-                                <li>
-                                    Don't use Emoji or any kind of Symbols.
-                                </li>
+                        <!-- Narrative Report -->
+                        <div class="guidelines">
+                            <h6><i class="fas fa-pen me-2"></i>Guidelines for Narrative Report</h6>
+                            <ul>
+                                <li>Use simple, everyday words rather than complex terminology</li>
+                                <li>Be specific and detailed in your report</li>
+                                <li>Maintain respectful language throughout</li>
+                                <li>Write clearly and make it easy to read</li>
+                                <li>Avoid using emojis or special symbols</li>
                             </ul>
-                            </p>
+                        </div>
 
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label for="report">Narrative Report:</label>
-                                        <textarea class="form-control" rows="5" id="report" name="narrative"
-                                            placeholder="Enter Message here" required></textarea>
-                                        <div class="valid-feedback">Valid.</div>
-                                        <div class="invalid-feedback">Please fill out this field.</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-4">
+                            <label for="narrative" class="form-label">Narrative Report</label>
+                            <textarea class="form-control" rows="5" id="report" name="narrative" 
+                                placeholder="Enter Message here" required></textarea>
+                            <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
 
-                            <div class="modal-footer">
-                                <div class="paa">
-                                    <input name="id_resident" type="hidden"
-                                        value="<?= $resident_data['id_resident'] ?>">
-                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                    <button type="submit" name="create_blotter" class="btn btn-primary">Save
-                                        changes</button>
-                                </div>
-                            </div>
-
-                        </form>
-
-                    </div>
+                        <!-- FIXED: Restored hidden input -->
+                        <input name="id_resident" type="hidden" value="<?= $resident_data['id_resident'] ?>">
+                        
+                        <!-- FIXED: Moved submit button inside form and modal-footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="create_blotter" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Submit Complaint
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-
-    <footer id="footer" class="bg-primary text-white d-flex-column text-center">
-        <hr class="mt-0">
-
-        <div class="text-center">
-            <h1>Services</h1>
-            <ul class="list-unstyled list-inline">
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Documents">
-                        <i class="fas fa-file fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Card">
-                        <i class="fas fa-id-card fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Friend">
-                        <i class="fas fa-user-friends fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Blotter">
-                        <i class="fas fa-user-shield fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Contact">
-                        <i class="fas fa-phone fa-2x"></i>
-                    </a>
-                </li>
-                </li>
-            </ul>
-        </div>
-
-        <hr class="mb-0">
-
-        <!--Footer Links-->
-
-        <div class="container text-left text-md-center">
+    <!-- My Blotter Records Section -->
+    <?php if (!empty($blotters)): ?>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">My Blotter Records</h2>
             <div class="row">
+                <?php foreach ($blotters as $blotter_record): ?>
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0">
+                                <i class="fas fa-file-alt me-2"></i>
+                                Blotter #<?= $blotter_record['id_blotter'] ?>
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <small class="text-muted">Date Filed:</small>
+                                <div><?= date('F j, Y', strtotime($blotter_record['timeapplied'])) ?></div>
+                            </div>
+                            <div class="mb-2">
+                                <small class="text-muted">Status:</small>
+                                <div>
+                                    <?php
+                                    $status = $blotter_record['status'] ?? 'pending';
+                                    $statusClass = '';
+                                    switch($status) {
+                                        case 'approved': $statusClass = 'status-approved'; break;
+                                        case 'rejected': $statusClass = 'status-rejected'; break;
+                                        default: $statusClass = 'status-pending';
+                                    }
+                                    ?>
+                                    <span class="status-badge <?= $statusClass ?>">
+                                        <?= ucfirst($status) ?>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small class="text-muted">Narrative:</small>
+                                <div class="narrative-preview">
+                                    <?= substr($blotter_record['narrative'], 0, 100) ?>
+                                    <?= strlen($blotter_record['narrative']) > 100 ? '...' : '' ?>
+                                </div>
+                            </div>
 
-
+                        </div>
+                        <div class="card-footer bg-light">
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewBlotterDetails(<?= $blotter_record['id_blotter'] ?>)">
+                                <i class="fas fa-eye me-1"></i>View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
             </div>
-
-            <!--/.First column-->
-
-            <hr class="clearfix w-100 d-md-none mb-0">
-
-
         </div>
+    </section>
+    <?php endif; ?>
 
-        <!--/.Third column-->
-
-        <hr class="clearfix w-100 d-md-none mb-0">
-
-
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="text-center mb-4">
+                <h3 class="text-white mb-4">Our Services</h3>
+                <div class="footer-services">
+                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Documents">
+                        <i class="fas fa-file"></i>
+                    </a>
+                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="ID Cards">
+                        <i class="fas fa-id-card"></i>
+                    </a>
+                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Community">
+                        <i class="fas fa-user-friends"></i>
+                    </a>
+                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Peace & Order">
+                        <i class="fas fa-shield-alt"></i>
+                    </a>
+                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Contact Us">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            <hr class="border-light">
+            <div class="text-center">
+                <p class="mb-0">
+                    <script>document.write(new Date().getFullYear())</script>
+                    Nyarutarama Information & E-Services Management System | For Educational Purposes Only
+                </p>
+            </div>
         </div>
-        </li>
-        </ul>
-        </div>
-
-        <!--/.Fourth column-->
-
-        </div>
-        </div>
-
-        <!--/.Footer Links-->
-
-        <hr class="mb-0">
-
-        <!--Copyright-->
-
-        <div class="py-3 text-center">
-
-            <script>
-                document.write(new Date().getFullYear())
-            </script>
-            BI & ESMS | For Educational Purposes Only
-        </div>
-
     </footer>
 
-    <script>
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            var captionText = document.getElementById("caption");
-            if (n > slides.length) {
-                slideIndex = 1
-            }
-            if (n < 1) {
-                slideIndex = slides.length
-            }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            captionText.innerHTML = dots[slideIndex - 1].alt;
-        }
-    </script>
-
-    <script>
-        // Add the following code if you want the name of the file appear on select
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-        });
-    </script>
-
-    <script>
+<script>
+        // FIXED: Restored original image preview function
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -717,84 +941,76 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
                 reader.readAsDataURL(input.files[0]);
             }
         }
-    </script>
 
-    <script>
-        // Set a variable for our button element.
-        const scrollToTopButton = document.getElementById('js-top');
+        // FIXED: Bootstrap 5 validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
 
-        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
-        const scrollFunc = () => {
-            // Get the current scroll value
-            let y = window.scrollY;
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
 
-            // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
-            if (y > 0) {
-                scrollToTopButton.className = "top-link show";
+        // Back to top functionality
+        window.addEventListener('scroll', function() {
+            const backToTop = document.getElementById('backToTop');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('show');
             } else {
-                scrollToTopButton.className = "top-link hide";
+                backToTop.classList.remove('show');
             }
-        };
+        });
 
-        window.addEventListener("scroll", scrollFunc);
-
-        const scrollToTop = () => {
-            // Let's set a variable for the number of pixels we are from the top of the document.
-            const c = document.documentElement.scrollTop || document.body.scrollTop;
-
-            // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
-            // We'll also animate that scroll with requestAnimationFrame:
-            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-            if (c > 0) {
-                window.requestAnimationFrame(scrollToTop);
-                // ScrollTo takes an x and a y coordinate.
-                // Increase the '10' value to get a smoother/slower scroll!
-                window.scrollTo(0, c - c / 10);
-            }
-        };
-
-        // When the button is clicked, run our ScrolltoTop function above!
-        scrollToTopButton.onclick = function (e) {
+        document.getElementById('backToTop').addEventListener('click', function(e) {
             e.preventDefault();
-            scrollToTop();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Show reason details
+        function showReasonDetails(reason) {
+            alert('You selected: ' + reason + '\n\nThis type of incident can be reported through our blotter system. Please use the complaint form to file your report.');
+        }
+
+        // View blotter details
+        function viewBlotterDetails(blotterId) {
+            alert('Viewing details for Blotter #' + blotterId);
         }
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            // Add smooth scrolling to all links
-            $("a").on('click', function (event) {
-
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                    // Prevent default anchor click behavior
-                    event.preventDefault();
-
-                    // Store hash
-                    var hash = this.hash;
-
-                    // Using jQuery's animate() method to add smooth page scroll
-                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                    $('html, body').animate({
-                        scrollTop: $(hash).offset().top
-                    }, 800, function () {
-
-                        // Add hash (#) to URL when done scrolling (default click behavior)
-                        window.location.hash = hash;
-                    });
-                } // End if
-            });
-        });
-    </script>
-
-    <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-
+    <!-- FIXED: Include jQuery for compatibility -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
-
 </html>
