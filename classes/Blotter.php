@@ -7,17 +7,21 @@ class Blotter extends Database
     public function create_blotter()
     {
         if (isset($_POST['create_blotter'])) {
-            $id_resident = $_POST['id_resident'];
-            $lname = $_POST['lname'];
-            $fname = $_POST['fname'];
-            $mi = $_POST['mi'];
-            $houseno = $_POST['houseno'];
-            $street = $_POST['street'];
-            $brgy = $_POST['brgy'];
-            $municipal = $_POST['municipal'];
-            $contact = $_POST['contact'];
-            $narrative = $_POST['narrative'];
-            $photo = file_get_contents(addslashes($_FILES['blot_photo']['tmp_name']));
+            if (!isset($_FILES['blot_photo']) || $_FILES['blot_photo']['error'] !== UPLOAD_ERR_OK) {
+                echo '<div style="color:red;">Error: Please upload a valid photo.</div>';
+                return;
+            }
+            $id_resident = $_POST['id_resident'] ?? null;
+            $lname = $_POST['lname'] ?? null;
+            $fname = $_POST['fname'] ?? null;
+            $mi = $_POST['mi'] ?? null;
+            $houseno = $_POST['houseno'] ?? null;
+            $street = $_POST['street'] ?? null;
+            $brgy = $_POST['brgy'] ?? null;
+            $municipal = $_POST['municipal'] ?? null;
+            $contact = $_POST['contact'] ?? null;
+            $narrative = $_POST['narrative'] ?? null;
+            $photo = file_get_contents($_FILES['blot_photo']['tmp_name']);
 
             $connection = $this->openConn();
             $stmt = $connection->prepare("INSERT INTO tbl_blotter (id_resident, lname, fname, mi, houseno, street, brgy, municipal, blot_photo, contact, narrative) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
@@ -72,5 +76,13 @@ class Blotter extends Database
                 echo '<script>alert("Failed to update blotter data.");</script>';
             }
         }
+    }
+
+    public function view_blotter_by_resident($id_resident)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT * FROM tbl_blotter WHERE id_resident = ? ORDER BY timeapplied DESC");
+        $stmt->execute([$id_resident]);
+        return $stmt->fetchAll();
     }
 }

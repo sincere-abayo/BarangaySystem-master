@@ -1,7 +1,7 @@
 <?php
-
-error_reporting(E_ALL ^ E_WARNING);
-ini_set('display_errors', 0);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require('classes/Authentication.php');
 require('classes/resident.class.php');
 require('classes/Blotter.php');
@@ -11,16 +11,9 @@ $resident = new Resident();
 $blotter = new Blotter();
 
 $userdetails = $auth->get_userdata();
-
 $blotter->create_blotter();
-
-$id_resident = $_GET['id_resident'];
-$resident_data = $resident->get_single_resident($id_resident);
-
-?>
-
-<?php
-include('dashboard_sidebar_start.php');
+$resident_data = $resident->get_single_resident($userdetails['id_resident']);
+$blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +21,7 @@ include('dashboard_sidebar_start.php');
 <html>
 
 <head>
-    <title> Nyarutarama Management System </title>
+    <title>Peace and Order - Nyarutarama Management System</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"
         integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
@@ -40,485 +33,112 @@ include('dashboard_sidebar_start.php');
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 
     <style>
-    /* Back-to-Top */
-
-    .top-link {
-        transition: all 0.25s ease-in-out;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        display: inline-flex;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        margin: 0 3em 3em 0;
-        border-radius: 50%;
-        padding: 0.25em;
-        width: 80px;
-        height: 80px;
-        background-color: #3661D5;
-    }
-
-    .top-link.show {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .top-link.hide {
-        visibility: hidden;
-        opacity: 0;
-    }
-
-    .top-link svg {
-        fill: white;
-        width: 24px;
-        height: 12px;
-    }
-
-    .top-link:hover {
-        background-color: #3498DB;
-    }
-
-    .top-link:hover svg {
-        fill: #000000;
-    }
-
-    .screen-reader-text {
-        position: absolute;
-        clip-path: inset(50%);
-        margin: -1px;
-        border: 0;
-        padding: 0;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        word-wrap: normal !important;
-        clip: rect(1px, 1px, 1px, 1px);
-    }
-
-    .screen-reader-text:focus {
-        display: block;
-        top: 5px;
-        left: 5px;
-        z-index: 100000;
-        clip-path: none;
-        background-color: #eee;
-        padding: 15px 23px 14px;
-        width: auto;
-        height: auto;
-        text-decoration: none;
-        line-height: normal;
-        color: #444;
-        font-size: 1em;
-        clip: auto !important;
-    }
-
-    /* Modal */
-
-    .applybutton {
-        width: 100%;
-        /* Button ifate 100% y'ubugari bwa container */
-        height: 50px;
-        /* Button ifate uburebure bwa 50px */
-        border-radius: 20px;
-        /* Gushyiraho impande zoroheje */
-        margin-top: 5%;
-        /* Gushyiraho intera hejuru ya button */
-        margin-bottom: 8%;
-        /* Gushyiraho intera hasi ya button */
-        font-size: 25px;
-        /* Umubare wa font ya button */
-        letter-spacing: 2px;
-        /* Gushyiraho intera hagati y'inyuguti */
-        display: block;
-        /* Gutuma button ifata umwanya wose */
-        background-color: #3498db;
-        /* Gushyiraho ibara rya button */
-        color: white;
-        /* Ibara ry'inyandiko kuri button */
-        text-align: center;
-        /* Gutuma inyandiko ziba hagati */
-        border: none;
-        /* Kwirinda imbibi ku button */
-        cursor: pointer;
-        /* Cursor iba pointer kuri button */
-
-        /* Navbar Buttons */
-
-        .btn1 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            margin-left: 23%;
-            padding: 8px 22px;
-        }
-
-        .btn2 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
-
-        .btn3 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
-
-        .btn4 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
-
-        .btn5 {
-            border-radius: 20px;
-            border: none;
-            /* Remove borders */
-            color: white;
-            /* White text */
-            font-size: 16px;
-            /* Set a font size */
-            cursor: pointer;
-            /* Mouse pointer on hover */
-            padding: 8px 22px;
-            margin-left: .1%;
-        }
-
-        /* Darker background on mouse-over */
-        .btn1:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
-
-        .btn2:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
-
-        .btn3:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
-
-        .btn4:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
-
-        .btn5:hover {
-            background-color: RoyalBlue;
-            color: black;
-        }
-
-        /* Under Navbar */
-
-        .container1 {
+        .hero-section {
             position: relative;
-            font-family: Arial;
-            background-color: lightblue;
+            width: 100%;
+            height: 350px;
+            background: url('icons/Blotter/blotter2.png') center center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .text-block {
+        .hero-overlay {
             position: absolute;
-            bottom: 35%;
-            right: 20%;
-            background-color: black;
-            opacity: .7;
-            color: white;
-            padding-left: 20px;
-            padding-right: 20px;
-            border-radius: 20px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
-        /* Slideshow */
-
-        * {
-            box-sizing: border-box;
-        }
-
-        .picture {
+        .hero-title {
             position: relative;
-            left: -15px;
-            width: 102.7%;
-        }
-
-        .picture1 {
-            height: 100px;
-        }
-
-        /* Position the image container (needed to position the left and right arrows) */
-        .container2 {
-            position: relative;
-        }
-
-        /* Hide the images by default */
-        .mySlides {
-            display: none;
-        }
-
-        /* Add a pointer when hovering over the thumbnail images */
-        .cursor {
-            cursor: grabbing;
-        }
-
-        /* Next & previous buttons */
-        .prev,
-        .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 30px;
-            margin-top: -50px;
-            color: white;
+            z-index: 2;
+            color: #fff;
+            font-size: 3rem;
             font-weight: bold;
-            font-size: 20px;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-            -webkit-user-select: none;
-            cursor: grab;
+            text-shadow: 2px 2px 8px #000;
+            letter-spacing: 4px;
         }
 
-        /* Position the "next button" to the right */
-        .next {
-            right: 15px;
-            border-radius: 3px 0 0 3px;
+        .carousel-item img {
+            max-height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 0 auto;
         }
 
-        /* On hover, add a black background color with a little bit see-through */
-        .prev:hover,
-        .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
         }
 
-        /* Container for image text */
-        .caption-container {
-            position: relative;
-            left: -15px;
-            text-align: center;
-            background-color: #222;
-            padding: 5px;
-            color: white;
-            width: 102.7%;
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .info-card .card-header {
+            background: #3498db;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .info-card .card-body {
+            min-height: 120px;
+        }
+
+        .applybutton {
+            width: 100%;
+            height: 50px;
+            border-radius: 20px;
+            margin-top: 5%;
+            margin-bottom: 8%;
             font-size: 25px;
+            letter-spacing: 2px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .row:after {
-            content: "";
-            display: table;
-            clear: both;
+        .applybutton:hover {
+            background-color: #2980b9;
         }
 
-        /* Six columns side by side */
-        .column {
-            width: 16.66%;
+        .table th,
+        .table td {
+            vertical-align: middle !important;
         }
 
-        /* Add a transparency effect for thumnbail images */
-        .demo {
-            opacity: 0.6;
-        }
-
-        .active,
-        .demo:hover {
-            opacity: 1;
-        }
-
-
-        .paa {
-            margin-top: 20px;
-            position: relative;
-            left: -28%;
-        }
-
-        /* Card Flip */
-
-        .container3 {
-            margin-top: 3%;
-        }
-
-        .flip-card {
-            background-color: transparent;
-            width: 300px;
-            height: 300px;
-            perspective: 1000px;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        }
-
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .flip-card-front {
+        .modal-header {
+            background: #3498db;
             color: white;
         }
 
-        .flip-card-back {
-            padding: 7px;
-            color: white;
-            transform: rotateY(180deg);
+        .modal-title {
+            font-weight: bold;
         }
 
-        /* Footer */
-
-        a {
-            color: white;
+        .card {
+            margin-bottom: 1.5rem;
         }
 
-        .shfooter .collapse {
-            display: inherit;
+        .narrative-cell {
+            max-width: 250px;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
-        @media (max-width:767px) {
-            .shfooter ul {
-                margin-bottom: 0;
-            }
-
-            .shfooter .collapse {
-                display: none;
-            }
-
-            .shfooter .collapse.show {
-                display: block;
-            }
-
-            .shfooter .title .fa-angle-up,
-            .shfooter .title[aria-expanded=true] .fa-angle-down {
-                display: none;
-            }
-
-            .shfooter .title[aria-expanded=true] .fa-angle-up {
-                display: block;
-            }
-
-            .shfooter .navbar-toggler {
-                display: inline-block;
-                padding: 0;
-            }
-
-        }
-
-        .resize {
-            text-align: center;
-        }
-
-        .resize {
-            margin-top: 3rem;
-            font-size: 1.25rem;
-        }
-
-        /*RESIZESCREEN ANIMATION*/
-        .fa-angle-double-right {
-            animation: rightanime 1s linear infinite;
-        }
-
-        .fa-angle-double-left {
-            animation: leftanime 1s linear infinite;
-        }
-
-        @keyframes rightanime {
-            50% {
-                transform: translateX(10px);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translateX(10px);
-                opacity: 0;
-            }
-        }
-
-        @keyframes leftanime {
-            50% {
-                transform: translateX(-10px);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: translateX(-10px);
-                opacity: 0;
-            }
-        }
-
-        /* Contact Chip */
-
-        .chip {
-            display: inline-block;
-            padding: 0 25px;
-            height: 50px;
-            line-height: 50px;
-            border-radius: 25px;
-            background-color: #2C54C1;
-            margin-top: 5px;
-        }
-
-        .chip img {
-            float: left;
-            margin: 0 10px 0 -25px;
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-        }
-
-        .zoom {
-            transition: transform .3s;
-        }
-
-        .zoom:hover {
-            -ms-transform: scale(1.4);
-            /* IE 9 */
-            -webkit-transform: scale(1.4);
-            /* Safari 3-8 */
-            transform: scale(1.4);
+        .blotter-photo-thumb {
+            max-width: 80px;
+            max-height: 80px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -540,11 +160,11 @@ include('dashboard_sidebar_start.php');
         <a class="navbar-brand" href="resident_homepage.php">Nyarutarama Information & E-Services Management System</a>
         <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn1 bg-primary"><i
                 class="fa fa-home fa-lg"></i></a>
-        <a href="#down3" data-toggle="tooltip" title="Blotter Reason" class="btn5 bg-primary"><i
+        <a href="#reasons" data-toggle="tooltip" title="Blotter Reason" class="btn5 bg-primary"><i
                 class="fa fa-question fa-lg"></i></a>
-        <a href="#down2" data-toggle="tooltip" title="Blotter Information" class="btn4 bg-primary"><i
+        <a href="#info" data-toggle="tooltip" title="Blotter Information" class="btn4 bg-primary"><i
                 class="fa fa-info fa-lg"></i></a>
-        <a href="#down1" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i
+        <a href="#complain" data-toggle="tooltip" title="Registration" class="btn3 bg-primary"><i
                 class="fa fa-edit fa-lg"></i></a>
         <a href="#down" data-toggle="tooltip" title="Contact" class="btn2 bg-primary"><i
                 class="fa fa-phone fa-lg"></i></a>
@@ -692,7 +312,7 @@ include('dashboard_sidebar_start.php');
                         <div class="flip-card-back  bg-info">
                             <br>
                             <h5>A written record of arrests and other occurrences maintained
-                                by the Nyarutarana. The report kept by the Rwanda when a suspect
+                                by the Nyarutarama. The report kept by the Rwanda when a suspect
                                 is booked, which involves the written recording of facts about
                                 the person's arrest and the charges against him or her.</h5>
                         </div>
@@ -1032,7 +652,7 @@ include('dashboard_sidebar_start.php');
         <div class="py-3 text-center">
 
             <script>
-            document.write(new Date().getFullYear())
+                document.write(new Date().getFullYear())
             </script>
             BI & ESMS | For Educational Purposes Only
         </div>
@@ -1040,137 +660,137 @@ include('dashboard_sidebar_start.php');
     </footer>
 
     <script>
-    var slideIndex = 1;
-    showSlides(slideIndex);
+        var slideIndex = 1;
+        showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
 
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
 
-    function showSlides(n) {
-        var i;
-        var slides = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        var captionText = document.getElementById("caption");
-        if (n > slides.length) {
-            slideIndex = 1
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) {
+                slideIndex = 1
+            }
+            if (n < 1) {
+                slideIndex = slides.length
+            }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
         }
-        if (n < 1) {
-            slideIndex = slides.length
-        }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
-        captionText.innerHTML = dots[slideIndex - 1].alt;
-    }
     </script>
 
     <script>
-    // Add the following code if you want the name of the file appear on select
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-    </script>
-
-    <script>
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function(e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(470)
-                    .height(350);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    </script>
-
-    <script>
-    // Set a variable for our button element.
-    const scrollToTopButton = document.getElementById('js-top');
-
-    // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
-    const scrollFunc = () => {
-        // Get the current scroll value
-        let y = window.scrollY;
-
-        // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
-        if (y > 0) {
-            scrollToTopButton.className = "top-link show";
-        } else {
-            scrollToTopButton.className = "top-link hide";
-        }
-    };
-
-    window.addEventListener("scroll", scrollFunc);
-
-    const scrollToTop = () => {
-        // Let's set a variable for the number of pixels we are from the top of the document.
-        const c = document.documentElement.scrollTop || document.body.scrollTop;
-
-        // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
-        // We'll also animate that scroll with requestAnimationFrame:
-        // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-        if (c > 0) {
-            window.requestAnimationFrame(scrollToTop);
-            // ScrollTo takes an x and a y coordinate.
-            // Increase the '10' value to get a smoother/slower scroll!
-            window.scrollTo(0, c - c / 10);
-        }
-    };
-
-    // When the button is clicked, run our ScrolltoTop function above!
-    scrollToTopButton.onclick = function(e) {
-        e.preventDefault();
-        scrollToTop();
-    }
-    </script>
-
-    <script>
-    $(document).ready(function() {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-    </script>
-
-    <script>
-    $(document).ready(function() {
-        // Add smooth scrolling to all links
-        $("a").on('click', function(event) {
-
-            // Make sure this.hash has a value before overriding default behavior
-            if (this.hash !== "") {
-                // Prevent default anchor click behavior
-                event.preventDefault();
-
-                // Store hash
-                var hash = this.hash;
-
-                // Using jQuery's animate() method to add smooth page scroll
-                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function() {
-
-                    // Add hash (#) to URL when done scrolling (default click behavior)
-                    window.location.hash = hash;
-                });
-            } // End if
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
         });
-    });
+    </script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(470)
+                        .height(350);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+    <script>
+        // Set a variable for our button element.
+        const scrollToTopButton = document.getElementById('js-top');
+
+        // Let's set up a function that shows our scroll-to-top button if we scroll beyond the height of the initial window.
+        const scrollFunc = () => {
+            // Get the current scroll value
+            let y = window.scrollY;
+
+            // If the scroll value is greater than the window height, let's add a class to the scroll-to-top button to show it!
+            if (y > 0) {
+                scrollToTopButton.className = "top-link show";
+            } else {
+                scrollToTopButton.className = "top-link hide";
+            }
+        };
+
+        window.addEventListener("scroll", scrollFunc);
+
+        const scrollToTop = () => {
+            // Let's set a variable for the number of pixels we are from the top of the document.
+            const c = document.documentElement.scrollTop || document.body.scrollTop;
+
+            // If that number is greater than 0, we'll scroll back to 0, or the top of the document.
+            // We'll also animate that scroll with requestAnimationFrame:
+            // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+            if (c > 0) {
+                window.requestAnimationFrame(scrollToTop);
+                // ScrollTo takes an x and a y coordinate.
+                // Increase the '10' value to get a smoother/slower scroll!
+                window.scrollTo(0, c - c / 10);
+            }
+        };
+
+        // When the button is clicked, run our ScrolltoTop function above!
+        scrollToTopButton.onclick = function (e) {
+            e.preventDefault();
+            scrollToTop();
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("a").on('click', function (event) {
+
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+
+                    // Store hash
+                    var hash = this.hash;
+
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+
+                        // Add hash (#) to URL when done scrolling (default click behavior)
+                        window.location.hash = hash;
+                    });
+                } // End if
+            });
+        });
     </script>
 
     <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
