@@ -30,500 +30,8 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary-color: #64748b;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --light-bg: #f8fafc;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #334155;
-            background-color: var(--light-bg);
-        }
-
-        /* Enhanced Navbar */
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
-            box-shadow: var(--card-shadow);
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: white !important;
-        }
-
-        .nav-icon {
-            color: white !important;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.3s ease;
-            margin: 0 0.25rem;
-        }
-
-        .nav-icon:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .dropdown-toggle {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border: 1px solid rgba(255, 255, 255, 0.2) !important;
-            border-radius: 0.5rem !important;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-toggle:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            position: relative;
-            height: 60vh;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8), rgba(29, 78, 216, 0.9)), 
-                        url('icons/Blotter/blotter2.png') center center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            text-align: center;
-            color: white;
-            z-index: 2;
-            position: relative;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
-            letter-spacing: 2px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            font-weight: 300;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Section Styling */
-        .section {
-            padding: 5rem 0;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #1e293b;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
-            border-radius: 2px;
-        }
-
-        /* Blotter Reasons Grid */
-        .reasons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .reason-card {
-            position: relative;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            height: 250px;
-        }
-
-        .reason-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        .reason-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .reason-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .reason-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 2rem 1.5rem 1.5rem;
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .reason-card:hover .reason-overlay {
-            transform: translateY(0);
-        }
-
-        .reason-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Info Cards */
-        .info-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .info-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--card-shadow-hover);
-        }
-
-        .info-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .info-icon i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .info-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #1e293b;
-        }
-
-        .info-card p {
-            color: var(--secondary-color);
-            line-height: 1.7;
-        }
-
-        /* Apply Button */
-        .apply-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-            text-align: center;
-            padding: 4rem 0;
-            margin: 3rem 0;
-        }
-
-        .apply-button {
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 1rem 3rem;
-            font-size: 1.25rem;
-            font-weight: 600;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .apply-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            background: #f8fafc;
-        }
-
-        /* Modal Enhancements */
-        .modal-content {
-            border: none;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-            color: white;
-            border-radius: 1rem 1rem 0 0;
-            padding: 1.5rem 2rem;
-        }
-
-        .modal-title {
-            font-weight: 600;
-            font-size: 1.5rem;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .form-control {
-            border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .guidelines {
-            background: #f1f5f9;
-            border-left: 4px solid var(--primary-color);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .guidelines h6 {
-            color: var(--primary-color);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .guidelines ul {
-            margin: 0;
-            padding-left: 1.5rem;
-        }
-
-        .guidelines li {
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-        }
-
-        /* Image Preview */
-        .image-preview {
-            border: 2px dashed #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .image-preview:hover {
-            border-color: var(--primary-color);
-            background: #f8fafc;
-        }
-
-        .image-preview img {
-            max-width: 100%;
-            border-radius: 0.5rem;
-            box-shadow: var(--card-shadow);
-        }
-
-        /* Footer */
-        .footer {
-            background: #1e293b;
-            color: white;
-            padding: 3rem 0 2rem;
-        }
-
-        .footer-service {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .footer-service:hover {
-            background: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .footer-service i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        /* Back to Top */
-        .back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 50px;
-            height: 50px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .reasons-grid,
-            .info-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .navbar-brand {
-                font-size: 1rem;
-            }
-                     .footer-services {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Custom File Upload */
-        .custom-file-upload {
-            border: 2px dashed #cbd5e1;
-            border-radius: 0.5rem;
-            padding: 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .custom-file-upload:hover {
-            border-color: var(--primary-color);
-            background: #f8fafc;
-        }
-
-        .custom-file-upload input[type="file"] {
-            display: none;
-        }
-
-        /* Status Badges */
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-approved {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-rejected {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-    </style>
+    <link rel="stylesheet" href="css/svb.css">
+   
 </head>
 
 <body>
@@ -880,9 +388,9 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
 
                         </div>
                         <div class="card-footer bg-light">
-                            <button class="btn btn-sm btn-outline-primary" onclick="viewBlotterDetails(<?= $blotter_record['id_blotter'] ?>)">
+                            <!-- <button class="btn btn-sm btn-outline-primary" onclick="viewBlotterDetails(<?= $blotter_record['id_blotter'] ?>)">
                                 <i class="fas fa-eye me-1"></i>View Details
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -891,39 +399,42 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
         </div>
     </section>
     <?php endif; ?>
-
-    <!-- Footer -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="text-center mb-4">
-                <h3 class="text-white mb-4">Our Services</h3>
-                <div class="footer-services">
-                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Documents">
-                        <i class="fas fa-file"></i>
-                    </a>
-                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="ID Cards">
-                        <i class="fas fa-id-card"></i>
-                    </a>
-                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Community">
-                        <i class="fas fa-user-friends"></i>
-                    </a>
-                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Peace & Order">
-                        <i class="fas fa-shield-alt"></i>
-                    </a>
-                    <a href="#" class="footer-service" data-bs-toggle="tooltip" title="Contact Us">
-                        <i class="fas fa-phone"></i>
-                    </a>
+    <!-- Blotter Details Modal -->
+    <div class="modal fade" id="blotterDetailsModal" tabindex="-1" aria-labelledby="blotterDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="blotterDetailsModalLabel">
+                        <i class="fas fa-file-alt me-2"></i>Blotter Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="blotterDetailsContent">
+                        <!-- Content will be loaded here -->
+                        <div class="text-center py-4">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading blotter details...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Close
+                    </button>
+                    <button type="button" class="btn btn-primary" id="printBlotter">
+                        <i class="fas fa-print me-2"></i>Print
+                    </button>
                 </div>
             </div>
-            <hr class="border-light">
-            <div class="text-center">
-                <p class="mb-0">
-                    <script>document.write(new Date().getFullYear())</script>
-                    Nyarutarama Information & E-Services Management System | For Educational Purposes Only
-                </p>
-            </div>
         </div>
-    </footer>
+    </div>
+    <!-- Footer -->
+    <!-- Enhanced Footer -->
+ 
+
 
 <script>
         // FIXED: Restored original image preview function
