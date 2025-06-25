@@ -536,59 +536,32 @@ function profile() {
         <div class="container">
             <h3 class="text-center font-weight-bold mb-4" style="color: #2C54C1; letter-spacing: 1px;">Contact Us</h3>
             <div class="row justify-content-center">
-                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body p-2">
-                            <img src="icons/Contact/mikhos.png" alt="Mikhos Dungca" class="rounded-circle mb-2"
-                                width="80" height="80">
-                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Mikhos Dungca</h6>
-                            <p class="mb-0" style="font-size:0.95rem; color:#555;">0780041468</p>
+                        <div class="card-body p-3">
+                            <h6 class="font-weight-bold mb-2" style="color:#2C54C1;">Mikhos Dungca</h6>
+                            <p class="mb-0" style="font-size:1rem; color:#555;">0780041468</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body p-2">
-                            <img src="icons/Contact/pj.png" alt="PJ Mendros" class="rounded-circle mb-2" width="80"
-                                height="80">
-                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">PJ Mendros</h6>
-                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078678895252</p>
+                        <div class="card-body p-3">
+                            <h6 class="font-weight-bold mb-2" style="color:#2C54C1;">PJ Mendros</h6>
+                            <p class="mb-0" style="font-size:1rem; color:#555;">078678895252</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-2 mb-4">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body p-2">
-                            <img src="icons/Contact/vincent.png" alt="Vincent Vilfamat" class="rounded-circle mb-2"
-                                width="80" height="80">
-                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Vincent Vilfamat</h6>
-                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078877765557</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body p-2">
-                            <img src="icons/Contact/eugene.png" alt="Joel Evangelista" class="rounded-circle mb-2"
-                                width="80" height="80">
-                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Joel Evangelista</h6>
-                            <p class="mb-0" style="font-size:0.95rem; color:#555;">078665434487</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-2 mb-4">
-                    <div class="card h-100 shadow-sm border-0 text-center">
-                        <div class="card-body p-2">
-                            <img src="icons/Contact/kyle.png" alt="Kyle Pilapil" class="rounded-circle mb-2" width="80"
-                                height="80">
-                            <h6 class="font-weight-bold mb-1" style="color:#2C54C1;">Kyle Pilapil</h6>
-                            <p class="mb-0" style="font-size:0.95rem; color:#555;">09618853017</p>
+                        <div class="card-body p-3">
+                            <h6 class="font-weight-bold mb-2" style="color:#2C54C1;">Vincent Vilfamat</h6>
+                            <p class="mb-0" style="font-size:1rem; color:#555;">078877765557</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </div>    </section>
 
     <!--/.Fourth column-->
 

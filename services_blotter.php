@@ -107,43 +107,43 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
             <h2 class="section-title">Common Blotter Reasons</h2>
             <div class="reasons-grid">
                 <div class="reason-card" onclick="showReasonDetails('Physical Threatening')">
-                    <img src="icons/Blotter/blotter3.jpg" alt="Physical Threatening">
                     <div class="reason-overlay">
+                        <i class="fas fa-fist-raised fa-3x"></i>
                         <h3 class="reason-title">Physical Threatening</h3>
                         <p>Intimidation through physical gestures or verbal threats</p>
                     </div>
                 </div>
                 <div class="reason-card" onclick="showReasonDetails('Domestic Violence')">
-                    <img src="icons/Blotter/blotter4.jpg" alt="Domestic Violence">
                     <div class="reason-overlay">
+                        <i class="fas fa-house-damage fa-3x"></i>
                         <h3 class="reason-title">Domestic Violence</h3>
                         <p>Violence or abuse within household relationships</p>
                     </div>
                 </div>
                 <div class="reason-card" onclick="showReasonDetails('Aggressiveness')">
-                    <img src="icons/Blotter/blotter5.jpg" alt="Aggressiveness">
                     <div class="reason-overlay">
+                        <i class="fas fa-angry fa-3x"></i>
                         <h3 class="reason-title">Aggressiveness</h3>
                         <p>Hostile or violent behavior towards others</p>
                     </div>
                 </div>
                 <div class="reason-card" onclick="showReasonDetails('Sexual Harassment')">
-                    <img src="icons/Blotter/blotter6.jpg" alt="Sexual Harassment">
                     <div class="reason-overlay">
+                        <i class="fas fa-exclamation-triangle fa-3x"></i>
                         <h3 class="reason-title">Sexual Harassment</h3>
                         <p>Unwelcome sexual advances or conduct</p>
                     </div>
                 </div>
                 <div class="reason-card" onclick="showReasonDetails('Psychological Abuse')">
-                    <img src="icons/Blotter/blotter7.jpg" alt="Psychological Abuse">
                     <div class="reason-overlay">
+                        <i class="fas fa-brain fa-3x"></i>
                         <h3 class="reason-title">Psychological Abuse</h3>
                         <p>Mental or emotional abuse causing distress</p>
                     </div>
                 </div>
                 <div class="reason-card" onclick="showReasonDetails('Emotional Abuse')">
-                    <img src="icons/Blotter/blotter8.jpg" alt="Emotional Abuse">
                     <div class="reason-overlay">
+                        <i class="fas fa-heart-broken fa-3x"></i>
                         <h3 class="reason-title">Emotional Abuse</h3>
                         <p>Behavior that harms emotional well-being</p>
                     </div>
@@ -431,10 +431,6 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    <!-- Enhanced Footer -->
- 
-
 
 <script>
         // FIXED: Restored original image preview function
