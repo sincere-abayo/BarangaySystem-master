@@ -93,14 +93,28 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">Peace and Order</h1>
-            <p class="hero-subtitle">Ensuring safety and security in our community</p>
+
+    <!-- Apply Section -->
+    <section class="apply-section py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="hero-title display-3 mb-3">Peace and Order</h1>
+            <p class="hero-subtitle lead mb-5">Ensuring safety and security in our community</p>
+                    <h2 class="section-title mb-4">Need to Report an Incident?</h2>
+                    <p class="section-description mb-5">We take every complaint seriously. Our dedicated team is here to help you file a blotter report and ensure proper action is taken.</p>
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary btn-lg px-5 apply-button" data-bs-toggle="modal" data-bs-target="#complaintModal">
+                            <i class="fas fa-edit me-2"></i>Start Your Complaint
+                        </button>
+                        <a href="#reasons" class="btn btn-outline-primary btn-lg px-5 ms-3">
+                            <i class="fas fa-info-circle me-2"></i>Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
-
     <!-- Blotter Reasons Section -->
     <section id="reasons" class="section">
         <div class="container">
@@ -181,17 +195,6 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
                     <p>The blotter maintains written records of arrests and occurrences, documenting facts about incidents and charges to ensure proper handling of community disputes and legal matters.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Apply Section -->
-<section id="complain" class="apply-section">
-        <div class="container">
-            <h2 class="mb-4">File Your Complaint</h2>
-            <p class="mb-4">Ready to file a blotter report? Click the button below to get started.</p>
-            <button type="button" class="apply-button" data-bs-toggle="modal" data-bs-target="#complaintModal">
-                <i class="fas fa-edit me-2"></i>Apply Form
-            </button>
         </div>
     </section>
 
