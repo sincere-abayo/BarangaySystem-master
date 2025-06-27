@@ -228,8 +228,13 @@ $resident->create_resident();
 
     <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
+    // Set max date for birth date input to today
+    const bdateInput = document.getElementById('bdate');
+    const today = new Date().toISOString().split('T')[0];
+    bdateInput.setAttribute('max', today);
+
     // Age calculation
-    document.getElementById('bdate').addEventListener('change', function() {
+    bdateInput.addEventListener('change', function() {
         const bdate = new Date(this.value);
         if (!isNaN(bdate)) {
             const ageDifMs = Date.now() - bdate.getTime();
@@ -258,10 +263,23 @@ $resident->create_resident();
         password.addEventListener('change', validatePasswords);
         confirm_password.addEventListener('keyup', validatePasswords);
 
+        // Prevent future birth dates
+        function validateBirthDate() {
+            const bdateValue = bdateInput.value;
+            if (bdateValue && bdateValue > today) {
+                bdateInput.setCustomValidity('Future date is not allowed.');
+                bdateInput.reportValidity();
+            } else {
+                bdateInput.setCustomValidity('');
+            }
+        }
+        bdateInput.addEventListener('change', validateBirthDate);
+
         Array.prototype.slice.call(forms)
             .forEach(function(form) {
                 form.addEventListener('submit', function(event) {
                     validatePasswords();
+                    validateBirthDate();
                     if (!form.checkValidity()) {
                         event.preventDefault();
                         event.stopPropagation();
