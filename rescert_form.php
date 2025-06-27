@@ -19,6 +19,14 @@ $resident_data = $certificate->get_single_certofres($id_resident);
         .noprint {
             visibility: hidden;
         }
+
+        img.beverly-logo {
+            width: 120px !important;
+            max-width: 120px !important;
+            height: auto !important;
+            display: block;
+            margin: 0 auto 20px auto;
+        }
     }
 
     @page {
@@ -54,7 +62,7 @@ $resident_data = $certificate->get_single_certofres($id_resident);
             <div class="col-xs-12 col-sm-4 col-md-3"
                 style="background: white; border: 2px solid black; margin-bottom: 20px;">
                 <div style="text-align: center; margin-top: 10px;">
-                    <img src="icons/beverlylogo.png" alt="Barangay Logo"
+                    <img src="icons/beverlylogo.png" alt="Barangay Logo" class="beverly-logo"
                         style="width:90%; max-width:180px; height:auto; display:block; margin:0 auto 20px auto;" />
                 </div>
                 <div style="margin-top:10px; text-align: center; word-wrap: break-word;">
