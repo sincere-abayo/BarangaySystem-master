@@ -184,6 +184,21 @@ class Certificate extends Database
         return $stmt->fetch();
     }
 
+    public function view_certofindigency_by_resident($id_resident)
+    {
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT *, 
+            CASE 
+                WHEN notification_sent = 1 THEN 'Generated'
+                ELSE 'Pending'
+            END as status,
+            generated_date,
+            generated_by
+            FROM tbl_indigency WHERE id_resident = ? ORDER BY id_indigency DESC");
+        $stmt->execute([$id_resident]);
+        return $stmt->fetchAll();
+    }
+
     // Certificate of Residency
     public function create_certofres()
     {
@@ -236,7 +251,14 @@ class Certificate extends Database
     public function view_certofres_by_resident($id_resident)
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_rescert WHERE id_resident = ?");
+        $stmt = $connection->prepare("SELECT *, 
+            CASE 
+                WHEN notification_sent = 1 THEN 'Generated'
+                ELSE 'Pending'
+            END as status,
+            generated_date,
+            generated_by
+            FROM tbl_rescert WHERE id_resident = ? ORDER BY id_rescert DESC");
         $stmt->execute([$id_resident]);
         return $stmt->fetchAll();
     }
@@ -244,7 +266,14 @@ class Certificate extends Database
     public function view_brgyclearance_by_resident($id_resident)
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_clearance WHERE id_resident = ?");
+        $stmt = $connection->prepare("SELECT *, 
+            CASE 
+                WHEN notification_sent = 1 THEN 'Generated'
+                ELSE 'Pending'
+            END as status,
+            generated_date,
+            generated_by
+            FROM tbl_clearance WHERE id_resident = ? ORDER BY id_clearance DESC");
         $stmt->execute([$id_resident]);
         return $stmt->fetchAll();
     }

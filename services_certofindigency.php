@@ -14,15 +14,15 @@ $userdetails = $auth->get_userdata();
 // Handle form submission
 $certificate->create_certofindigency();
 
+// Get certificates with status information
 $certs = [];
 if (!empty($userdetails['id_resident'])) {
-    $all_certs = $certificate->view_certofindigency();
-    // Filter only this resident's certificates
-    foreach ($all_certs as $row) {
-        if ($row['id_resident'] == $userdetails['id_resident']) {
-            $certs[] = $row;
-        }
-    }
+    $certs = $certificate->view_certofindigency_by_resident($userdetails['id_resident']);
+} else {
+    // Debug: Check if user is logged in
+    echo '<div class="alert alert-warning">Debug: User ID not found. User details: ';
+    print_r($userdetails);
+    echo '</div>';
 }
 
 // Show a success message if redirected after submission
@@ -433,6 +433,8 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
                     <th>Municipality</th>
                     <th>Purpose</th>
                     <th>Date</th>
+                    <th>Status</th>
+                    <th>Generated Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -448,7 +450,35 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
                     <td><?= htmlspecialchars($row['municipal']) ?></td>
                     <td><?= htmlspecialchars($row['purpose']) ?></td>
                     <td><?= htmlspecialchars($row['date']) ?></td>
-
+                    <td>
+                        <?php
+                            $status = $row['status'] ?? 'Pending';
+                            if ($status === 'Generated'): ?>
+                        <span class="badge badge-success px-2 py-1">
+                            <i class="fas fa-check-circle mr-1"></i>Generated
+                        </span>
+                        <?php if (!empty($row['generated_by'])): ?>
+                        <br><small class="text-muted">by <?= htmlspecialchars($row['generated_by']) ?></small>
+                        <?php endif; ?>
+                        <?php else: ?>
+                        <span class="badge badge-warning px-2 py-1">
+                            <i class="fas fa-clock mr-1"></i>Pending
+                        </span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (!empty($row['generated_date'])): ?>
+                        <span class="text-success">
+                            <i class="fas fa-calendar-check mr-1"></i>
+                            <?= date('M d, Y', strtotime($row['generated_date'])) ?>
+                        </span>
+                        <?php else: ?>
+                        <span class="text-muted">
+                            <i class="fas fa-calendar-times mr-1"></i>
+                            Not yet generated
+                        </span>
+                        <?php endif; ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

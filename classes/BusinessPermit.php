@@ -94,7 +94,14 @@ class BusinessPermit extends Database
     public function view_bspermit_by_resident($id_resident)
     {
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_bspermit WHERE id_resident = ?");
+        $stmt = $connection->prepare("SELECT *, 
+            CASE 
+                WHEN notification_sent = 1 THEN 'Generated'
+                ELSE 'Pending'
+            END as status,
+            generated_date,
+            generated_by
+            FROM tbl_bspermit WHERE id_resident = ? ORDER BY id_bspermit DESC");
         $stmt->execute([$id_resident]);
         return $stmt->fetchAll();
     }

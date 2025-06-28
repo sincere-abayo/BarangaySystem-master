@@ -856,6 +856,8 @@ $requests = $permit->view_bspermit_by_resident($userdetails['id_resident']);
                                 <th scope="col"><i class="fas fa-industry"></i> Industry</th>
                                 <th scope="col"><i class="fas fa-ruler-combined"></i> Area (SqM)</th>
                                 <th scope="col"><i class="fas fa-map-marker-alt"></i> Address</th>
+                                <th scope="col"><i class="fas fa-info-circle"></i> Status</th>
+                                <th scope="col"><i class="fas fa-calendar"></i> Generated Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -873,6 +875,34 @@ $requests = $permit->view_bspermit_by_resident($userdetails['id_resident']);
                                         <?= htmlspecialchars($req['brgy']) ?>,
                                         <?= htmlspecialchars($req['municipal']) ?>
                                     </span>
+                                </td>
+                                <td>
+                                    <?php if ($req['status'] === 'Generated'): ?>
+                                    <span class="badge badge-success px-2 py-1">
+                                        <i class="fas fa-check-circle mr-1"></i>Generated
+                                    </span>
+                                    <?php if ($req['generated_by']): ?>
+                                    <br><small class="text-muted">by
+                                        <?= htmlspecialchars($req['generated_by']) ?></small>
+                                    <?php endif; ?>
+                                    <?php else: ?>
+                                    <span class="badge badge-warning px-2 py-1">
+                                        <i class="fas fa-clock mr-1"></i>Pending
+                                    </span>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($req['generated_date']): ?>
+                                    <span class="text-success">
+                                        <i class="fas fa-calendar-check mr-1"></i>
+                                        <?= date('M d, Y', strtotime($req['generated_date'])) ?>
+                                    </span>
+                                    <?php else: ?>
+                                    <span class="text-muted">
+                                        <i class="fas fa-calendar-times mr-1"></i>
+                                        Not yet generated
+                                    </span>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
