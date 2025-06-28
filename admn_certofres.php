@@ -25,24 +25,24 @@ include('dashboard_sidebar_start.php');
 ?>
 
 <style>
-    .input-icons i {
-        position: absolute;
-    }
+.input-icons i {
+    position: absolute;
+}
 
-    .input-icons {
-        width: 30%;
-        margin-bottom: 10px;
-        margin-left: 34%;
-    }
+.input-icons {
+    width: 30%;
+    margin-bottom: 10px;
+    margin-left: 34%;
+}
 
-    .icon {
-        padding: 10px;
-        min-width: 40px;
-    }
+.icon {
+    padding: 10px;
+    min-width: 40px;
+}
 
-    .form-control {
-        text-align: center;
-    }
+.form-control {
+    text-align: center;
+}
 </style>
 
 <!-- Begin Page Content -->
@@ -107,6 +107,48 @@ include('dashboard_sidebar_start.php');
 <!-- fontawesome icons -->
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 <script src="bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
+
+<script>
+$(document).ready(function() {
+    // Handle notification button clicks
+    $('.notify-btn').on('click', function() {
+        const button = $(this);
+        const serviceType = button.data('service-type');
+        const residentId = button.data('resident-id');
+        const certificateId = button.data('certificate-id');
+
+        // Disable button to prevent double-clicking
+        button.prop('disabled', true).text('Sending...');
+
+        // Send notification request
+        $.ajax({
+            url: 'notify_resident.php',
+            type: 'POST',
+            data: {
+                service_type: serviceType,
+                id_resident: residentId,
+                certificate_id: certificateId
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    button.removeClass('btn-info').addClass('btn-success').text('Notified');
+                    alert('Notification sent successfully!\nEmail: ' + (response
+                        .email_sent ? 'Yes' : 'No') + '\nSMS: ' + (response
+                        .sms_sent ? 'Yes' : 'No'));
+                } else {
+                    button.prop('disabled', false).text('Notify');
+                    alert('Error sending notification: ' + response.message);
+                }
+            },
+            error: function() {
+                button.prop('disabled', false).text('Notify');
+                alert('Error sending notification. Please try again.');
+            }
+        });
+    });
+});
+</script>
 
 <?php
 include('dashboard_sidebar_end.php');

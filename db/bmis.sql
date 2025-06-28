@@ -279,7 +279,7 @@ INSERT INTO `tbl_resident` (`id_resident`, `res_photo`, `email`, `password`, `ln
 CREATE TABLE `tbl_user` (
   `id_user` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL, 
   `lname` varchar(255) NOT NULL,
   `fname` varchar(255) NOT NULL,
   `mi` varchar(255) NOT NULL,

@@ -65,8 +65,8 @@ include('dashboard_sidebar_start.php');
                             <div class="col">
                                 <div class="form-group">
                                     <label class="mtop">Contact Number:</label>
-                                    <input type="tel" class="form-control" name="contact" maxlength="11"
-                                        pattern="[0-9]{11}" value="<?= $view['contact'] ?>" required>
+                                    <input type="number" class="form-control" name="contact" maxlength="11"
+                                        pattern="[0-9]{10}" value="<?= $view['contact'] ?>" required>
                                 </div>
                             </div>
 

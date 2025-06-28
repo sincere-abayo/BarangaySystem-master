@@ -1,0 +1,20 @@
+{
+    "name": "barangay/notification-system",
+    "description": "Barangay Management System with notification capabilities",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Barangay Admin",
+            "email": "admin@barangay.com"
+        }
+    ],
+    "require": {
+        "africastalking/africastalking": "^3.0",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "classes/"
+        }
+    }
+} 

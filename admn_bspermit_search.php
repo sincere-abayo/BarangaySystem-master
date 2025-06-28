@@ -36,8 +36,16 @@ if (isset($_POST['search_bspermit'])) {
                 <tr>
                     <td>
                         <form action="" method="post">
-
-                            <input type="hidden" name="id_bspermitid" value="<?= $view['id_bspermitid']; ?>">
+                            <a class="btn btn-success" target="blank"
+                                style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                href="businesspermit_form.php?id_resident=<?= $view['id_resident']; ?>">Generate</a>
+                            <button type="button" class="btn btn-info notify-btn"
+                                style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                data-service-type="business_permit" data-resident-id="<?= $view['id_resident']; ?>"
+                                data-certificate-id="<?= $view['id_bspermit']; ?>" <?= $view['notification_sent'] ? 'disabled' : '' ?>>
+                                <?= $view['notification_sent'] ? 'Notified' : 'Notify' ?>
+                            </button>
+                            <input type="hidden" name="id_bspermitid" value="<?= $view['id_bspermit']; ?>">
                             <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;"
                                 type="submit" name="delete_bspermitid"> Archive </button>
                         </form>
@@ -60,7 +68,7 @@ if (isset($_POST['search_bspermit'])) {
         </tbody>
 
     </table>
-<?php
+    <?php
 } else {
     ?>
     <table class="table table-hover text-center table-bordered table-responsive">
@@ -88,8 +96,16 @@ if (isset($_POST['search_bspermit'])) {
                     <tr>
                         <td>
                             <form action="" method="post">
-
-                                <input type="hidden" name="id_bspermitid" value="<?= $view['id_bspermitid']; ?>">
+                                <a class="btn btn-success" target="blank"
+                                    style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                    href="businesspermit_form.php?id_resident=<?= $view['id_resident']; ?>">Generate</a>
+                                <button type="button" class="btn btn-info notify-btn"
+                                    style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                    data-service-type="business_permit" data-resident-id="<?= $view['id_resident']; ?>"
+                                    data-certificate-id="<?= $view['id_bspermit']; ?>" <?= $view['notification_sent'] ? 'disabled' : '' ?>>
+                                    <?= $view['notification_sent'] ? 'Notified' : 'Notify' ?>
+                                </button>
+                                <input type="hidden" name="id_bspermitid" value="<?= $view['id_bspermit']; ?>">
                                 <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;"
                                     type="submit" name="delete_bspermitid"> Archive </button>
                             </form>

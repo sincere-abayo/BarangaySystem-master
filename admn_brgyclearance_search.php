@@ -1,13 +1,11 @@
 <?php
 // require the database connection
 require 'classes/conn.php';
-if (isset($_POST['search_bspermit'])) {
+if (isset($_POST['search_clearance'])) {
     $keyword = $_POST['keyword'];
     ?>
-
     <table class="table table-hover text-center table-bordered table-responsive">
         <thead class="alert-info">
-
             <tr>
                 <th> Actions</th>
                 <th> Resident ID </th>
@@ -17,7 +15,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Purpose </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> vvillage </th>
+                <th> Village </th>
                 <th> Municipality </th>
                 <th> Status </th>
                 <th> Age </th>
@@ -26,50 +24,55 @@ if (isset($_POST['search_bspermit'])) {
 
         <tbody>
             <?php
-
-            $stmnt = $conn->prepare("SELECT * FROM `tbl_bspermit` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
-            or `bsname` LIKE '%$keyword%' or  `id_resident` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%' or  `street` LIKE '%$keyword%'
-            or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `bsindustry` LIKE '%$keyword%' or `aoe` LIKE '%$keyword%' ");
+            $stmnt = $conn->prepare("SELECT * FROM `tbl_clearance` WHERE `lname` LIKE '%$keyword%' or  `mi` LIKE '%$keyword%' or  `fname` LIKE '%$keyword%' 
+            or `age` LIKE '%$keyword%' or  `id_resident` LIKE '%$keyword%' or  `nationality` LIKE '%$keyword%' or  `houseno` LIKE '%$keyword%'
+            or `street` LIKE '%$keyword%' or `brgy` LIKE '%$keyword%' or `municipal` LIKE '%$keyword%' or `date` LIKE '%$keyword%' or `purpose` LIKE '%$keyword%'");
             $stmnt->execute();
 
-            while ($view = $stmnt->fetch()) {
+            while ($clearance_data = $stmnt->fetch()) {
                 ?>
                 <tr>
                     <td>
                         <form action="" method="post">
                             <a class="btn btn-success" target="blank"
                                 style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
-                                href="rescert_form.php?id_resident=<?= $view['id_resident']; ?>">Generate</a>
-                            <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
-                            <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;"
-                                type="submit" name="delete_certofres"> Archive </button>
+                                href="brgyclearance_form.php?id_resident=<?= $clearance_data['id_resident']; ?>">Generate</a>
+                            <button type="button" class="btn btn-info notify-btn"
+                                style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                data-service-type="clearance" data-resident-id="<?= $clearance_data['id_resident']; ?>"
+                                data-certificate-id="<?= $clearance_data['id_clearance']; ?>"
+                                <?= $clearance_data['notification_sent'] ? 'disabled' : '' ?>>
+                                <?= $clearance_data['notification_sent'] ? 'Notified' : 'Notify' ?>
+                            </button>
+                            <input type="hidden" name="id_clearance" value="<?= $clearance_data['id_clearance']; ?>">
+                            <button class="btn btn-danger" type="submit"
+                                style="width: 90px; font-size: 17px; border-radius:30px;" name="delete_clearance"> Archive
+                            </button>
                         </form>
                     </td>
-                    <td> <?= $view['id_resident']; ?> </td>
-                    <td> <?= $view['lname']; ?> </td>
-                    <td> <?= $view['fname']; ?> </td>
-                    <td> <?= $view['mi']; ?> </td>
-                    <td> <?= $view['purpose']; ?> </td>
-                    <td> <?= $view['houseno']; ?> </td>
-                    <td> <?= $view['street']; ?> </td>
-                    <td> <?= $view['brgy']; ?> </td>
-                    <td> <?= $view['municipal']; ?> </td>
-                    <td> <?= $view['status']; ?> </td>
-                    <td> <?= $view['age']; ?> </td>
+                    <td> <?= $clearance_data['id_resident']; ?> </td>
+                    <td> <?= $clearance_data['lname']; ?> </td>
+                    <td> <?= $clearance_data['fname']; ?> </td>
+                    <td> <?= $clearance_data['mi']; ?> </td>
+                    <td> <?= $clearance_data['purpose']; ?> </td>
+                    <td> <?= $clearance_data['houseno']; ?> </td>
+                    <td> <?= $clearance_data['street']; ?> </td>
+                    <td> <?= $clearance_data['brgy']; ?> </td>
+                    <td> <?= $clearance_data['municipal']; ?> </td>
+                    <td> <?= $clearance_data['status']; ?> </td>
+                    <td> <?= $clearance_data['age']; ?> </td>
                 </tr>
                 <?php
             }
             ?>
         </tbody>
-
     </table>
 
-<?php
+    <?php
 } else {
     ?>
 
     <table class="table table-hover text-center table-bordered table-responsive">
-
         <thead class="alert-info">
             <tr>
                 <th> Actions</th>
@@ -80,7 +83,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Purpose </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> village </th>
+                <th> Village </th>
                 <th> Municipality </th>
                 <th> Status </th>
                 <th> Age </th>
@@ -89,29 +92,37 @@ if (isset($_POST['search_bspermit'])) {
 
         <tbody>
             <?php if (is_array($view)) { ?>
-                <?php foreach ($view as $view) { ?>
+                <?php foreach ($view as $clearance_data) { ?>
                     <tr>
                         <td>
                             <form action="" method="post">
                                 <a class="btn btn-success" target="blank"
                                     style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
-                                    href="rescert_form.php?id_resident=<?= $view['id_resident']; ?>">Generate</a>
-                                <input type="hidden" name="id_rescert" value="<?= $view['id_rescert']; ?>">
-                                <button class="btn btn-danger" style="width: 90px; font-size: 17px; border-radius:30px;"
-                                    type="submit" name="delete_certofres"> Archive </button>
+                                    href="brgyclearance_form.php?id_resident=<?= $clearance_data['id_resident']; ?>">Generate</a>
+                                <button type="button" class="btn btn-info notify-btn"
+                                    style="width: 90px; font-size: 17px; border-radius:30px; margin-bottom: 2px;"
+                                    data-service-type="clearance" data-resident-id="<?= $clearance_data['id_resident']; ?>"
+                                    data-certificate-id="<?= $clearance_data['id_clearance']; ?>"
+                                    <?= $clearance_data['notification_sent'] ? 'disabled' : '' ?>>
+                                    <?= $clearance_data['notification_sent'] ? 'Notified' : 'Notify' ?>
+                                </button>
+                                <input type="hidden" name="id_clearance" value="<?= $clearance_data['id_clearance']; ?>">
+                                <button class="btn btn-danger" type="submit"
+                                    style="width: 90px; font-size: 17px; border-radius:30px;" name="delete_clearance"> Archive
+                                </button>
                             </form>
                         </td>
-                        <td> <?= $view['id_resident']; ?> </td>
-                        <td> <?= $view['lname']; ?> </td>
-                        <td> <?= $view['fname']; ?> </td>
-                        <td> <?= $view['mi']; ?> </td>
-                        <td> <?= $view['purpose']; ?> </td>
-                        <td> <?= $view['houseno']; ?> </td>
-                        <td> <?= $view['street']; ?> </td>
-                        <td> <?= $view['brgy']; ?> </td>
-                        <td> <?= $view['municipal']; ?> </td>
-                        <td> <?= $view['status']; ?> </td>
-                        <td> <?= $view['age']; ?> </td>
+                        <td> <?= $clearance_data['id_resident']; ?> </td>
+                        <td> <?= $clearance_data['lname']; ?> </td>
+                        <td> <?= $clearance_data['fname']; ?> </td>
+                        <td> <?= $clearance_data['mi']; ?> </td>
+                        <td> <?= $clearance_data['purpose']; ?> </td>
+                        <td> <?= $clearance_data['houseno']; ?> </td>
+                        <td> <?= $clearance_data['street']; ?> </td>
+                        <td> <?= $clearance_data['brgy']; ?> </td>
+                        <td> <?= $clearance_data['municipal']; ?> </td>
+                        <td> <?= $clearance_data['status']; ?> </td>
+                        <td> <?= $clearance_data['age']; ?> </td>
                     </tr>
                     <?php
                 }
@@ -120,7 +131,6 @@ if (isset($_POST['search_bspermit'])) {
             }
             ?>
         </tbody>
-
     </table>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
