@@ -98,7 +98,7 @@ include('dashboard_sidebar_start.php');
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label> Barangay: </label>
+                                    <label> Cell: </label>
                                     <input type="text" class="form-control" name="brgy" value="<?= $view['brgy'] ?>"
                                         required>
                                 </div>

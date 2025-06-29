@@ -31,7 +31,7 @@ $staff_data = $staff->get_single_staff($id_user);
 
     <!-- Page Heading -->
 
-    <h1 class="mb-4 text-center">Barangay Staff Data</h1>
+    <h1 class="mb-4 text-center">Cell Staff Data</h1>
 
     <hr>
     <br>
@@ -40,7 +40,7 @@ $staff_data = $staff->get_single_staff($id_user);
         <div class="col-md-2"> </div>
         <div class="col-md-8">
             <div class="card"> 
-                <div class="card-header bg-primary text-white"> Update Barangay Staff Data </div>
+                <div class="card-header bg-primary text-white"> Update Cell Staff Data </div>
                 <div class="card-body"> 
                     <form method="post">
                         <div class="row">

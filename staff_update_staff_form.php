@@ -24,7 +24,7 @@ include('dashboard_sidebar_start_staff.php');
 
     <!-- Page Heading -->
 
-    <h1 class="mb-4 text-center">Barangay Staff Data</h1>
+    <h1 class="mb-4 text-center">Cell Staff Data</h1>
 
     <hr>
     <br>
@@ -33,7 +33,7 @@ include('dashboard_sidebar_start_staff.php');
         <div class="col-md-2"> </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-primary text-white"> Update Barangay Staff Data </div>
+                <div class="card-header bg-primary text-white"> Update Cell Staff Data </div>
                 <div class="card-body">
                     <form method="post">
                         <div class="row">
@@ -89,8 +89,8 @@ include('dashboard_sidebar_start_staff.php');
                             </div>
                             <div class="col">
                                 <div class="form-group">
-                                    <label>Barangay:</label>
-                                    <input class="form-control" type="text" name="brgy" placeholder="Enter Barangay"
+                                    <label>Cell:</label>
+                                    <input class="form-control" type="text" name="brgy" placeholder="Enter Cell"
                                         value="<?= $staff['brgy']; ?>">
                                 </div>
                             </div>

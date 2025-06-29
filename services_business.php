@@ -657,7 +657,7 @@ $requests = $permit->view_bspermit_by_resident($userdetails['id_resident']);
                             <p class="card-text">
                                 <li> DTI Business Name Certificate or SEC Registration Certificate </li>
                                 <li> Latest Community Tax Certificate (Cedula) </li>
-                                <li> Barangay Clearance </li>
+                                <li> Cell Clearance </li>
                                 <li> Location Clearance </li>
                                 <li> Certificate of Occupancy </li>
                                 <li> Building Permit </li>
@@ -785,8 +785,8 @@ $requests = $permit->view_bspermit_by_resident($userdetails['id_resident']);
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label>Barangay:</label>
-                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
+                                        <label>Cell:</label>
+                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Cell"
                                             value="<?= htmlspecialchars($userdetails['brgy'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>

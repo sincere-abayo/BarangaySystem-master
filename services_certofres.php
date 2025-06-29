@@ -126,7 +126,7 @@ $requests = $certificate->view_certofres_by_resident($userdetails['id_resident']
                 <div class="header">
                     <h1 class="text1">Certificate of Residency</h1>
                     <h5>
-                        A Certificate of Residency is a document issued by the barangay/cell to prove that a person is a
+                        A Certificate of Residency is a document issued by the cell to prove that a person is a
                         resident of a certain area.<br>
                         This is often required for employment, school, or other legal purposes.
                     </h5>
@@ -165,7 +165,7 @@ $requests = $certificate->view_certofres_by_resident($userdetails['id_resident']
                 <i class="fas fa-thumbs-up fa-7x"></i>
                 <br><br>
                 <h3>Step 3: Approval</h3>
-                <p>Your request will be reviewed and approved by the barangay/cell.</p>
+                <p>Your request will be reviewed and approved by the cell.</p>
             </div>
             <div class="col">
                 <i class="fas fa-file fa-7x"></i>
@@ -196,7 +196,7 @@ $requests = $certificate->view_certofres_by_resident($userdetails['id_resident']
                     </div>
                     <div class="card-body">
                         <ul style="text-align: left; font-size: 16px;">
-                            <li> Must be a resident of the barangay/cell. </li>
+                            <li> Must be a resident of the cell. </li>
                         </ul>
                     </div>
                 </div>
@@ -345,8 +345,8 @@ $requests = $certificate->view_certofres_by_resident($userdetails['id_resident']
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <label for="brgy">Barangay:</label>
-                                        <input name="brgy" type="text" class="form-control" placeholder="Enter Barangay"
+                                        <label for="brgy">Cell:</label>
+                                        <input name="brgy" type="text" class="form-control" placeholder="Enter Cell"
                                             value="<?= htmlspecialchars($userdetails['brgy'] ?? '') ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
@@ -413,7 +413,7 @@ $requests = $certificate->view_certofres_by_resident($userdetails['id_resident']
                     <th>Nationality</th>
                     <th>House No</th>
                     <th>Street</th>
-                    <th>Barangay</th>
+                    <th>Cell</th>
                     <th>Municipality</th>
                     <th>Purpose</th>
                     <th>Date</th>

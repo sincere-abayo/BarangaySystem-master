@@ -4,7 +4,7 @@ require_once 'Database.php';
 
 class Certificate extends Database
 {
-    // Barangay ID
+    // Cell ID
     public function create_brgyid()
     {
         if (isset($_POST['create_brgyid'])) {
@@ -30,7 +30,7 @@ class Certificate extends Database
             $connection = $this->openConn();
             $stmt = $connection->prepare("INSERT INTO tbl_brgyid (id_resident, lname, fname, mi, houseno, street, brgy, municipal, bplace, bdate, inc_lname, inc_fname, inc_mi, inc_contact, inc_houseno, inc_street, inc_brgy, inc_municipal) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute([$id_resident, $lname, $fname, $mi, $houseno, $street, $brgy, $municipal, $bplace, $bdate, $inc_lname, $inc_fname, $inc_mi, $inc_contact, $inc_houseno, $inc_street, $inc_brgy, $inc_municipal]);
-            echo '<script>alert("Barangay ID request added successfully!");</script>';
+            echo '<script>alert("Cell ID request added successfully!");</script>';
         }
     }
     public function view_brgyid()
@@ -47,7 +47,7 @@ class Certificate extends Database
             $connection = $this->openConn();
             $stmt = $connection->prepare("DELETE FROM tbl_brgyid WHERE id_brgyid = ?");
             $stmt->execute([$id_brgyid]);
-            echo '<script>alert("Barangay ID data has been removed!");</script>';
+            echo '<script>alert("Cell ID data has been removed!");</script>';
         }
     }
 
@@ -59,7 +59,7 @@ class Certificate extends Database
         return $stmt->fetch();
     }
 
-    // Barangay Clearance
+    // Cell Clearance
     public function create_brgyclearance()
     {
         if (isset($_POST['create_brgyclearance'])) {
@@ -78,7 +78,7 @@ class Certificate extends Database
             $connection = $this->openConn();
             $stmt = $connection->prepare("INSERT INTO tbl_clearance (id_resident, lname, fname, mi, purpose, houseno, street, brgy, municipal, status, age) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->execute([$id_resident, $lname, $fname, $mi, $purpose, $houseno, $street, $brgy, $municipal, $status, $age]);
-            echo '<script>alert("Barangay Clearance request added successfully!");</script>';
+            echo '<script>alert("Cell Clearance request added successfully!");</script>';
         }
     }
     public function view_clearance()
@@ -95,7 +95,7 @@ class Certificate extends Database
             $connection = $this->openConn();
             $stmt = $connection->prepare("DELETE FROM tbl_clearance WHERE id_clearance = ?");
             $stmt->execute([$id_clearance]);
-            echo '<script>alert("Barangay Clearance data has been removed!");</script>';
+            echo '<script>alert("Cell Clearance data has been removed!");</script>';
         }
     }
 

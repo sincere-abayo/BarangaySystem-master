@@ -45,7 +45,7 @@ include('dashboard_sidebar_start_staff.php');
 
     <div class="row">
         <div class="col text-center">
-            <h1> Registered Voters in the Barangay </h1>
+            <h1> Registered Voters in the Cell </h1>
         </div>
     </div>
 

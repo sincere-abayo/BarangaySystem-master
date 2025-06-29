@@ -17,7 +17,7 @@
             <th> Nationality </th>
             <th> House Number </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Cell </th>
             <th> Municipality </th>
             <th> Purpose </th>
             <th> Date </th>
@@ -79,7 +79,7 @@
             <th> Nationality </th>
             <th> House Number </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Cell </th>
             <th> Municipality </th>
             <th> Purpose </th>
             <th> Date </th>

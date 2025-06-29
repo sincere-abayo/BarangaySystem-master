@@ -16,7 +16,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Business Name </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Business Industry </th>
                 <th> Area of Establishment </th>
@@ -78,7 +78,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Business Name </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Business Industry </th>
                 <th> Area of Establishment </th>

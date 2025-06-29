@@ -16,7 +16,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Purpose </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Nyarutarama </th>
                 <th> Municipality </th>
                 <th> Status </th>
                 <th> Age </th>
@@ -78,7 +78,7 @@ if (isset($_POST['search_bspermit'])) {
                 <th> Purpose </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Nyarutarama </th>
                 <th> Municipality </th>
                 <th> Status </th>
                 <th> Age </th>

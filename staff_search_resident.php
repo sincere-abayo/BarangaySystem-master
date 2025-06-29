@@ -18,7 +18,7 @@ if (isset($_POST['search_resident'])) {
                 <th> Status </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Contact </th>
                 <th> Birth date </th>
@@ -92,7 +92,7 @@ if (isset($_POST['search_resident'])) {
                 <th> Status </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Contact </th>
                 <th> Birth date </th>

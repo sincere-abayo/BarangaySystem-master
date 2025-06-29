@@ -462,7 +462,7 @@ $residentObj->profile_update();
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label>Barangay:</label>
+                                <label>Cell:</label>
                                 <input class="form-control" type="text" name="brgy"
                                     value="<?= $residentData['brgy']; ?>">
                             </div>

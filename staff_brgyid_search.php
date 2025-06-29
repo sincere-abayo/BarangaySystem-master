@@ -14,7 +14,7 @@
                 <th> Middle Name </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Birth Date </th>
                 <th> Birth Place </th>
@@ -37,7 +37,7 @@
 			<tr>
                 <td>    
                     <form action="" method="post">
-                        <a class="btn btn-primary" target="blank" style="width: 90px; font-size: 17px; border-radius:30px;"  href="barangayid_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
+                        <a class="btn btn-primary" target="blank" style="width: 90px; font-size: 17px; border-radius:30px;"  href="Cellid_form.php?id_resident=<?= $view['id_resident'];?>">Generate</a> 
                         <input type="hidden" name="id_rescert" value="<?= $view['id_rescert'];?>">
                     </form>
                 </td>
@@ -75,7 +75,7 @@
                 <th> Middle Name </th>
                 <th> House No. </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Birth Date </th>
                 <th> Birth Place </th>

@@ -3,7 +3,7 @@ require_once 'classes/Authentication.php';
 require_once 'classes/Notification.php';
 require_once 'classes/resident.class.php';
 
-echo "<h2>Testing Barangay Clearance Notification System</h2>";
+echo "<h2>Testing Cell Clearance Notification System</h2>";
 
 try {
     $auth = new Authentication();
@@ -36,7 +36,7 @@ try {
 
     // Test data for clearance notification
     $clearance_data = [
-        'service_type' => 'Barangay Clearance',
+        'service_type' => 'Nyarutarama Clearance',
         'certificate_number' => 'CLR-' . $test_clearance_id,
         'date' => date('Y-m-d'),
         'generated_date' => date('Y-m-d H:i:s')
@@ -94,7 +94,7 @@ try {
     echo "<p><strong>Database Updated:</strong> " . ($updateResult ? 'Yes' : 'No') . "</p>";
 
     if ($emailResult && $smsResult && $updateResult) {
-        echo "<p style='color: green; font-weight: bold;'>🎉 All tests passed! Barangay clearance notification system is working correctly.</p>";
+        echo "<p style='color: green; font-weight: bold;'>🎉 All tests passed! Cell clearance notification system is working correctly.</p>";
     } else {
         echo "<p style='color: orange; font-weight: bold;'>⚠️ Some tests failed. Please check the configuration.</p>";
     }

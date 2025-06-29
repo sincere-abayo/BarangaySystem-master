@@ -16,7 +16,7 @@
             <th> Middle Name </th>
             <th> House No. </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Cell </th>
             <th> Municipality </th>
             <th> Birth Date </th>
             <th> Birth Place </th>
@@ -78,7 +78,7 @@
             <th> Middle Name </th>
             <th> House No. </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Cell </th>
             <th> Municipality </th>
             <th> Birth Date </th>
             <th> Birth Place </th>

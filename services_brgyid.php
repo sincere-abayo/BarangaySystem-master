@@ -11,7 +11,7 @@ $certificate->create_brgyid();
 <html>
 
 <head>
-    <title> Barangay Management System </title>
+    <title> Cell Management System </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"
         integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w=="
@@ -411,7 +411,7 @@ $certificate->create_brgyid();
     <!-- Eto yung navbar -->
 
     <nav class="navbar navbar-dark bg-primary sticky-top">
-        <a class="navbar-brand" href="resident_homepage.php">Barangay Information & E-Services Management System</a>
+        <a class="navbar-brand" href="resident_homepage.php">Cell Information & E-Services Management System</a>
         <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn1 bg-primary"><i
                 class="fa fa-home fa-lg"></i></a>
         <a href="#down3" data-toggle="tooltip" title="Procedure" class="btn5 bg-primary"><i
@@ -442,9 +442,9 @@ $certificate->create_brgyid();
         <div class="row">
             <div class="col">
                 <div class="header">
-                    <h1 class="text1">Barangay ID </h1>
-                    <h5> A Barangay ID is a proof for your personal information that can
-                        <br> be issued by the Barangay Staff.
+                    <h1 class="text1">cell ID </h1>
+                    <h5> A cell ID is a proof for your personal information that can
+                        <br> be issued by the cell Staff.
                     </h5>
                 </div>
 
@@ -616,7 +616,7 @@ $certificate->create_brgyid();
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Barangay ID Form</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Cell ID Form</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -711,8 +711,8 @@ $certificate->create_brgyid();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Barangay: </label>
-                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
+                                        <label> Cell: </label>
+                                        <input type="text" class="form-control" name="brgy" placeholder="Enter Cell"
                                             value="<?= $userdetails['brgy'] ?>" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
@@ -779,7 +779,7 @@ $certificate->create_brgyid();
                             <div class="row">
 
                                 <div class="col">
-                                    <label>Barangay ID Photo:</label>
+                                    <label>Cell ID Photo:</label>
                                     <div class="custom-file mb-3 form-group">
                                         <input type="file" onchange="readURL(this);" class="custom-file-input"
                                             id="customFile" name="res_photo" required>
@@ -877,9 +877,9 @@ $certificate->create_brgyid();
 
                                 <div class="col">
                                     <div class="form-group">
-                                        <label> Barangay: </label>
+                                        <label> Cell: </label>
                                         <input type="text" class="form-control" name="inc_brgy"
-                                            placeholder="Enter Barangay" required>
+                                            placeholder="Enter Cell" required>
                                         <div class="valid-feedback">Valid.</div>
                                         <div class="invalid-feedback">Please fill out this field.</div>
                                     </div>
@@ -991,10 +991,10 @@ $certificate->create_brgyid();
                     </div>
                     <ul class="list-unstyled collapse" id="Documentation">
                         <li><a href="services_certofres.php">Certificate of Residency</a></li>
-                        <li><a href="services_brgyclearance.php">Barangay Clearance</a></li>
+                        <li><a href="services_brgyclearance.php">Cell Clearance</a></li>
                         <li><a href="services_certofindigency.php">Certificate of Indigency</a></li>
                         <li><a href="services_business.php">Business Permit</a></li>
-                        <li><a href="services_brgyid.php">Barangay ID</a></li>
+                        <li><a href="services_brgyid.php">Cell ID</a></li>
                     </ul>
                 </div>
 

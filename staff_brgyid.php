@@ -44,7 +44,7 @@ require('classes/resident.class.php');
 
     <div class="row"> 
         <div class="col text-center"> 
-            <h1> Barangay ID Card Requests</h1>
+            <h1> Cell ID Card Requests</h1>
         </div>
     </div>
 

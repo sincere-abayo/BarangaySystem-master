@@ -16,7 +16,7 @@
             <th> Middle Name </th>
             <th> House No. </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Nyarutarama </th>
             <th> Municipality </th>
             <th> Blotter Image </th>
             <th> Contact # </th>
@@ -79,7 +79,7 @@
             <th> Middle Name </th>
             <th> House No. </th>
             <th> Street </th>
-            <th> Barangay </th>
+            <th> Nyarutarama </th>
             <th> Municipality </th>
             <th> Contact # </th>
             <th> Narrative Report </th>

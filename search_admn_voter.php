@@ -15,7 +15,7 @@
                 <th> Middle name </th>
                 <th> House No.</th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Nationality </th>
                 <th> Role </th>
                 <th> Added By </th>
@@ -64,7 +64,7 @@
                 <th> Middle name </th>
                 <th> House No.</th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Nationality </th>
                 <th> Role </th>
                 <th> Added By </th>

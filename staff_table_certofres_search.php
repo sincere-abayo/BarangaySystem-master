@@ -16,7 +16,7 @@ if (isset($_POST['search_certofres'])) {
                 <th> Nationality </th>
                 <th> House Number </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Date </th>
                 <th> Purpose </th>
@@ -79,7 +79,7 @@ if (isset($_POST['search_certofres'])) {
                 <th> Nationality </th>
                 <th> House Number </th>
                 <th> Street </th>
-                <th> Barangay </th>
+                <th> Cell </th>
                 <th> Municipality </th>
                 <th> Date </th>
                 <th> Purpose </th>

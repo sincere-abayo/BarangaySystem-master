@@ -32,7 +32,7 @@ $status = $clearance['status'];
 
 <head>
     <meta charset="UTF-8">
-    <title>Barangay Clearance Certificate</title>
+    <title>Nyarutarama Clearance Certificate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet">

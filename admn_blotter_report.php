@@ -144,7 +144,7 @@ $blotters = $stmt->fetchAll();
                             <th>Middle Name</th>
                             <th>House No</th>
                             <th>Street</th>
-                            <th>Barangay</th>
+                            <th>Cell</th>
                             <th>Municipal</th>
                             <th>Contact</th>
                             <th>Narrative</th>

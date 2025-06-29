@@ -106,7 +106,7 @@ $resident = $resident->get_single_brgyid($id_resident);
 
 <head>
   <meta charset="UTF-8">
-  <title>Barangay Information System</title>
+  <title>Nyarutarama Information System</title>
   <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
   <!-- bootstrap 3.0.2 -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -120,16 +120,10 @@ $resident = $resident->get_single_brgyid($id_resident);
   <link href="./BarangaySystem/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
   <link href="bootstrap/css/select2.css" rel="stylesheet" type="text/css" />
   <script src="bootstrap/css/jquery-1.12.3.js" type="text/javascript"></script>
-
-
-
-
 </head>
 
 <body class="skin-black">
   <!-- header logo: style can be found in header.less -->
-
-
   <?php
 
   include "classes/conn.php";

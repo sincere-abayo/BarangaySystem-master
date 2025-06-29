@@ -570,7 +570,7 @@ $ctime = $tm->format('H');
                                             class="img-fluid" style="max-height: 60px;">
                                     </div>
                                     <h5 class="card-title text-dark mb-0">Nyarutarama Clearance</h5>
-                                    <small class="text-muted">Apply for barangay clearance</small>
+                                    <small class="text-muted">Apply for Nyarutarama clearance</small>
                                 </div>
                             </div>
                         </div>

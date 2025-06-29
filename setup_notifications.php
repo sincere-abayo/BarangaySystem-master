@@ -69,11 +69,11 @@ $defaultSettings = [
     ['smtp_username', 'your_email@gmail.com', 'SMTP username'],
     ['smtp_password', 'your_app_password', 'SMTP password'],
     ['smtp_secure', 'tls', 'SMTP encryption (tls/ssl)'],
-    ['admin_email', 'admin@barangay.com', 'Admin email address'],
+    ['admin_email', 'admin@nyarutarama.com', 'Admin email address'],
     ['system_name', 'Nyarutarama Cell Management System', 'System name for notifications'],
     ['africas_talking_username', 'your_africastalking_username', 'AfricasTalking username'],
     ['africas_talking_api_key', 'your_africastalking_api_key', 'AfricasTalking API key'],
-    ['sms_sender_id', 'BARANGAY', 'SMS sender ID']
+    ['sms_sender_id', 'NYARUTARAMA', 'SMS sender ID']
 ];
 
 $insertSetting = $connection->prepare("

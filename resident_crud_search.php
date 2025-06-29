@@ -458,9 +458,9 @@ $connection = $resident->openConn();
                     </div>
                     <ul class="list-unstyled collapse" id="Documentation">
                         <li><a href="#">Certificate of Residency</a></li>
-                        <li><a href="#">Barangay Clearance</a></li>
+                        <li><a href="#">cell Clearance</a></li>
                         <li><a href="#">Certificate of Indigency</a></li>
-                        <li><a href="#">Barangay ID</a></li>
+                        <li><a href="#">Cell ID</a></li>
                         <li><a href="#">Business Permit</a></li>
                     </ul>
                 </div>

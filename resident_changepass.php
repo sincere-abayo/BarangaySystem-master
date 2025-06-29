@@ -19,7 +19,7 @@ $resident->resident_changepass();
 <html>
 
 <head>
-    <title> Barangay Management System </title>
+    <title> Nyarutarama Management System </title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -341,7 +341,7 @@ $resident->resident_changepass();
     <!-- Eto yung navbar -->
 
     <nav class="navbar navbar-dark bg-primary sticky-top">
-        <a class="navbar-brand" href="resident_homepage.php">Barangay Information & E-Services Management System</a>
+        <a class="navbar-brand" href="resident_homepage.php">Nyarutarama Information & E-Services Management System</a>
         <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn3 bg-primary"><i
                 class="fa fa-home fa-lg"></i></a>
         <a href="#down1" data-toggle="tooltip" title="Change Password" class="btn5 bg-primary"><i
@@ -518,10 +518,10 @@ $resident->resident_changepass();
                     </div>
                     <ul class="list-unstyled collapse" id="Documentation">
                         <li><a href="services_certofres.php">Certificate of Residency</a></li>
-                        <li><a href="services_brgyclearance.php">Barangay Clearance</a></li>
+                        <li><a href="services_brgyclearance.php">Cell Clearance</a></li>
                         <li><a href="services_certofindigency.php">Certificate of Indigency</a></li>
                         <li><a href="services_business.php">Business Permit</a></li>
-                        <li><a href="services_brgyid.php">Barangay ID</a></li>
+                        <li><a href="services_brgyid.php">Cell ID</a></li>
                     </ul>
                 </div>
 

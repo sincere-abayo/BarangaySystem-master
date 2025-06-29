@@ -45,7 +45,7 @@ include('dashboard_sidebar_start_staff.php');
 
     <div class="row">
         <div class="col text-center">
-            <h1> Barangay Household Table </h1>
+            <h1> Cell Household Table </h1>
         </div>
     </div>
 

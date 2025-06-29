@@ -46,7 +46,7 @@ include('dashboard_sidebar_start_staff.php');
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    <h1 class="mb-4 text-center">Barangay Residents Data</h1>
+    <h1 class="mb-4 text-center">Nyarutarama Residents Data</h1>
 
     <hr>
     <br>
@@ -56,7 +56,7 @@ include('dashboard_sidebar_start_staff.php');
     <div class="row">
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header bg-primary text-white"> Add New Barangay Resident</div>
+                <div class="card-header bg-primary text-white"> Add New Nyarutarama Resident</div>
                 <div class="card-body">
                     <form method="post" class="was-validated">
                         <div class="row">
@@ -146,8 +146,8 @@ include('dashboard_sidebar_start_staff.php');
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label> Barangay: </label>
-                                    <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
+                                    <label> Cell: </label>
+                                    <input type="text" class="form-control" name="brgy" placeholder="Enter Cell"
                                         required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>

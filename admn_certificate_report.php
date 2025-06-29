@@ -146,7 +146,7 @@ $certs = $stmt->fetchAll();
                             <th>Nationality</th>
                             <th>House No</th>
                             <th>Street</th>
-                            <th>Barangay</th>
+                            <th>Cell</th>
                             <th>Municipal</th>
                             <th>Date</th>
                             <th>Purpose</th>

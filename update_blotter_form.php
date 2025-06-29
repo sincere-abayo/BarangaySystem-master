@@ -106,8 +106,8 @@ include('dashboard_sidebar_start.php');
 
                             <div class="col">
                                 <div class="form-group">
-                                    <label> Barangay: </label>
-                                    <input type="text" class="form-control" name="brgy" placeholder="Enter Barangay"
+                                    <label> Cell: </label>
+                                    <input type="text" class="form-control" name="brgy" placeholder="Enter Cell"
                                         value="<?= $view['brgy'] ?>">
                                 </div>
                             </div>

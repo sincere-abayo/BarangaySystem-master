@@ -198,7 +198,7 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
                     <div class="card-body">
                         <ul style="text-align: left; font-size: 16px;">
                             <p class="card-text">
-                                <li> Valid for Six (6) Months. Not valid without Barangay dry seal </li>
+                                <li> Valid for Six (6) Months. Not valid without Cell dry seal </li>
                             </p>
                         </ul>
                     </div>
