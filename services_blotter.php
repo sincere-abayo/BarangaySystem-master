@@ -243,7 +243,7 @@ $blotters = $blotter->view_blotter_by_resident($userdetails['id_resident']);
                                 </div>
                                 <div class="col-md-6">
                                     <label for="contact" class="form-label">Contact Number</label>
-                                    <input name="contact" type="text" maxlength="11" class="form-control" value="<?= $resident_data['contact'] ?>" pattern="[0-9]{11}" required>
+                                    <input name="contact" type="text" maxlength="10" class="form-control" value="<?= $resident_data['contact'] ?>" pattern="[0-9]{10}" required>
                                     <div class="valid-feedback">Valid.</div>
                                     <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
